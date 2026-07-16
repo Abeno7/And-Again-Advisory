@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>06 — Close-out Page · RAAS Document Template</title>
+<link rel="stylesheet" href="assets/template.css">
+<style>
+  /* ---- Close-out layout ---- */
+  .close-block {
+    position: absolute;
+    left: var(--margin-x);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    max-width: 900px;
+  }
+  .close-kicker { display: block; margin-bottom: 28px; }
+  .close-title { margin-bottom: 44px; }
+  .close-statement {
+    font-size: 26px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--cream-dim);
+    max-width: 720px;
+    margin-bottom: 72px;
+  }
+
+  .close-contact {
+    display: flex;
+    gap: 90px;
+  }
+  .close-contact .kicker { display: block; margin-bottom: 14px; }
+  .close-contact .value {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--cream);
+  }
+
+  .close-end {
+    position: absolute;
+    left: var(--margin-x);
+    bottom: 44px;
+    z-index: 4;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LAYER 1 · full-bleed closing image, heavier scrims for a quiet finish -->
+  <div class="bg-image"></div>
+  <div class="bg-scrim-left"></div>
+  <div class="bg-scrim-bottom"></div>
+
+  <!-- LAYER 2 · brand block returns (mirrors the cover, bleeds off the top) -->
+  <div class="brand-block">
+    <div class="brand-name">RAAS</div>
+    <div class="brand-sub">Architects</div>
+  </div>
+
+  <!-- LAYER 3 · closing statement, vertically centred left -->
+  <div class="close-block">
+    <span class="kicker close-kicker">Closing Vision</span>
+    <h1 class="display-lg close-title">Thank You</h1>
+    <p class="close-statement">
+      Building a global destination from the birthplace of coffee —
+      a place where heritage, culture and innovation converge, and
+      where the story of coffee continues.
+    </p>
+
+    <div class="close-contact">
+      <div>
+        <span class="kicker">Studio</span>
+        <div class="value">RAAS Architects<br>Addis Ababa, Ethiopia</div>
+      </div>
+      <div>
+        <span class="kicker">Contact</span>
+        <div class="value">studio@raasarchitects.com<br>+251 00 000 0000</div>
+      </div>
+      <div>
+        <span class="kicker">Document</span>
+        <div class="value">Coffee Village<br>Schematic Design — July 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 4 · end-of-document marker replaces the footer band -->
+  <div class="close-end">End of Document</div>
+
+</div>
+
+</body>
+</html>

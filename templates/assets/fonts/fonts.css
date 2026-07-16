@@ -1,0 +1,43 @@
+/* Self-hosted fonts (SIL Open Font License): Julius Sans One + Lato */
+@font-face {
+  font-family: 'Julius Sans One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(JuliusSansOne-400.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(Lato-300-italic.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(Lato-400-italic.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(Lato-300.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(Lato-400.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(Lato-700.woff2) format('woff2');
+}

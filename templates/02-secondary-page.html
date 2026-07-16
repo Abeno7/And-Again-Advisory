@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>02 — Secondary Page · RAAS Document Template</title>
+<link rel="stylesheet" href="assets/template.css">
+<style>
+  /* ---- Secondary (inside-cover / document control) layout ---- */
+  .sec-title {
+    position: absolute;
+    top: 64px;
+    left: var(--margin-x);
+    z-index: 4;
+  }
+  .sec-title .display-lg { color: var(--rust); }
+
+  .sec-columns {
+    position: absolute;
+    left: var(--margin-x);
+    right: var(--margin-x);
+    top: 300px;
+    bottom: calc(var(--footer-h) + 48px);
+    display: grid;
+    grid-template-columns: 1.1fr 1.1fr 1.4fr;
+    column-gap: 90px;
+    z-index: 4;
+  }
+
+  .sec-field { margin-bottom: 52px; }
+  .sec-field .kicker { display: block; margin-bottom: 16px; }
+  .sec-field .value {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--cream);
+  }
+  .sec-field .value small {
+    display: block;
+    font-size: 14.5px;
+    color: var(--cream-faint);
+    margin-top: 6px;
+  }
+
+  /* revision table */
+  .rev-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .rev-table th {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--copper);
+    text-align: left;
+    padding: 0 12px 14px 0;
+    border-bottom: 1px solid rgba(234, 224, 205, 0.3);
+  }
+  .rev-table td {
+    font-size: 14.5px;
+    font-weight: 300;
+    color: var(--cream-dim);
+    padding: 14px 12px 14px 0;
+    border-bottom: 1px solid rgba(234, 224, 205, 0.12);
+  }
+  .rev-table td:first-child { color: var(--cream); font-weight: 400; }
+
+  .sec-disclaimer {
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LAYER 1 · solid espresso ground with faint geometric motif -->
+  <div class="bg-pattern"></div>
+
+  <!-- LAYER 2 · page title in rust display caps -->
+  <div class="sec-title">
+    <h1 class="display-lg">Document</h1>
+  </div>
+
+  <!-- LAYER 3 · three columns: client / issue / revision & disclaimer -->
+  <div class="sec-columns">
+
+    <div>
+      <div class="sec-field">
+        <span class="kicker">Project</span>
+        <div class="value">Coffee Village<small>Yeka Forest, Addis Ababa, Ethiopia</small></div>
+      </div>
+      <div class="sec-field">
+        <span class="kicker">Prepared For</span>
+        <div class="value">Client Name<small>Client organisation / authority</small></div>
+      </div>
+      <div class="sec-field">
+        <span class="kicker">Prepared By</span>
+        <div class="value">RAAS Architects<small>Design · Research · Architecture</small></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-field">
+        <span class="kicker">Document Title</span>
+        <div class="value">Concept Design Presentation</div>
+      </div>
+      <div class="sec-field">
+        <span class="kicker">Document No.</span>
+        <div class="value">RAAS-CV-SD-002</div>
+      </div>
+      <div class="sec-field">
+        <span class="kicker">Issue Date</span>
+        <div class="value">July, 2026</div>
+      </div>
+      <div class="sec-field">
+        <span class="kicker">Status</span>
+        <div class="value">Schematic Design — For Review</div>
+      </div>
+    </div>
+
+    <div>
+      <span class="kicker">Revision History</span>
+      <table class="rev-table">
+        <tr><th>Rev</th><th>Date</th><th>Description</th><th>By</th></tr>
+        <tr><td>01</td><td>06 / 2026</td><td>First issue — concept draft</td><td>RA</td></tr>
+        <tr><td>02</td><td>07 / 2026</td><td>Schematic design issue</td><td>RA</td></tr>
+        <tr><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+      <p class="italic-note sec-disclaimer">
+        This document and the designs contained within it are the intellectual
+        property of RAAS Architects. It is issued for the stated purpose only
+        and may not be reproduced or distributed without written consent.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- LAYER 4 · standard footer band -->
+  <div class="footer">
+    <div class="wordmark">RAAS<small>ARCHITECTS</small></div>
+    <div class="doc-label">Coffee Village<br>Schematic Design</div>
+    <div class="tagline">A destination where heritage, culture and innovation converge around the birthplace of Coffee Arabica.</div>
+    <div class="page-no">PAGE 002</div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>03 — Content Page (Index) · RAAS Document Template</title>
+<link rel="stylesheet" href="assets/template.css">
+<style>
+  /* ---- Content / index layout ---- */
+  .idx-title {
+    position: absolute;
+    top: 60px;
+    left: var(--margin-x);
+    z-index: 4;
+  }
+  .idx-title .display-lg { color: var(--rust); }
+
+  .idx-grid-wrap {
+    position: absolute;
+    left: var(--margin-x);
+    right: var(--margin-x);
+    top: 250px;
+    z-index: 4;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LAYER 1 · solid espresso ground with faint geometric motif -->
+  <div class="bg-pattern"></div>
+
+  <!-- LAYER 2 · "INDEX" in rust display caps -->
+  <div class="idx-title">
+    <h1 class="display-lg">Index</h1>
+  </div>
+
+  <!-- LAYER 3 · 6-column x 2-row entry grid
+       Each entry: page numeral (copper) / section title (caps) / italic teaser -->
+  <div class="idx-grid-wrap">
+    <div class="index-grid">
+
+      <div class="index-entry">
+        <div class="num">01</div>
+        <div class="title">Project<br>Overview</div>
+        <div class="desc">A vision rooted in the birthplace of coffee.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">04</div>
+        <div class="title">Context &amp;<br>Opportunity</div>
+        <div class="desc">Understanding the land, history and cultural significance.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">07</div>
+        <div class="title">Design<br>Vision</div>
+        <div class="desc">The guiding principles shaping the experience.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">10</div>
+        <div class="title">Concept<br>Narrative</div>
+        <div class="desc">Translating Ethiopia's coffee story into architecture.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">13</div>
+        <div class="title">Masterplan<br>Strategy</div>
+        <div class="desc">Organizing movement, landscape and destination.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">18</div>
+        <div class="title">Visitor<br>Experience</div>
+        <div class="desc">A carefully choreographed journey through discovery.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">26</div>
+        <div class="title">Architectural<br>Language</div>
+        <div class="desc">Form, materiality and identity.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">29</div>
+        <div class="title">Landscape &amp;<br>Public Realm</div>
+        <div class="desc">Connecting architecture with nature.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">32</div>
+        <div class="title">Innovation<br>&amp; Education</div>
+        <div class="desc">Spaces for research, learning and collaboration.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">37</div>
+        <div class="title">Design<br>Development</div>
+        <div class="desc">Evolving the concept into functional architecture.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">44</div>
+        <div class="title">Spatial<br>Experience</div>
+        <div class="desc">Human-centered environments that inspire exploration.</div>
+      </div>
+
+      <div class="index-entry">
+        <div class="num">50</div>
+        <div class="title">Closing<br>Vision</div>
+        <div class="desc">Building a global destination from the birthplace of coffee.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LAYER 4 · standard footer band -->
+  <div class="footer">
+    <div class="wordmark">RAAS<small>ARCHITECTS</small></div>
+    <div class="doc-label">Coffee Village<br>Schematic Design</div>
+    <div class="tagline">A destination where heritage, culture and innovation converge around the birthplace of Coffee Arabica.</div>
+    <div class="page-no">PAGE 001</div>
+  </div>
+
+</div>
+
+</body>
+</html>

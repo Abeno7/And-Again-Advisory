@@ -1,0 +1,336 @@
+/* ==========================================================================
+   COFFEE VILLAGE — RAAS DOCUMENT TEMPLATE SYSTEM
+   Shared stylesheet for all page templates.
+   Canvas: 1920 x 1080 px (16:9 landscape)
+   See guides/00-style-guide.md for the full specification.
+   ========================================================================== */
+
+/* Self-hosted, offline-safe fonts (see assets/fonts/, SIL Open Font License) */
+@import url('fonts/fonts.css');
+
+:root {
+  /* ---- Colour tokens ---- */
+  --espresso:       #29241f;   /* base page ground                     */
+  --espresso-deep:  #16120e;   /* darkest ground / image shadow        */
+  --cream:          #eae0cd;   /* primary display + heading colour     */
+  --cream-dim:      rgba(234, 224, 205, 0.72);  /* secondary text      */
+  --cream-faint:    rgba(234, 224, 205, 0.45);  /* captions, metadata  */
+  --terracotta:     #9c5c43;   /* brand block, chips, key accents      */
+  --copper:         #c99672;   /* numerals, index accents              */
+  --rust:           #b4714f;   /* display accent (e.g. INDEX title)    */
+  --white:          #fdfbf7;   /* pull quotes, high-emphasis text      */
+  --hairline:       rgba(234, 224, 205, 0.85);  /* footer rule         */
+
+  /* ---- Type ---- */
+  --font-display: 'Julius Sans One', 'Century Gothic', sans-serif;
+  --font-body:    'Lato', 'Helvetica Neue', Arial, sans-serif;
+
+  /* ---- Layout ---- */
+  --margin-x: 64px;            /* outer horizontal margin              */
+  --margin-y: 56px;            /* outer vertical margin                */
+  --footer-h: 96px;            /* reserved footer band                 */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0d0b09;
+  font-family: var(--font-body);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   PAGE CANVAS
+   -------------------------------------------------------------------------- */
+.page {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: var(--espresso);
+  overflow: hidden;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   BACKGROUND LAYERS
+   .bg-image      — placeholder for a full-bleed photograph / render
+   .bg-pattern    — solid espresso ground with a faint geometric line motif
+   .bg-scrim-*    — gradient scrims that keep text legible over photography
+   -------------------------------------------------------------------------- */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 900px 700px at 68% 45%, rgba(214, 138, 64, 0.28), transparent 60%),
+    radial-gradient(ellipse 500px 350px at 30% 88%, rgba(224, 150, 70, 0.16), transparent 65%),
+    linear-gradient(180deg, #232b2b 0%, #1a1f1e 40%, #14120e 100%);
+}
+.bg-image::after {
+  /* replace-me marker: delete this rule once a real image is placed */
+  content: 'FULL-BLEED IMAGE — replace this layer with the hero photograph / render';
+  position: absolute;
+  bottom: 120px;
+  right: 40px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  padding: 8px 14px;
+}
+
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-color: var(--espresso);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke='%23eae0cd' stroke-opacity='0.045' stroke-width='1.5'%3E%3Cpath d='M40 300 L160 40 L280 300 Z'/%3E%3Cpath d='M-40 160 L160 -60 L360 160'/%3E%3Cpath d='M0 320 L320 0'/%3E%3Cpath d='M80 320 L320 80'/%3E%3Ccircle cx='160' cy='160' r='120'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 640px 640px;
+}
+
+.bg-scrim-left {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(15, 12, 9, 0.82) 0%, rgba(15, 12, 9, 0.55) 26%, transparent 52%);
+}
+.bg-scrim-bottom {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(15, 12, 9, 0.85) 0%, rgba(15, 12, 9, 0.35) 28%, transparent 55%);
+}
+
+/* --------------------------------------------------------------------------
+   BRAND BLOCK — terracotta square, top-right (cover & close-out only)
+   -------------------------------------------------------------------------- */
+.brand-block {
+  position: absolute;
+  top: 0;
+  right: var(--margin-x);
+  width: 200px;
+  height: 190px;
+  background: var(--terracotta);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 5;
+}
+.brand-block .brand-name {
+  font-family: var(--font-display);
+  font-size: 44px;
+  letter-spacing: 0.06em;
+  color: var(--white);
+}
+.brand-block .brand-sub {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.52em;
+  text-indent: 0.52em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER BAND — every interior page
+   [wordmark] [document label]        [tagline]                  [page no.]
+   -------------------------------------------------------------------------- */
+.footer {
+  position: absolute;
+  left: var(--margin-x);
+  right: var(--margin-x);
+  bottom: 0;
+  height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  z-index: 6;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--hairline);
+}
+.footer .wordmark {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  line-height: 1;
+}
+.footer .wordmark small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.5em;
+  color: var(--cream-faint);
+  margin-top: 3px;
+}
+.footer .doc-label {
+  margin-left: 40px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.45;
+}
+.footer .tagline {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 420px;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--cream-faint);
+  line-height: 1.5;
+}
+.footer .page-no {
+  margin-left: auto;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+/* --------------------------------------------------------------------------
+   SHARED TYPE STYLES
+   -------------------------------------------------------------------------- */
+h1, h2,
+.display-xl, .display-lg, .display-md {
+  font-weight: 400;                    /* Julius Sans One ships a single
+                                          weight — prevent faux-bold on h1/h2 */
+}
+
+.display-xl {                          /* cover title            */
+  font-family: var(--font-display);
+  font-size: 158px;
+  line-height: 0.92;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.display-lg {                          /* page + section titles  */
+  font-family: var(--font-display);
+  font-size: 88px;
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.display-md {                          /* sub-headers            */
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.kicker {                              /* small caps label       */
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+.body-text {
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--cream-dim);
+}
+.body-text strong { font-weight: 700; color: var(--cream); }
+.italic-note {
+  font-size: 14px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--cream-faint);
+}
+.chip {                                /* terracotta date / tag chip */
+  display: inline-block;
+  background: var(--terracotta);
+  color: var(--white);
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  padding: 14px 26px;
+}
+
+/* --------------------------------------------------------------------------
+   PULL QUOTE (body pages)
+   -------------------------------------------------------------------------- */
+.pull-quote { max-width: 560px; }
+.pull-quote .marks {
+  font-family: Georgia, serif;
+  font-size: 110px;
+  line-height: 0.4;
+  color: var(--cream);
+  display: block;
+  margin-bottom: 34px;
+}
+.pull-quote p {
+  font-size: 40px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.28;
+  color: var(--white);
+}
+
+/* --------------------------------------------------------------------------
+   INDEX / CONTENT GRID
+   -------------------------------------------------------------------------- */
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: 44px;
+  row-gap: 76px;
+}
+.index-entry .num {
+  font-family: var(--font-display);
+  font-size: 74px;
+  line-height: 1;
+  color: var(--copper);
+  margin-bottom: 26px;
+}
+.index-entry .title {
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.index-entry .desc {
+  font-size: 13.5px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--cream-faint);
+}
+
+/* --------------------------------------------------------------------------
+   STAT / FACT STACK (secondary + section pages)
+   -------------------------------------------------------------------------- */
+.stat-stack { display: flex; flex-direction: column; gap: 64px; }
+.stat .stat-label {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 18px;
+}
+.stat .stat-value {
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--cream-dim);
+}

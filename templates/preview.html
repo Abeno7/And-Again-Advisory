@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RAAS Document Template System — All Pages Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d0b09;
+    font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+    color: #eae0cd;
+    padding: 56px 40px 80px;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 30px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  p.sub {
+    font-weight: 300;
+    font-size: 14px;
+    color: rgba(234, 224, 205, 0.55);
+    margin-bottom: 48px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(620px, 1fr));
+    gap: 48px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .card .label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c99672;
+    margin-bottom: 14px;
+  }
+  .frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid rgba(234, 224, 205, 0.15);
+  }
+  .frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    border: 0;
+    transform-origin: top left;
+    /* scaled by script to fit the card width */
+  }
+</style>
+</head>
+<body>
+
+<h1>Document Template System</h1>
+<p class="sub">Six page templates derived from the Coffee Village / RAAS design language. Click a label to open the full-size page.</p>
+
+<div class="grid">
+  <div class="card"><div class="label"><a href="01-cover-page.html" style="color:inherit">01 · Cover Page</a></div><div class="frame"><iframe src="01-cover-page.html" scrolling="no"></iframe></div></div>
+  <div class="card"><div class="label"><a href="02-secondary-page.html" style="color:inherit">02 · Secondary Page</a></div><div class="frame"><iframe src="02-secondary-page.html" scrolling="no"></iframe></div></div>
+  <div class="card"><div class="label"><a href="03-content-page.html" style="color:inherit">03 · Content Page (Index)</a></div><div class="frame"><iframe src="03-content-page.html" scrolling="no"></iframe></div></div>
+  <div class="card"><div class="label"><a href="04-section-page.html" style="color:inherit">04 · Section / Separator Page</a></div><div class="frame"><iframe src="04-section-page.html" scrolling="no"></iframe></div></div>
+  <div class="card"><div class="label"><a href="05-body-page.html" style="color:inherit">05 · Body Page</a></div><div class="frame"><iframe src="05-body-page.html" scrolling="no"></iframe></div></div>
+  <div class="card"><div class="label"><a href="06-closeout-page.html" style="color:inherit">06 · Close-out Page</a></div><div class="frame"><iframe src="06-closeout-page.html" scrolling="no"></iframe></div></div>
+</div>
+
+<script>
+  function fit() {
+    document.querySelectorAll('.frame').forEach(function (frame) {
+      var scale = frame.clientWidth / 1920;
+      frame.querySelector('iframe').style.transform = 'scale(' + scale + ')';
+    });
+  }
+  addEventListener('resize', fit);
+  fit();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>01 — Cover Page · RAAS Document Template</title>
+<link rel="stylesheet" href="assets/template.css">
+<style>
+  /* ---- Cover-specific layout ---- */
+  .cover-title {
+    position: absolute;
+    top: 44px;
+    left: var(--margin-x);
+    z-index: 4;
+  }
+  .cover-lower {
+    position: absolute;
+    left: var(--margin-x);
+    bottom: 74px;
+    z-index: 4;
+    max-width: 420px;
+  }
+  .cover-subtitle {
+    font-family: var(--font-display);
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 46px;
+  }
+  .cover-blurb {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--cream-dim);
+    max-width: 330px;
+    margin-bottom: 56px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LAYER 1 · full-bleed hero image (replace .bg-image with photograph) -->
+  <div class="bg-image"></div>
+  <div class="bg-scrim-left"></div>
+  <div class="bg-scrim-bottom"></div>
+
+  <!-- LAYER 2 · brand block, bleeds off the top edge -->
+  <div class="brand-block">
+    <div class="brand-name">RAAS</div>
+    <div class="brand-sub">Architects</div>
+  </div>
+
+  <!-- LAYER 3 · project title, top-left -->
+  <div class="cover-title">
+    <h1 class="display-xl">Coffee<br>Village</h1>
+  </div>
+
+  <!-- LAYER 4 · document identity, lower-left -->
+  <div class="cover-lower">
+    <h2 class="cover-subtitle">Concept Design<br>Presentation</h2>
+    <p class="cover-blurb">
+      A destination where heritage, culture and innovation converge
+      around the birthplace of Coffee Arabica.
+    </p>
+    <span class="chip">JULY, 2026</span>
+  </div>
+
+  <!-- NOTE: the cover carries no footer band and no page number -->
+
+</div>
+
+</body>
+</html>

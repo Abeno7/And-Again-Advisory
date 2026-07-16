@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>05 — Body Page · RAAS Document Template</title>
+<link rel="stylesheet" href="assets/template.css">
+<style>
+  /* ---- Body page layout ---- */
+  .body-title {
+    position: absolute;
+    top: 50px;
+    left: var(--margin-x);
+    z-index: 4;
+  }
+
+  .body-columns {
+    position: absolute;
+    left: var(--margin-x);
+    top: 250px;
+    bottom: calc(var(--footer-h) + 40px);
+    width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    z-index: 4;
+  }
+  .body-columns .body-text + .body-text { margin-top: 22px; }
+
+  .body-quote {
+    position: absolute;
+    right: 90px;
+    bottom: calc(var(--footer-h) + 60px);
+    z-index: 4;
+    max-width: 460px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LAYER 1 · full-bleed supporting image with left scrim behind text -->
+  <div class="bg-image"></div>
+  <div class="bg-scrim-left"></div>
+  <div class="bg-scrim-bottom"></div>
+
+  <!-- LAYER 2 · page title, top-left, cream display caps -->
+  <div class="body-title">
+    <h1 class="display-lg">Project<br>Brief</h1>
+  </div>
+
+  <!-- LAYER 3 · two narrow reading columns (max ~330px each) -->
+  <div class="body-columns">
+    <div>
+      <p class="body-text">
+        Ethiopia is globally recognized as the birthplace of Coffee Arabica,
+        yet its influence extends far beyond cultivation. It is the origin of
+        centuries of knowledge, tradition, ritual and cultural exchange that
+        have shaped coffee's journey across the world.
+      </p>
+      <p class="body-text">
+        Coffee Village is envisioned as a destination that celebrates this
+        legacy while positioning Ethiopia at the forefront of coffee's future.
+        The project brings together culture, research, innovation, tourism and
+        community within a single immersive environment.
+      </p>
+      <p class="body-text">
+        Rather than functioning as a conventional museum, the
+      </p>
+    </div>
+    <div>
+      <p class="body-text">
+        development is conceived as a living landscape where visitors
+        experience the story of coffee through architecture, nature and
+        curated moments of discovery. Every space contributes to a continuous
+        narrative—from the forests where coffee first emerged to the global
+        conversations that continue to shape its future.
+      </p>
+      <p class="body-text">
+        The vision is to establish Coffee Village as an international landmark
+        that reflects Ethiopia's enduring leadership in coffee culture while
+        creating new opportunities for education, innovation and sustainable
+        development.
+      </p>
+    </div>
+  </div>
+
+  <!-- LAYER 4 · pull quote, lower-right, over the image -->
+  <div class="body-quote pull-quote">
+    <span class="marks">&ldquo;</span>
+    <p>A place where the story of coffee begins—and where its future continues.</p>
+  </div>
+
+  <!-- LAYER 5 · standard footer band -->
+  <div class="footer">
+    <div class="wordmark">RAAS<small>ARCHITECTS</small></div>
+    <div class="doc-label">Coffee Village<br>Schematic Design</div>
+    <div class="tagline">A destination where heritage, culture and innovation converge around the birthplace of Coffee Arabica.</div>
+    <div class="page-no">PAGE 001</div>
+  </div>
+
+</div>
+
+</body>
+</html>

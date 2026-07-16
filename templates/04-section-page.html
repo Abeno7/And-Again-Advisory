@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>04 — Section / Separator Page · RAAS Document Template</title>
+<link rel="stylesheet" href="assets/template.css">
+<style>
+  /* ---- Section separator layout ---- */
+  .sect-block {
+    position: absolute;
+    left: var(--margin-x);
+    top: 50%;
+    transform: translateY(-54%);
+    z-index: 4;
+    max-width: 760px;
+  }
+  .sect-num {
+    font-family: var(--font-display);
+    font-size: 210px;
+    line-height: 0.9;
+    color: var(--copper);
+    margin-bottom: 30px;
+  }
+  .sect-kicker {
+    display: block;
+    margin-bottom: 24px;
+  }
+  .sect-title { margin-bottom: 34px; }
+  .sect-intro {
+    font-size: 19px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--cream-dim);
+    max-width: 520px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LAYER 1 · full-bleed section image with left scrim for legibility -->
+  <div class="bg-image"></div>
+  <div class="bg-scrim-left"></div>
+  <div class="bg-scrim-bottom"></div>
+
+  <!-- LAYER 2 · section identity, vertically centred on the left -->
+  <div class="sect-block">
+    <div class="sect-num">03</div>
+    <span class="kicker sect-kicker">Section Three</span>
+    <h1 class="display-lg sect-title">Design<br>Vision</h1>
+    <p class="sect-intro">
+      The guiding principles shaping the experience — from the forests
+      where coffee first emerged to the global conversations that
+      continue to shape its future.
+    </p>
+  </div>
+
+  <!-- LAYER 3 · standard footer band -->
+  <div class="footer">
+    <div class="wordmark">RAAS<small>ARCHITECTS</small></div>
+    <div class="doc-label">Coffee Village<br>Schematic Design</div>
+    <div class="tagline">A destination where heritage, culture and innovation converge around the birthplace of Coffee Arabica.</div>
+    <div class="page-no">PAGE 007</div>
+  </div>
+
+</div>
+
+</body>
+</html>
