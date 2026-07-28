@@ -33,6 +33,14 @@ All-pages preview: [`templates/preview.html`](templates/preview.html)
    zoom), then assemble in page order:
    **Cover → Secondary → Content → (Section → Body ×n) → Close-out.**
 
+## Claude Code skills
+
+This repo vendors 259 project-scope skills (brand, marketing, sales, ads, design
+and image-generation packs) under [`.claude/skills/`](.claude/skills). They load
+automatically for anyone working in the repo — see
+[`.claude/SKILLS.md`](.claude/SKILLS.md) for the full index, upstream sources and
+pinned commits.
+
 ## Assembly order
 
 ```
