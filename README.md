@@ -43,3 +43,12 @@ All-pages preview: [`templates/preview.html`](templates/preview.html)
 
 Fonts are loaded from Google Fonts (Julius Sans One + Lato); an internet
 connection is needed for accurate previews, with system fallbacks otherwise.
+
+---
+
+## The Craft Union — offspring brand documents
+
+A second, separate body of work lives in [`tcu/`](tcu/): the offspring brand
+documents for Treesongs, Riversprings and Whisperlake (colour palette amendment
+and typeface alternatives). It has its own design system and build script —
+see [`tcu/README.md`](tcu/README.md).

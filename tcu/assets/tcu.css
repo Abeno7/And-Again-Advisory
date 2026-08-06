@@ -1,0 +1,348 @@
+/* ==========================================================================
+   THE CRAFT UNION — offspring document design system
+   Canvas 960 x 540 pt (16:9), matching the master deck exactly.
+   All measurements in points so the HTML maps 1:1 onto the printed PDF.
+   ========================================================================== */
+
+@import url("fonts.css");
+
+:root {
+  /* --- Parent neutrals, sampled from the approved deck ------------------- */
+  --ground:    #F5F1EE;   /* TCU paper                                      */
+  --ink:       #504F49;   /* Dark Olive-Grey — titles, primary text         */
+  --ink-soft:  #686761;   /* specification values                           */
+  --body:      #736B65;   /* running body copy                              */
+  --muted:     #A99F95;   /* eyebrow / sub-title caps                       */
+  --label:     #B5ADA4;   /* small specification labels                     */
+  --faint:     #B1A89F;   /* footnotes                                      */
+  --tan:       #C5B6A8;   /* Beige/Tan — folios and rules                   */
+  --hairline:  #E2DBD4;   /* dividing rules                                 */
+
+  /* --- Offspring palettes ------------------------------------------------ */
+  --tre-1: #3E2A1E; --tre-2: #7A4A2B; --tre-3: #A86335; --tre-4: #D3AC8C; --tre-5: #F2E7DC;
+  --riv-1: #243529; --riv-2: #37503D; --riv-3: #4E6B55; --riv-4: #A8BCA3; --riv-5: #EBEEE7;
+  --whi-1: #343B39; --whi-2: #6C7874; --whi-3: #A9AFAD; --whi-4: #CACFCD; --whi-5: #EEF1EF;
+
+  /* --- Grid -------------------------------------------------------------- */
+  --margin: 36pt;
+}
+
+/* Per-page brand binding: <section class="page" data-brand="riversprings"> */
+[data-brand="treesongs"]   { --c1: var(--tre-1); --c2: var(--tre-2); --c3: var(--tre-3); --c4: var(--tre-4); --c5: var(--tre-5); }
+[data-brand="riversprings"]{ --c1: var(--riv-1); --c2: var(--riv-2); --c3: var(--riv-3); --c4: var(--riv-4); --c5: var(--riv-5); }
+[data-brand="whisperlake"] { --c1: var(--whi-1); --c2: var(--whi-2); --c3: var(--whi-3); --c4: var(--whi-4); --c5: var(--whi-5); }
+
+/* ==========================================================================
+   Page shell
+   ========================================================================== */
+@page { size: 960pt 540pt; margin: 0; }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--ground);
+  -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+}
+
+body {
+  font-family: "TCU Text", "Lato", sans-serif;
+  font-weight: 300;
+  color: var(--body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.page {
+  position: relative;
+  width: 960pt;
+  height: 540pt;
+  overflow: hidden;
+  background: var(--ground);
+  page-break-after: always;
+  break-after: page;
+}
+.page:last-of-type { page-break-after: auto; break-after: auto; }
+
+/* Full-bleed dark pages (covers, section breaks) */
+.page.is-dark { background: var(--c1, var(--ink)); }
+.page.is-dark .page-title,
+.page.is-dark .section-head span { color: var(--ground); }
+.page.is-dark .body { color: rgba(245, 241, 238, 0.78); }
+
+/* ==========================================================================
+   Header — the endorsement lockup, reproduced from approved artwork
+   ========================================================================== */
+.tcu-lockup {
+  position: absolute;
+  left: 41.5pt; top: 31.5pt;
+  width: 114.5pt; height: 19pt;
+  background: url("logo-lockup.png") left center / contain no-repeat;
+}
+.page.is-dark .tcu-lockup { filter: invert(1) brightness(1.9) saturate(0); opacity: .92; }
+
+/* ==========================================================================
+   Title block
+   ========================================================================== */
+.title-row {
+  position: absolute;
+  left: var(--margin); right: var(--margin); top: 78pt;
+  display: flex; align-items: baseline; gap: 14pt;
+}
+.page-title {
+  margin: 0;
+  font-family: "TCU Display", serif;
+  font-weight: 400;
+  font-size: 28pt;
+  line-height: 1;
+  letter-spacing: 0.055em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.title-rule {
+  display: inline-block;
+  width: 17pt; height: 1pt;
+  background: var(--tan);
+  transform: translateY(-6pt);
+  flex: none;
+}
+.eyebrow {
+  font-family: "TCU Text", sans-serif;
+  font-weight: 400;
+  font-size: 6.5pt;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transform: translateY(-4pt);
+  white-space: nowrap;
+}
+.folio {
+  position: absolute;
+  right: var(--margin); top: 66pt;
+  font-family: "TCU Display", serif;
+  font-size: 51pt;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--tan);
+}
+
+/* ==========================================================================
+   Content area
+   ========================================================================== */
+.content {
+  position: absolute;
+  left: var(--margin); right: var(--margin);
+  top: 122pt; bottom: 34pt;
+}
+
+/* ---- Section heading: short rule + letterspaced caps ---------------------- */
+.section-head {
+  display: flex; align-items: center; gap: 10pt;
+  margin: 0 0 11pt;
+}
+.section-head::before {
+  content: ""; width: 17pt; height: 1pt; background: var(--c3, var(--tan)); flex: none;
+}
+.section-head span {
+  font-family: "TCU Display", serif;
+  font-size: 9pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ---- Text -------------------------------------------------------------- */
+.body { font-size: 7pt; line-height: 1.62; color: var(--body); margin: 0; }
+.body + .body { margin-top: 5pt; }
+.lede { font-size: 8pt; line-height: 1.6; color: var(--body); margin: 0; max-width: 620pt; }
+
+.item-name {
+  font-family: "TCU Display", serif;
+  font-size: 10pt;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 6pt;
+  padding-bottom: 5pt;
+  border-bottom: 0.6pt solid var(--hairline);
+}
+.kicker {
+  font-size: 5.5pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin: 0 0 4pt;
+}
+.footnote {
+  font-size: 5.5pt;
+  line-height: 1.5;
+  color: var(--faint);
+  margin: 0;
+}
+
+/* ---- Specification rows (HEX / RGB / CMYK / PANTONE) -------------------- */
+.spec { margin-top: 9pt; }
+.spec-row { display: flex; gap: 8pt; align-items: baseline; margin-bottom: 2.5pt; }
+.spec-row dt {
+  flex: 0 0 34pt;
+  font-size: 5.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--label);
+}
+.spec-row dd { margin: 0; font-size: 6.5pt; color: var(--ink-soft); }
+
+/* ==========================================================================
+   Layout helpers
+   ========================================================================== */
+.grid { display: grid; gap: 14pt; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g5 { grid-template-columns: repeat(5, 1fr); }
+.rule { height: 0.6pt; background: var(--hairline); border: 0; margin: 0; }
+.stack { display: flex; flex-direction: column; }
+.grow { flex: 1 1 auto; }
+
+/* ==========================================================================
+   Colour components
+   ========================================================================== */
+.swatch { height: 96pt; position: relative; }
+.swatch .hex {
+  position: absolute; left: 8pt; bottom: 7pt;
+  font-size: 6.5pt; letter-spacing: 0.06em;
+}
+.swatch .core-tag {
+  position: absolute; right: 8pt; bottom: 7pt;
+  font-size: 5.5pt; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.on-dark  .hex, .on-dark  .core-tag { color: rgba(255,255,255,0.86); }
+.on-light .hex, .on-light .core-tag { color: rgba(0,0,0,0.52); }
+.swatch.is-core { box-shadow: inset 0 3pt 0 0 var(--c3); }
+
+/* Proportion bar */
+.proportion { display: flex; height: 13pt; width: 100%; }
+.proportion span { display: block; height: 100%; }
+
+/* ==========================================================================
+   Application mock-ups
+   ========================================================================== */
+.mock {
+  position: relative;
+  overflow: hidden;
+  border: 0.6pt solid var(--hairline);
+}
+.mock-cap {
+  font-size: 5.5pt; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--label); margin: 5pt 0 0;
+}
+.mock-note { font-size: 6pt; line-height: 1.5; color: var(--body); margin: 2pt 0 0; }
+
+/* The endorsement name bar — the one fixed use of the core colour */
+.name-bar {
+  background: var(--c3);
+  display: flex; align-items: center; justify-content: center;
+  height: 46pt;
+}
+.name-bar b {
+  font-family: "TCU Display", serif;
+  font-weight: 400;
+  font-size: 13pt;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* Rules / pills */
+.pill {
+  display: inline-block;
+  padding: 3pt 8pt;
+  border-radius: 20pt;
+  background: var(--c4);
+  color: var(--c1);
+  font-size: 6pt;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; }
+.do-dont p { margin: 0; font-size: 6.5pt; line-height: 1.55; }
+.do-dont .lbl {
+  font-size: 5.5pt; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--label); display: block; margin-bottom: 3pt;
+}
+
+/* ==========================================================================
+   Contrast matrix
+   ========================================================================== */
+table.matrix { width: 100%; border-collapse: collapse; }
+table.matrix th, table.matrix td {
+  font-size: 6pt; padding: 4pt 5pt; text-align: center;
+  border-bottom: 0.6pt solid var(--hairline);
+}
+table.matrix th {
+  font-family: "TCU Display", serif;
+  font-size: 6pt; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink); font-weight: 400;
+}
+table.matrix td.rowhead {
+  text-align: left;
+  font-size: 6pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink);
+}
+.ratio { font-size: 6.5pt; color: var(--ink-soft); display: block; }
+.verdict { font-size: 5pt; letter-spacing: 0.13em; text-transform: uppercase; display: block; margin-top: 1pt; }
+.pass  { color: #4E6B55; }
+.large { color: #A86335; }
+.fail  { color: #B1A89F; }
+
+/* ==========================================================================
+   Typeface specimens
+   ========================================================================== */
+.specimen {
+  background: #FFFFFF;
+  border: 0.6pt solid var(--hairline);
+  height: 108pt;
+  display: flex; align-items: center; justify-content: center;
+  padding: 8pt 10pt;
+  overflow: hidden;
+}
+.specimen-word { line-height: 1.02; color: var(--ink); text-align: center; }
+
+/* Per-candidate settings, applied inline per page */
+.f-cinzel     { font-family: "Cinzel", serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.10em; font-size: 25pt; }
+.f-cormgar    { font-family: "Cormorant Garamond", serif; font-weight: 300; text-transform: uppercase; letter-spacing: 0.13em; font-size: 30pt; }
+.f-spectral   { font-family: "Spectral", serif; font-weight: 300; text-transform: uppercase; letter-spacing: 0.11em; font-size: 22pt; }
+
+.f-allura     { font-family: "Allura", cursive; font-weight: 400; font-size: 46pt; }
+.f-petit      { font-family: "Petit Formal Script", cursive; font-weight: 400; font-size: 34pt; }
+.f-dancing    { font-family: "Dancing Script", cursive; font-weight: 400; font-size: 40pt; }
+
+.f-cormorant  { font-family: "Cormorant", serif; font-weight: 300; text-transform: lowercase; letter-spacing: 0.16em; font-size: 34pt; }
+.f-josefin    { font-family: "Josefin Sans", sans-serif; font-weight: 300; text-transform: lowercase; letter-spacing: 0.17em; font-size: 30pt; }
+.f-tenor      { font-family: "Tenor Sans", sans-serif; font-weight: 400; text-transform: lowercase; letter-spacing: 0.15em; font-size: 26pt; }
+
+/* Supporting rows under each specimen */
+.alt-index {
+  font-family: "TCU Display", serif;
+  font-size: 7pt; letter-spacing: 0.16em; color: var(--tan);
+  margin: 0 0 5pt;
+}
+.face-name {
+  font-family: "TCU Display", serif;
+  font-size: 11pt; letter-spacing: 0.07em; color: var(--ink);
+  margin: 8pt 0 1pt;
+}
+.face-meta {
+  font-size: 5.5pt; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--label); margin: 0 0 6pt; padding-bottom: 5pt;
+  border-bottom: 0.6pt solid var(--hairline);
+}
+.why { font-size: 6.5pt; line-height: 1.6; color: var(--body); margin: 0 0 5pt; }
+.why b { font-weight: 700; color: var(--ink); }
+.tradeoff { font-size: 6pt; line-height: 1.5; color: var(--faint); margin: 0; }
+
+/* Footer band on every content page */
+.page-foot {
+  position: absolute;
+  left: var(--margin); right: var(--margin); bottom: 16pt;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 5.5pt; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--faint);
+}

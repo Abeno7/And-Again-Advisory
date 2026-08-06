@@ -1,0 +1,53 @@
+/* ==========================================================================
+   THE CRAFT UNION — font loading
+   --------------------------------------------------------------------------
+   PRODUCTION NOTE
+   The parent system sets in Optima LT Pro (display) and Pelago (text).
+   Both are commercially licensed and are NOT redistributed in this repo.
+   For on-screen proofing these are substituted by the closest open metrics:
+       Optima  ->  Marcellus   (flared humanist glyphic caps)
+       Pelago  ->  Lato        (humanist sans, comparable colour on the page)
+   Final artwork must be reset in the licensed faces before release.
+
+   The specimen faces below are the actual candidates being proposed and are
+   all SIL Open Font Licence 1.1 — they may ship as-is.
+   ========================================================================== */
+
+/* ---- System stand-ins ---------------------------------------------------- */
+@font-face { font-family: "TCU Display"; src: url("fonts/Marcellus-400.woff2") format("woff2");
+             font-weight: 400; font-style: normal; font-display: block; }
+
+@font-face { font-family: "TCU Text"; src: url("fonts/Lato-300.woff2") format("woff2");
+             font-weight: 300; font-style: normal; font-display: block; }
+@font-face { font-family: "TCU Text"; src: url("fonts/Lato-400.woff2") format("woff2");
+             font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "TCU Text"; src: url("fonts/Lato-700.woff2") format("woff2");
+             font-weight: 700; font-style: normal; font-display: block; }
+
+/* ---- Specimen candidates — Treesongs ------------------------------------- */
+@font-face { font-family: "Cinzel"; src: url("fonts/Cinzel-400.woff2") format("woff2");
+             font-weight: 400 900; font-style: normal; font-display: block; }
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/CormorantGaramond-300.woff2") format("woff2");
+             font-weight: 300 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Spectral"; src: url("fonts/Spectral-300.woff2") format("woff2");
+             font-weight: 300; font-style: normal; font-display: block; }
+@font-face { font-family: "Spectral"; src: url("fonts/Spectral-400.woff2") format("woff2");
+             font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Spectral"; src: url("fonts/Spectral-600.woff2") format("woff2");
+             font-weight: 600; font-style: normal; font-display: block; }
+
+/* ---- Specimen candidates — Riversprings ---------------------------------- */
+@font-face { font-family: "Allura"; src: url("fonts/Allura-400.woff2") format("woff2");
+             font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Petit Formal Script"; src: url("fonts/PetitFormalScript-400.woff2") format("woff2");
+             font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Dancing Script"; src: url("fonts/DancingScript-400.woff2") format("woff2");
+             font-weight: 400 700; font-style: normal; font-display: block; }
+
+/* ---- Specimen candidates — Whisperlake ----------------------------------- */
+@font-face { font-family: "Cormorant"; src: url("fonts/Cormorant-300.woff2") format("woff2");
+             font-weight: 300 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Josefin Sans"; src: url("fonts/JosefinSans-300.woff2") format("woff2");
+             font-weight: 100 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Tenor Sans"; src: url("fonts/TenorSans-400.woff2") format("woff2");
+             font-weight: 400; font-style: normal; font-display: block; }
