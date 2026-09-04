@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plan Your Event — Spectacle Events®</title>
+<meta name="description" content="Plan your conference, gala, launch or summit with Spectacle Events® — Ethiopia's premier event management company. Submit your brief and get a tailored proposal within 24 hours.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+<meta name="theme-color" content="#002E47">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<!-- BG -->
+<div class="bg-layer">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div><div class="blob blob-2"></div>
+    <div class="blob blob-3"></div><div class="blob blob-4"></div><div class="blob blob-5"></div>
+  </div>
+  <div class="bg-particles" id="bgParticles"></div>
+  <div class="bg-grid"></div>
+</div>
+<div id="sp"></div>
+<div class="nav-shadow"></div>
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner" id="navInner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 262 255" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#00D6B7" d="M105.87,75.64l-3.92,2.11-3.72,2.52-3.47,2.97-3.02,3.22-2.77,3.57-2.36,3.87-1.91,4.02-1.46,4.28-1.01,4.33-.55,4.48-.1,4.58.4,4.43.91,4.43,1.31,4.28,1.76,4.07,2.21,3.97,2.62,3.62,2.97,3.37,3.52,3.22-39.99,43.77c-1.06-1.31-2.06-2.67-3.02-4.07l35.82-39.29-38.89,34.46c-.96-1.46-1.81-2.97-2.57-4.48l38.23-33.86-40.7,28.98c-.7-1.56-1.41-3.12-2.01-4.73l39.74-28.27-41.6,23.39c-.55-1.61-1.06-3.22-1.51-4.88l40.7-22.94-41.95,18.06c-.45-1.66-.81-3.32-1.06-4.98l41-17.71-41.8,12.98c-.25-1.66-.45-3.37-.6-5.08l40.9-12.68-41.25,8.15c-.1-1.66-.2-3.37-.15-5.08l40.4-8-40.4,3.62c.05-1.71.15-3.42.25-5.08l39.74-3.52-39.34-.65c.15-1.71.4-3.42.7-5.08l38.63.65-37.93-4.68c.3-1.66.65-3.32,1.06-4.93l37.53,4.63-36.47-8.5c.45-1.61.96-3.22,1.51-4.78l36.12,8.4-34.76-12.12c.6-1.56,1.21-3.12,1.91-4.63l34.51,11.97-32.85-15.49c.7-1.51,1.51-3.02,2.26-4.48l32.75,15.44-30.79-18.71c.91-1.46,1.81-2.87,2.77-4.23l30.64,18.66-28.42-21.73c1.01-1.36,2.06-2.67,3.12-3.92l28.32,21.58-25.81-24.45c1.16-1.26,2.36-2.46,3.57-3.57l25.76,24.45-22.99-26.96c1.26-1.16,2.57-2.21,3.87-3.17l22.89,26.86-19.87-29.08c1.36-.96,2.77-1.86,4.23-2.72l19.82,28.98-16.6-30.79c1.51-.75,3.02-1.46,4.58-2.11l16.45,30.48-13.03-31.84c1.56-.6,3.17-1.11,4.78-1.56l12.88,31.49-9.36-32.4c1.61-.35,3.27-.65,4.93-.86l9.26,31.84-5.73-32.3c1.66-.15,3.37-.25,5.08-.25l5.63,31.64-2.21-31.54c1.71.05,3.42.2,5.08.45l2.52,35.82-4.73.3-4.48.81-4.33,1.26-4.13,1.71ZM189.43,126.75c0-1.71-.05-3.47-.15-5.13l-39.44,7.8,39.09-12.12c-.1-1.71-.3-3.37-.55-5.08l-39.94,12.38,39.19-16.9c-.25-1.71-.6-3.37-1.01-5.03l-40.14,17.3,38.99-21.93c-.45-1.66-.96-3.32-1.51-4.93l-39.99,22.49,38.28-27.21c-.65-1.66-1.31-3.22-2.01-4.78l-39.14,27.87,36.82-32.6c-.75-1.56-1.56-3.07-2.47-4.53l-37.73,33.4,34.81-38.13c-.96-1.46-1.96-2.82-3.02-4.18l-38.94,42.66,3.52,3.22,3.02,3.37,2.57,3.62,2.21,3.92,1.76,4.02,1.36,4.43.86,4.33.4,4.53-.05,4.53-.55,4.38-1.06,4.48-1.46,4.23-1.91,4.02-2.36,3.87-2.62,3.47-3.22,3.37-3.42,2.87-3.62,2.52-3.97,2.16-4.18,1.71-4.33,1.26-4.38.75-4.78.35,2.57,36.07c1.66.15,3.32.25,5.03.25l-2.21-31.59,5.63,31.59c1.71-.05,3.37-.2,5.03-.35l-5.73-32.15,9.16,31.59c1.66-.25,3.32-.6,4.93-1.01l-9.26-31.94,12.68,30.94c1.61-.5,3.17-1.06,4.73-1.66l-12.78-31.29,16.1,29.83c1.51-.65,3.02-1.41,4.48-2.26l-16.15-29.93,19.22,28.12c1.46-.86,2.87-1.76,4.23-2.82l-19.27-28.12,22.18,25.96c1.31-1.01,2.57-2.11,3.82-3.27l-22.18-25.96,24.8,23.54c1.16-1.21,2.31-2.41,3.47-3.67l-24.8-23.49,27.16,20.78c1.06-1.31,2.06-2.62,3.07-4.02l-27.16-20.73,29.23,17.76c.96-1.41,1.86-2.82,2.72-4.28l-29.33-17.81,31.14,14.69c.8-1.46,1.56-2.97,2.31-4.48l-31.34-14.79,32.85,11.42c.65-1.51,1.31-3.07,1.86-4.63l-33-11.52,34.31,8c.5-1.56,1.01-3.17,1.46-4.83l-34.61-8.05,35.62,4.38c.4-1.61.75-3.27,1.06-4.93l-36.17-4.48,36.82.65c.3-1.66.55-3.32.7-5.03l-37.38-.65,37.73-3.37c.15-1.66.25-3.37.3-5.08l-38.48,3.47,38.53-7.6Z"/>
+      </svg>
+      <span class="nav-wordmark">Spectacle Events<sup>&#174;</sup></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#story">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="index.html#process">Process</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="#planner" class="nav-cta">
+      Plan Your Event
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <button id="mob-btn" aria-label="Open menu" onclick="toggleMobMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE OVERLAY MENU -->
+<div id="mob-overlay">
+  <div class="mob-logo">Spectacle Events<span>®</span></div>
+  <div class="mob-divider"></div>
+  <ul class="mob-links">
+    <li><a href="index.html#story" onclick="closeMobMenu()">About</a></li>
+    <li><a href="index.html#services" onclick="closeMobMenu()">Services</a></li>
+    <li><a href="gallery.html" onclick="closeMobMenu()">Gallery</a></li>
+    <li><a href="index.html#process" onclick="closeMobMenu()">Process</a></li>
+    <li><a href="index.html#contact" onclick="closeMobMenu()">Contact</a></li>
+  </ul>
+  <div class="mob-divider"></div>
+  <a href="#planner" class="mob-cta-btn">Plan Your Event →</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-crumb"><a href="index.html">Home</a> &#9670; <span>Plan Your Event</span></div>
+      <div class="hero-eyebrow">Start Planning &nbsp;&#9670;&nbsp; Response Within 24 Hours</div>
+      <h1 class="page-hero-h">Start Planning<br>Your <em>Event</em>.</h1>
+      <div class="page-hero-facts">
+        <div><div class="phf-num" data-count="17" data-suffix="+">0</div><div class="phf-lbl">Years Delivering</div></div>
+        <div><div class="phf-num" data-count="500" data-suffix="+">0</div><div class="phf-lbl">Events Executed</div></div>
+        <div><div class="phf-num" data-count="24" data-suffix="h">0</div><div class="phf-lbl">Proposal Turnaround</div></div>
+      </div>
+    </div>
+    <div>
+      <p class="page-hero-desc">Walk through five short steps and we'll build the picture of your event — the format, the date, the scale, and every service you need. Submit it and our team returns a tailored proposal, costing, and production plan within one working day.</p>
+      <div class="story-pills" style="margin-top:1.6rem">
+        <span class="pill">No obligation</span>
+        <span class="pill pill-gold">Free consultation</span>
+        <span class="pill pill-lime">Confidential</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANNER -->
+<div class="plan-wrap" id="planner">
+  <div class="plan-grid">
+
+    <!-- ── FORM ── -->
+    <form class="plan-main" id="planForm" novalidate autocomplete="on">
+      <div id="planStage">
+        <div class="plan-progress"><div class="plan-progress-bar" id="planBar"></div></div>
+
+        <div class="plan-steps" id="planSteps">
+          <div class="pstep active" data-step="1"><span class="pstep-n">1</span>Event Basics</div>
+          <div class="pstep" data-step="2"><span class="pstep-n">2</span>Date &amp; Scale</div>
+          <div class="pstep" data-step="3"><span class="pstep-n">3</span>Services</div>
+          <div class="pstep" data-step="4"><span class="pstep-n">4</span>Your Details</div>
+          <div class="pstep" data-step="5"><span class="pstep-n">5</span>Review &amp; Submit</div>
+        </div>
+
+        <div class="plan-body">
+
+          <!-- STEP 1 -->
+          <section class="pane on" data-pane="1">
+            <div class="pane-tag">Step 1 of 5</div>
+            <h2 class="pane-h">What are you planning?</h2>
+            <p class="pane-sub">Pick the closest match — we tailor the crew, the production build, and the proposal around it.</p>
+
+            <div class="fgroup" id="g-type">
+              <label class="fgroup-label">Event type <span class="req">*</span></label>
+              <div class="opt-grid" data-single="eventType">
+                <label class="opt"><input type="radio" name="eventType" value="Corporate Conference"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Corporate Conference</span><span class="opt-d">Summits, AGMs, national &amp; international meetings</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Diplomatic / State Event"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Diplomatic / State Event</span><span class="opt-d">Delegations, state visits, multilateral forums</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Gala Dinner / Awards"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Gala Dinner / Awards</span><span class="opt-d">Black-tie evenings, award ceremonies, banquets</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Product Launch"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Product Launch</span><span class="opt-d">Brand reveals, activations, press moments</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Exhibition / Trade Fair"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Exhibition / Trade Fair</span><span class="opt-d">Booth builds, floor planning, exhibitor management</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Inauguration Ceremony"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Inauguration Ceremony</span><span class="opt-d">Offices, factories, showrooms, real estate</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Cultural Event / Concert"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Cultural Event / Concert</span><span class="opt-d">Live music, festivals, national celebrations</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Training / Workshop"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Training / Workshop</span><span class="opt-d">Capacity building, seminars, closed sessions</span></label>
+                <label class="opt"><input type="radio" name="eventType" value="Other"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Something else</span><span class="opt-d">Tell us about it in the next steps</span></label>
+              </div>
+              <div class="f-err" id="e-type">Please choose an event type.</div>
+            </div>
+
+            <div class="fgroup">
+              <div class="field" id="f-eventName">
+                <label for="eventName">Working title of your event <span class="req" style="color:var(--gold)">*</span></label>
+                <input type="text" id="eventName" name="eventName" placeholder="e.g. Annual Partners Summit 2026" maxlength="120">
+                <div class="f-err">Give your event a working name so we can reference it.</div>
+              </div>
+            </div>
+
+            <div class="fgroup" id="g-format">
+              <label class="fgroup-label">Format <span class="req">*</span></label>
+              <div class="opt-grid" data-single="format">
+                <label class="opt"><input type="radio" name="format" value="In-person"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">In-person</span><span class="opt-d">Everyone in the room</span></label>
+                <label class="opt"><input type="radio" name="format" value="Virtual"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Virtual</span><span class="opt-d">Fully online, streamed &amp; produced</span></label>
+                <label class="opt"><input type="radio" name="format" value="Hybrid"><span class="opt-tick"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></span><span class="opt-t">Hybrid</span><span class="opt-d">On-site audience plus a global stream</span></label>
+              </div>
+              <div class="f-err" id="e-format">Please choose a format.</div>
+            </div>
+          </section>
+
+          <!-- STEP 2 -->
+          <section class="pane" data-pane="2">
+            <div class="pane-tag">Step 2 of 5</div>
+            <h2 class="pane-h">When, where, and how big?</h2>
+            <p class="pane-sub">Dates and headcount drive venue holds, crew size, and equipment. Estimates are fine — nothing here is locked in.</p>
+
+            <div class="fgroup">
+              <div class="f-row-3">
+                <div class="field" id="f-startDate">
+                  <label for="startDate">Preferred date <span class="req" style="color:var(--gold)">*</span></label>
+                  <input type="date" id="startDate" name="startDate">
+                  <div class="f-err">Pick a preferred date.</div>
+                </div>
+                <div class="field">
+                  <label for="altDate">Alternate date</label>
+                  <input type="date" id="altDate" name="altDate">
+                </div>
+                <div class="field">
+                  <label for="duration">Duration</label>
+                  <select id="duration" name="duration">
+                    <option value="" selected>Select duration</option>
+                    <option>Half day</option><option>1 day</option><option>2 days</option>
+                    <option>3 days</option><option>4&#8211;5 days</option><option>More than a week</option>
+                    <option>Recurring / multi-date</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fgroup-hint">Flexible on dates? Note it in the message field on step 4 and we'll propose the best available windows.</div>
+            </div>
+
+            <div class="fgroup">
+              <div class="f-row-2">
+                <div class="field" id="f-city">
+                  <label for="city">City / country <span class="req" style="color:var(--gold)">*</span></label>
+                  <input type="text" id="city" name="city" placeholder="e.g. Addis Ababa, Ethiopia" maxlength="120">
+                  <div class="f-err">Tell us where the event takes place.</div>
+                </div>
+                <div class="field">
+                  <label for="venue">Venue (if known)</label>
+                  <input type="text" id="venue" name="venue" placeholder="e.g. Skylight Hotel &#8212; or 'need help finding one'" maxlength="120">
+                </div>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <div class="f-row-2">
+                <div class="field" id="f-guests">
+                  <label for="guests">Expected attendance <span class="req" style="color:var(--gold)">*</span></label>
+                  <select id="guests" name="guests">
+                    <option value="" selected>Select guest count</option>
+                    <option>Under 50</option><option>50 &#8211; 150</option><option>150 &#8211; 300</option>
+                    <option>300 &#8211; 600</option><option>600 &#8211; 1,000</option>
+                    <option>1,000 &#8211; 3,000</option><option>3,000+</option>
+                  </select>
+                  <div class="f-err">Select an approximate attendance.</div>
+                </div>
+                <div class="field">
+                  <label for="budget">Indicative budget</label>
+                  <select id="budget" name="budget">
+                    <option value="" selected>Prefer not to say</option>
+                    <option>Under 500,000 ETB</option>
+                    <option>500,000 &#8211; 1M ETB</option>
+                    <option>1M &#8211; 3M ETB</option>
+                    <option>3M &#8211; 7M ETB</option>
+                    <option>7M+ ETB</option>
+                    <option>Budget in USD / EUR &#8212; will discuss</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fgroup-hint">A range helps us scope the right production package. It never limits what we propose.</div>
+            </div>
+          </section>
+
+          <!-- STEP 3 -->
+          <section class="pane" data-pane="3">
+            <div class="pane-tag">Step 3 of 5</div>
+            <h2 class="pane-h">What do you need from us?</h2>
+            <p class="pane-sub">Select everything that applies. Not sure yet? Choose what you know — we'll advise on the rest in the proposal.</p>
+
+            <div class="fgroup">
+              <label class="fgroup-label">Core services</label>
+              <div class="chip-grid" data-multi="services">
+                <label class="chip"><input type="checkbox" name="services" value="Full event management">Full event management</label>
+                <label class="chip"><input type="checkbox" name="services" value="Venue sourcing &amp; setup">Venue sourcing &amp; setup</label>
+                <label class="chip"><input type="checkbox" name="services" value="Stage &amp; set design">Stage &amp; set design</label>
+                <label class="chip"><input type="checkbox" name="services" value="Sound, lighting &amp; AV">Sound, lighting &amp; AV</label>
+                <label class="chip"><input type="checkbox" name="services" value="Photo &amp; video production">Photo &amp; video production</label>
+                <label class="chip"><input type="checkbox" name="services" value="Live streaming &amp; switching">Live streaming &amp; switching</label>
+                <label class="chip"><input type="checkbox" name="services" value="Interpretation &amp; transcription">Interpretation &amp; transcription</label>
+                <label class="chip"><input type="checkbox" name="services" value="Professional ushering">Professional ushering</label>
+                <label class="chip"><input type="checkbox" name="services" value="Registration &amp; guest management">Registration &amp; guest management</label>
+                <label class="chip"><input type="checkbox" name="services" value="Exhibition &amp; booth build">Exhibition &amp; booth build</label>
+                <label class="chip"><input type="checkbox" name="services" value="Branding &amp; printed collateral">Branding &amp; printed collateral</label>
+                <label class="chip"><input type="checkbox" name="services" value="Catering coordination">Catering coordination</label>
+                <label class="chip"><input type="checkbox" name="services" value="Transport &amp; logistics">Transport &amp; logistics</label>
+                <label class="chip"><input type="checkbox" name="services" value="VIP &amp; protocol handling">VIP &amp; protocol handling</label>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <label class="fgroup-label">Production add-ons</label>
+              <div class="chip-grid" data-multi="addons">
+                <label class="chip"><input type="checkbox" name="addons" value="LED screens (P2&#8211;P6)">LED screens (P2&#8211;P6)</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Multi-camera coverage">Multi-camera coverage</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Drone footage">Drone footage</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Event website / app">Event website / app</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Photo booth">Photo booth</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Entertainment booking">Entertainment booking</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Gifts &amp; awards">Gifts &amp; awards</label>
+                <label class="chip"><input type="checkbox" name="addons" value="Press &amp; media relations">Press &amp; media relations</label>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <label class="fgroup-label">Languages required</label>
+              <div class="chip-grid" data-multi="languages">
+                <label class="chip"><input type="checkbox" name="languages" value="Amharic">Amharic</label>
+                <label class="chip"><input type="checkbox" name="languages" value="English">English</label>
+                <label class="chip"><input type="checkbox" name="languages" value="French">French</label>
+                <label class="chip"><input type="checkbox" name="languages" value="Arabic">Arabic</label>
+                <label class="chip"><input type="checkbox" name="languages" value="Swahili">Swahili</label>
+                <label class="chip"><input type="checkbox" name="languages" value="Chinese">Chinese</label>
+                <label class="chip"><input type="checkbox" name="languages" value="Other">Other</label>
+              </div>
+              <div class="fgroup-hint">Certified simultaneous interpretation, soundproof booths, and premium headsets are available for every language listed.</div>
+            </div>
+          </section>
+
+          <!-- STEP 4 -->
+          <section class="pane" data-pane="4">
+            <div class="pane-tag">Step 4 of 5</div>
+            <h2 class="pane-h">Who should we reply to?</h2>
+            <p class="pane-sub">One of our event directors will be in touch within one working day with a tailored proposal.</p>
+
+            <div class="fgroup">
+              <div class="f-row-2">
+                <div class="field" id="f-firstName">
+                  <label for="firstName">First name <span class="req" style="color:var(--gold)">*</span></label>
+                  <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="e.g. Abebe" maxlength="60">
+                  <div class="f-err">Please enter your first name.</div>
+                </div>
+                <div class="field" id="f-lastName">
+                  <label for="lastName">Last name <span class="req" style="color:var(--gold)">*</span></label>
+                  <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="e.g. Kebede" maxlength="60">
+                  <div class="f-err">Please enter your last name.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <div class="f-row-2">
+                <div class="field" id="f-email">
+                  <label for="email">Email address <span class="req" style="color:var(--gold)">*</span></label>
+                  <input type="email" id="email" name="email" autocomplete="email" placeholder="you@organization.com" maxlength="120">
+                  <div class="f-err">Enter a valid email address.</div>
+                </div>
+                <div class="field" id="f-phone">
+                  <label for="phone">Phone / WhatsApp <span class="req" style="color:var(--gold)">*</span></label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+251 9&#8230;" maxlength="40">
+                  <div class="f-err">Enter a phone number we can reach you on.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <div class="f-row-2">
+                <div class="field">
+                  <label for="organization">Organization</label>
+                  <input type="text" id="organization" name="organization" autocomplete="organization" placeholder="Company, ministry, or institution" maxlength="120">
+                </div>
+                <div class="field">
+                  <label for="role">Your role</label>
+                  <input type="text" id="role" name="role" placeholder="e.g. Communications Lead" maxlength="80">
+                </div>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <label class="fgroup-label">Preferred contact method</label>
+              <div class="chip-grid" data-single="contactPref">
+                <label class="chip"><input type="radio" name="contactPref" value="Email">Email</label>
+                <label class="chip"><input type="radio" name="contactPref" value="Phone call">Phone call</label>
+                <label class="chip"><input type="radio" name="contactPref" value="WhatsApp">WhatsApp</label>
+                <label class="chip"><input type="radio" name="contactPref" value="In-person meeting">In-person meeting</label>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <div class="field">
+                <label for="message">Anything else we should know?</label>
+                <textarea id="message" name="message" placeholder="Theme, VIP guests, accessibility needs, sponsors, past editions, hard deadlines&#8230;" maxlength="2000"></textarea>
+                <div class="fgroup-hint"><span id="msgCount">0</span> / 2000 characters</div>
+              </div>
+            </div>
+
+            <div class="fgroup">
+              <div class="field">
+                <label for="source">How did you hear about Spectacle Events?</label>
+                <select id="source" name="source">
+                  <option value="" selected>Select one</option>
+                  <option>Referral from a colleague</option><option>Previous event with us</option>
+                  <option>Search engine</option><option>Social media</option>
+                  <option>Saw us at an event</option><option>Partner organization</option><option>Other</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- STEP 5 -->
+          <section class="pane" data-pane="5">
+            <div class="pane-tag">Step 5 of 5</div>
+            <h2 class="pane-h">Review &amp; send to Spectacle</h2>
+            <p class="pane-sub">Check everything below, then send your brief. You'll get a copy of the reference number to quote in any follow-up.</p>
+            <div class="rev-grid" id="reviewGrid"></div>
+            <label class="consent" id="f-consent">
+              <input type="checkbox" id="consent" name="consent">
+              <span>I'd like Spectacle Events&#174; to contact me about this brief and store these details for the purpose of preparing a proposal. <span class="req" style="color:var(--gold)">*</span></span>
+            </label>
+            <div class="f-err" id="e-consent" style="margin-top:.5rem">Please confirm before sending.</div>
+          </section>
+
+        </div>
+
+        <div class="plan-nav">
+          <span class="plan-nav-note" id="planNote">Step 1 of 5 &#183; your progress is saved on this device</span>
+          <div class="plan-nav-btns">
+            <button type="button" class="btn-back" id="btnBack" disabled>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back
+            </button>
+            <button type="button" class="form-submit" id="btnNext">
+              Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="plan-done" id="planDone">
+        <div class="done-mark"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h2 class="done-h">Your brief is on its way.</h2>
+        <p class="done-p" id="doneMsg">Thank you &#8212; we've received the details of your event. An event director from Spectacle Events&#174; will review the brief and come back to you within one working day with a tailored proposal.</p>
+        <div class="done-ref"><span class="done-ref-l">Your reference</span><span class="done-ref-v" id="doneRef">&#8212;</span></div>
+        <div class="done-actions">
+          <button type="button" class="form-submit" id="btnCopy">Copy brief summary</button>
+          <a href="index.html" class="btn-ghost">Back to homepage</a>
+        </div>
+      </div>
+    </form>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="plan-side">
+      <div class="side-card">
+        <div class="side-badge">&#9670; Live summary</div>
+        <div class="side-h">Your event so far</div>
+        <div class="sum-row"><span class="sum-k">Type</span><span class="sum-v empty" data-sum="eventType">Not set</span></div>
+        <div class="sum-row"><span class="sum-k">Name</span><span class="sum-v empty" data-sum="eventName">Not set</span></div>
+        <div class="sum-row"><span class="sum-k">Format</span><span class="sum-v empty" data-sum="format">Not set</span></div>
+        <div class="sum-row"><span class="sum-k">Date</span><span class="sum-v empty" data-sum="startDate">Not set</span></div>
+        <div class="sum-row"><span class="sum-k">Location</span><span class="sum-v empty" data-sum="city">Not set</span></div>
+        <div class="sum-row"><span class="sum-k">Attendance</span><span class="sum-v empty" data-sum="guests">Not set</span></div>
+        <div class="sum-row"><span class="sum-k">Services</span><span class="sum-v empty" data-sum="servicesCount">None yet</span></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-h">Prefer to talk first?</div>
+        <p class="side-note">Our team is available Monday to Saturday, 8 AM &#8211; 6 PM EAT, at the Helzer Building, 10th Floor, Addis Ababa.</p>
+        <div class="side-contact">
+          <a href="tel:+251116671260"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> +251 116 671 260</a>
+          <a href="mailto:info@spectacleevent.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg> info@spectacleevent.com</a>
+          <a href="index.html#services"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Browse all services</a>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-h">What happens next</div>
+        <p class="side-note"><strong style="color:var(--white)">1.</strong> We review your brief the same working day.<br>
+        <strong style="color:var(--white)">2.</strong> An event director calls to confirm scope and dates.<br>
+        <strong style="color:var(--white)">3.</strong> You receive a costed proposal and production plan within 24 hours.<br>
+        <strong style="color:var(--white)">4.</strong> On approval, we lock the venue, crew, and timeline.</p>
+      </div>
+    </aside>
+  </div>
+
+  <p class="plan-note">Submitted briefs go to Spectacle Events&#174; at info@spectacleevent.com. We treat every brief as confidential and never share your details with third parties.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="index.html" class="nav-logo" style="text-decoration:none">
+        <svg viewBox="0 0 262 255" fill="none" style="width:28px;height:28px;flex-shrink:0"><path fill="#00D6B7" d="M105.87,75.64l-3.92,2.11-3.72,2.52-3.47,2.97-3.02,3.22-2.77,3.57-2.36,3.87-1.91,4.02-1.46,4.28-1.01,4.33-.55,4.48-.1,4.58.4,4.43.91,4.43,1.31,4.28,1.76,4.07,2.21,3.97,2.62,3.62,2.97,3.37,3.52,3.22-39.99,43.77c-1.06-1.31-2.06-2.67-3.02-4.07l35.82-39.29-38.89,34.46c-.96-1.46-1.81-2.97-2.57-4.48l38.23-33.86-40.7,28.98c-.7-1.56-1.41-3.12-2.01-4.73l39.74-28.27-41.6,23.39c-.55-1.61-1.06-3.22-1.51-4.88l40.7-22.94-41.95,18.06c-.45-1.66-.81-3.32-1.06-4.98l41-17.71-41.8,12.98c-.25-1.66-.45-3.37-.6-5.08l40.9-12.68-41.25,8.15c-.1-1.66-.2-3.37-.15-5.08l40.4-8-40.4,3.62c.05-1.71.15-3.42.25-5.08l39.74-3.52-39.34-.65c.15-1.71.4-3.42.7-5.08l38.63.65-37.93-4.68c.3-1.66.65-3.32,1.06-4.93l37.53,4.63-36.47-8.5c.45-1.61.96-3.22,1.51-4.78l36.12,8.4-34.76-12.12c.6-1.56,1.21-3.12,1.91-4.63l34.51,11.97-32.85-15.49c.7-1.51,1.51-3.02,2.26-4.48l32.75,15.44-30.79-18.71c.91-1.46,1.81-2.87,2.77-4.23l30.64,18.66-28.42-21.73c1.01-1.36,2.06-2.67,3.12-3.92l28.32,21.58-25.81-24.45c1.16-1.26,2.36-2.46,3.57-3.57l25.76,24.45-22.99-26.96c1.26-1.16,2.57-2.21,3.87-3.17l22.89,26.86-19.87-29.08c1.36-.96,2.77-1.86,4.23-2.72l19.82,28.98-16.6-30.79c1.51-.75,3.02-1.46,4.58-2.11l16.45,30.48-13.03-31.84c1.56-.6,3.17-1.11,4.78-1.56l12.88,31.49-9.36-32.4c1.61-.35,3.27-.65,4.93-.86l9.26,31.84-5.73-32.3c1.66-.15,3.37-.25,5.08-.25l5.63,31.64-2.21-31.54c1.71.05,3.42.2,5.08.45l2.52,35.82-4.73.3-4.48.81-4.33,1.26-4.13,1.71ZM189.43,126.75c0-1.71-.05-3.47-.15-5.13l-39.44,7.8,39.09-12.12c-.1-1.71-.3-3.37-.55-5.08l-39.94,12.38,39.19-16.9c-.25-1.71-.6-3.37-1.01-5.03l-40.14,17.3,38.99-21.93c-.45-1.66-.96-3.32-1.51-4.93l-39.99,22.49,38.28-27.21c-.65-1.66-1.31-3.22-2.01-4.78l-39.14,27.87,36.82-32.6c-.75-1.56-1.56-3.07-2.47-4.53l-37.73,33.4,34.81-38.13c-.96-1.46-1.96-2.82-3.02-4.18l-38.94,42.66,3.52,3.22,3.02,3.37,2.57,3.62,2.21,3.92,1.76,4.02,1.36,4.43.86,4.33.4,4.53-.05,4.53-.55,4.38-1.06,4.48-1.46,4.23-1.91,4.02-2.36,3.87-2.62,3.47-3.22,3.37-3.42,2.87-3.62,2.52-3.97,2.16-4.18,1.71-4.33,1.26-4.38.75-4.78.35,2.57,36.07c1.66.15,3.32.25,5.03.25l-2.21-31.59,5.63,31.59c1.71-.05,3.37-.2,5.03-.35l-5.73-32.15,9.16,31.59c1.66-.25,3.32-.6,4.93-1.01l-9.26-31.94,12.68,30.94c1.61-.5,3.17-1.06,4.73-1.66l-12.78-31.29,16.1,29.83c1.51-.65,3.02-1.41,4.48-2.26l-16.15-29.93,19.22,28.12c1.46-.86,2.87-1.76,4.23-2.82l-19.27-28.12,22.18,25.96c1.31-1.01,2.57-2.11,3.82-3.27l-22.18-25.96,24.8,23.54c1.16-1.21,2.31-2.41,3.47-3.67l-24.8-23.49,27.16,20.78c1.06-1.31,2.06-2.62,3.07-4.02l-27.16-20.73,29.23,17.76c.96-1.41,1.86-2.82,2.72-4.28l-29.33-17.81,31.14,14.69c.8-1.46,1.56-2.97,2.31-4.48l-31.34-14.79,32.85,11.42c.65-1.51,1.31-3.07,1.86-4.63l-33-11.52,34.31,8c.5-1.56,1.01-3.17,1.46-4.83l-34.61-8.05,35.62,4.38c.4-1.61.75-3.27,1.06-4.93l-36.17-4.48,36.82.65c.3-1.66.55-3.32.7-5.03l-37.38-.65,37.73-3.37c.15-1.66.25-3.37.3-5.08l-38.48,3.47,38.53-7.6Z"/></svg>
+        <span class="nav-wordmark" style="font-size:.88rem">Spectacle Events<sup style="color:var(--teal)">&#174;</sup></span>
+      </a>
+      <p class="footer-brand-desc">Ethiopia's leading full-service event management company — delivering world-class experiences since 2008. Connect. Captivate. Celebrate.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="index.html#services">Corporate Events</a></li><li><a href="index.html#services">Virtual &amp; Hybrid</a></li><li><a href="index.html#services">Exhibitions &amp; Trade Fairs</a></li><li><a href="index.html#services">Photo &amp; Video Production</a></li><li><a href="index.html#services">Interpretation &amp; Ushering</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="index.html#story">About Us</a></li><li><a href="index.html#process">Our Process</a></li><li><a href="index.html#impact">Our Impact</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="index.html#contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Follow Us</h4><ul><li><a href="https://www.instagram.com/spectacleeventsmgt" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/spectacleeventsmgt" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.linkedin.com/company/spectacle-events" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://www.spectacleevent.com" target="_blank" rel="noopener">Website</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&#169; 2026 Spectacle Events&#174;. All rights reserved. Est. 2008.</span>
+    <span>Helzer Building, 10th Floor, Addis Ababa &nbsp;&#183;&nbsp; <a href="mailto:info@spectacleevent.com">info@spectacleevent.com</a> &nbsp;&#183;&nbsp; <a href="tel:+251116671260">+251 116 671 260</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/planner.js"></script>
+</body>
+</html>
