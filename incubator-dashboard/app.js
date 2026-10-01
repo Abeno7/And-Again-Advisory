@@ -509,11 +509,21 @@
         KEYS.forEach(k => lines.push(`${new Date(h.t[j]).toISOString()},${units[i].id},${k},${h[k][j] ?? ''},${M[k].unit},${h[k][j] == null ? 'BAD' : 'GOOD'},SIMULATED`));
       }
     });
+    const count = (lines.length - 1).toLocaleString('en-GB');
+    let framed = true;
+    try { framed = window.top !== window.self; } catch (_) { /* cross-origin parent → framed */ }
+    if (framed) {
+      // Embedded viewers (e.g. shared previews) block downloads, so copy instead.
+      navigator.clipboard.writeText(lines.join('\n'))
+        .then(() => toast(`Copied ${count} simulated samples as CSV — paste into a spreadsheet`))
+        .catch(() => toast('This viewer blocks downloads and the clipboard. Open the dashboard directly to export.'));
+      return;
+    }
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/csv' }));
     a.download = `incubator-simulated-${ui.period}h.csv`; a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    toast(`Exported ${(lines.length - 1).toLocaleString('en-GB')} simulated samples`);
+    toast(`Exported ${count} simulated samples`);
   }
 
   // ---------- Events ----------
