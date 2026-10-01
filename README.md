@@ -17,9 +17,11 @@ cream, terracotta brand blocks, copper numerals, and a consistent footer band.
 | 4. Section / separator page | [`templates/04-section-page.html`](templates/04-section-page.html) | [`guides/04-section-page.md`](guides/04-section-page.md) |
 | 5. Body page | [`templates/05-body-page.html`](templates/05-body-page.html) | [`guides/05-body-page.md`](guides/05-body-page.md) |
 | 6. Close-out page | [`templates/06-closeout-page.html`](templates/06-closeout-page.html) | [`guides/06-closeout-page.md`](guides/06-closeout-page.md) |
+| Design resources & contrast audit | — | [`guides/07-design-resources.md`](guides/07-design-resources.md) |
 
 Shared design system: [`templates/assets/template.css`](templates/assets/template.css)
 All-pages preview: [`templates/preview.html`](templates/preview.html)
+Resource list (git submodule): [`vendor/awesome-web-design`](vendor/awesome-web-design). Run `git submodule update --init` after cloning.
 
 ## Usage
 
