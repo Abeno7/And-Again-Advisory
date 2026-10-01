@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incubator Monitor</title>
+<meta name="description" content="Four-incubator environmental monitoring — browser simulation. All readings are synthetic.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<aside class="rail" id="rail" aria-label="Primary">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 5 6 12 6 12s6-7 6-12a6 6 0 0 0-6-6z"/><circle cx="12" cy="9" r="2.2"/></svg>
+    <div><strong>Incubator</strong><span>Monitor</span></div>
+  </div>
+  <nav>
+    <button class="nav-item" data-view="overview" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Overview
+    </button>
+    <button class="nav-item" data-view="trends">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+      Trends
+    </button>
+    <button class="nav-item" data-view="alarms">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      Alarms <span class="nav-count" id="navCount" hidden>0</span>
+    </button>
+    <button class="nav-item" data-view="system">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+      System
+    </button>
+  </nav>
+  <p class="rail-foot">Simulation only · no PLC connected</p>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="shell">
+  <header class="topbar">
+    <button class="menu" id="menuBtn" aria-label="Open navigation" aria-controls="rail" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="topbar-title" id="crumb">Overview</div>
+    <label class="role">Role
+      <select id="role">
+        <option value="operator">Operator</option>
+        <option value="supervisor">Supervisor</option>
+        <option value="administrator">Administrator</option>
+      </select>
+    </label>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="sim-notice" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <span><strong>Simulated data.</strong> Synthetic readings in your browser — no PLC connection, no real notifications.</span>
+      <span class="refresh" aria-live="off">
+        <svg class="ring" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><circle class="ring-fg" id="ring" cx="10" cy="10" r="8"/></svg>
+        Updated <time id="updated">—</time>
+      </span>
+    </div>
+    <div class="conn-alert" id="connAlert" role="alert" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      Communication lost — current values unavailable. Last good data is not shown as current.
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="view" id="view-overview" aria-labelledby="h-overview">
+      <div class="page-head">
+        <div>
+          <h1 id="h-overview">Overview</h1>
+          <p class="sub">Four incubators · temperature, humidity and CO₂ · times in Africa/Nairobi</p>
+        </div>
+        <div class="summary" id="summary" aria-live="polite"></div>
+      </div>
+      <div class="units" id="units"></div>
+      <div class="lower">
+        <section class="panel">
+          <header class="panel-head">
+            <h2>Temperature — last hour</h2>
+            <span class="muted small">Dashed line: configured high limit</span>
+          </header>
+          <div class="chart" id="miniChart"></div>
+        </section>
+        <div class="side">
+        <section class="panel">
+          <header class="panel-head"><h2>Facility</h2><span class="muted small">Power &amp; network</span></header>
+          <ul class="facility" id="facility"></ul>
+        </section>
+        <section class="panel">
+          <header class="panel-head"><h2>Active alarms</h2><button class="btn btn-outline btn-sm" data-goto="alarms">View all</button></header>
+          <ul class="mini-ledger" id="miniLedger"></ul>
+        </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRENDS -->
+    <section class="view" id="view-trends" aria-labelledby="h-trends" hidden>
+      <div class="page-head">
+        <div><h1 id="h-trends">Historical trends</h1><p class="sub">Synthetic history recorded in this browser session</p></div>
+        <button class="btn btn-primary" id="exportCsv">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Export CSV
+        </button>
+      </div>
+      <section class="panel">
+        <header class="panel-head wrap">
+          <div class="seg" role="group" aria-label="Measurement" id="measureSeg">
+            <button aria-pressed="true" data-m="temp">Temperature</button>
+            <button aria-pressed="false" data-m="hum">Humidity</button>
+            <button aria-pressed="false" data-m="co2">CO₂</button>
+          </div>
+          <div class="seg" role="group" aria-label="Period" id="periodSeg">
+            <button aria-pressed="true" data-p="1">1h</button>
+            <button aria-pressed="false" data-p="6">6h</button>
+            <button aria-pressed="false" data-p="24">24h</button>
+            <button aria-pressed="false" data-p="168">7d</button>
+          </div>
+        </header>
+        <div class="chart tall" id="bigChart"></div>
+      </section>
+      <section class="panel">
+        <header class="panel-head"><h2>Period statistics</h2></header>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Period statistics table">
+          <table class="tbl" id="statsTable"></table>
+        </div>
+      </section>
+    </section>
+
+    <!-- ALARMS -->
+    <section class="view" id="view-alarms" aria-labelledby="h-alarms" hidden>
+      <div class="page-head">
+        <div><h1 id="h-alarms">Alarms</h1><p class="sub">Acknowledging records that you saw it — it never clears an active condition.</p></div>
+      </div>
+      <section class="panel">
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Alarm ledger">
+          <table class="tbl ledger">
+            <thead><tr><th>Time</th><th>Source</th><th>Description</th><th>Severity</th><th>State</th><th><span class="sr">Action</span></th></tr></thead>
+            <tbody id="ledger"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- SYSTEM -->
+    <section class="view" id="view-system" aria-labelledby="h-system" hidden>
+      <div class="page-head">
+        <div><h1 id="h-system">System</h1><p class="sub">Inject simulated scenarios to see how the dashboard responds.</p></div>
+      </div>
+      <div class="sys-grid">
+        <section class="panel pad">
+          <h2>Scenario</h2>
+          <p class="muted small" id="scenarioHint">Administrator role required to change scenarios.</p>
+          <div class="scenarios" id="scenarios">
+            <button class="btn" data-s="normal">Normal operation</button>
+            <button class="btn" data-s="hightemp">High temperature · Incubator 02</button>
+            <button class="btn" data-s="lowhum">Low humidity · Incubator 03</button>
+            <button class="btn" data-s="highco2">High CO₂ · Incubator 01</button>
+            <button class="btn" data-s="sensor">Sensor fault · Incubator 04</button>
+            <button class="btn" data-s="power">Utility power failure</button>
+            <button class="btn" data-s="comms">Communication failure</button>
+          </div>
+        </section>
+        <section class="panel pad">
+          <h2>Diagnostics</h2>
+          <dl class="diag" id="diag"></dl>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
