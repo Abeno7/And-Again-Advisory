@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0a0b">
+<title>Incubator Monitor</title>
+<meta name="description" content="Four-incubator environmental monitoring — browser simulation. All readings are synthetic.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><circle cx="21" cy="11" r="6.5"/><circle cx="11" cy="21" r="6.5"/><circle cx="21" cy="21" r="6.5"/></svg>
+      <span>Incubator<em>Monitor</em></span>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <button class="nav-item" data-view="overview" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</button>
+      <button class="nav-item" data-view="trends">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Trends</button>
+      <button class="nav-item" data-view="alarms">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Alarms<span class="nav-count" id="navCount" hidden>0</span></button>
+      <button class="nav-item" data-view="system">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>System</button>
+    </nav>
+    <label class="role"><span>Role</span>
+      <select id="role">
+        <option value="operator">Operator</option>
+        <option value="supervisor">Supervisor</option>
+        <option value="administrator">Administrator</option>
+      </select>
+    </label>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="sim" role="note">
+      <span class="sim-chip">SIMULATED</span>
+      <span class="sim-text">Synthetic readings generated in your browser · no PLC connection · no real notifications</span>
+      <span class="refresh">
+        <svg class="ring" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><circle class="ring-fg" cx="10" cy="10" r="8"/></svg>
+        <span>Updated <time id="updated">—</time></span>
+      </span>
+    </div>
+    <div class="conn-alert" id="connAlert" role="alert" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      Communication lost — current values unavailable. Last good data is not shown as current.
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="view" id="view-overview" aria-labelledby="h-overview">
+      <h1 class="sr" id="h-overview">Overview</h1>
+      <div class="kpis card" id="kpis"></div>
+
+      <div class="ov-grid">
+        <div class="units" id="units"></div>
+        <aside class="side">
+          <section class="card power" id="powerCard" aria-labelledby="h-power"></section>
+          <section class="card">
+            <header class="card-head"><h2>Active alarms</h2><button class="icon-btn" data-goto="alarms" aria-label="Open alarms"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></button></header>
+            <ul class="mini-ledger" id="miniLedger"></ul>
+          </section>
+        </aside>
+      </div>
+
+      <section class="card chart-card">
+        <header class="card-head">
+          <h2>Last hour</h2>
+          <div class="tabs" role="group" aria-label="Measurement" id="miniTabs">
+            <button aria-pressed="true" data-mm="temp">Temperature</button>
+            <button aria-pressed="false" data-mm="hum">Humidity</button>
+            <button aria-pressed="false" data-mm="co2">CO₂</button>
+          </div>
+        </header>
+        <div class="chart" id="miniChart"></div>
+      </section>
+    </section>
+
+    <!-- TRENDS -->
+    <section class="view" id="view-trends" aria-labelledby="h-trends" hidden>
+      <div class="page-head">
+        <div><h1 id="h-trends">Historical trends</h1><p class="sub">Synthetic history recorded in this browser · times in Africa/Nairobi</p></div>
+        <button class="btn btn-lime" id="exportCsv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Export CSV</button>
+      </div>
+      <div class="chips" role="group" aria-label="Incubator" id="unitChips">
+        <button aria-pressed="true" data-u="all">All</button>
+        <button aria-pressed="false" data-u="0">Incubator 01</button>
+        <button aria-pressed="false" data-u="1">Incubator 02</button>
+        <button aria-pressed="false" data-u="2">Incubator 03</button>
+        <button aria-pressed="false" data-u="3">Incubator 04</button>
+      </div>
+      <section class="card chart-card">
+        <header class="card-head wrap">
+          <div class="tabs" role="group" aria-label="Measurement" id="measureTabs">
+            <button aria-pressed="true" data-m="temp">Temperature</button>
+            <button aria-pressed="false" data-m="hum">Humidity</button>
+            <button aria-pressed="false" data-m="co2">CO₂</button>
+          </div>
+          <div class="seg" role="group" aria-label="Period" id="periodSeg">
+            <button aria-pressed="true" data-p="1">1h</button>
+            <button aria-pressed="false" data-p="6">6h</button>
+            <button aria-pressed="false" data-p="24">24h</button>
+            <button aria-pressed="false" data-p="168">7d</button>
+          </div>
+        </header>
+        <div class="chart tall" id="bigChart"></div>
+      </section>
+      <div class="two">
+        <section class="card pad" id="rangeCard"></section>
+        <section class="card">
+          <header class="card-head"><h2>Period statistics</h2></header>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Period statistics"><table class="tbl" id="statsTable"></table></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ALARMS -->
+    <section class="view" id="view-alarms" aria-labelledby="h-alarms" hidden>
+      <div class="page-head">
+        <div><h1 id="h-alarms">Alarms</h1><p class="sub">Acknowledging records that you saw an alarm — it never clears an active condition.</p></div>
+      </div>
+      <section class="card">
+        <div class="table-wrap inset" tabindex="0" role="region" aria-label="Alarm ledger">
+          <table class="tbl ledger">
+            <thead><tr><th>Time</th><th>Source</th><th>Description</th><th>Severity</th><th>State</th><th><span class="sr">Action</span></th></tr></thead>
+            <tbody id="ledger"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- SYSTEM -->
+    <section class="view" id="view-system" aria-labelledby="h-system" hidden>
+      <div class="page-head">
+        <div><h1 id="h-system">System</h1><p class="sub">Inject simulated scenarios to see how the dashboard responds.</p></div>
+      </div>
+      <div class="two">
+        <section class="card pad">
+          <h2>Scenario</h2>
+          <p class="sub" id="scenarioHint"></p>
+          <div class="chips scen" id="scenarios">
+            <button data-s="normal">Normal operation</button>
+            <button data-s="hightemp">High temperature · 02</button>
+            <button data-s="lowhum">Low humidity · 03</button>
+            <button data-s="highco2">High CO₂ · 01</button>
+            <button data-s="sensor">Sensor fault · 04</button>
+            <button data-s="power">Utility power failure</button>
+            <button data-s="comms">Communication failure</button>
+          </div>
+        </section>
+        <section class="card pad">
+          <h2>Diagnostics</h2>
+          <dl class="diag" id="diag"></dl>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
