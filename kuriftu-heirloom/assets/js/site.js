@@ -57,7 +57,7 @@
 
   const dPage = $('#destPage');
   if (dPage) {
-    const key = new URLSearchParams(location.search).get('place');
+    const key = new URLSearchParams(location.search).get('place') || location.hash.slice(1);
     const p = places[key] || places.bishoftu;
     const n = places[p.next];
     const img = (k) => `assets/img/${k}.webp`;
