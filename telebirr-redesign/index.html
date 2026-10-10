@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>telebirr Redesign Concept</title>
+<meta name="description" content="Unofficial concept: a clean, modern redesign of the telebirr mobile money app that keeps its green-and-blue design language.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   DESIGN TOKENS — telebirr palette, refined
+   Brand green (Ethio telecom lime) + telebirr blue stay the anchors.
+   Neutrals are cooler and lighter so the brand colours do the work.
+------------------------------------------------------------------- */
+:root{
+  --tb-green-50:#F3FAE8; --tb-green-100:#E2F3C9; --tb-green-400:#A3D45A;
+  --tb-green:#8DC63F;    --tb-green-600:#6FA62A; --tb-green-700:#558321;
+  --tb-blue-50:#EAF2FB;  --tb-blue-100:#CFE2F6;  --tb-blue-400:#3B8AD9;
+  --tb-blue:#0B5CAB;     --tb-blue-700:#08447F;  --tb-blue-900:#062B52;
+  --tb-cyan:#00A6E0;     --tb-gold:#F5B21B;      --tb-red:#E5484D;
+
+  --ink:#0E1A2B; --ink-2:#3A4A5E; --muted:#6B7A8C; --faint:#9AA7B6;
+  --line:#E7EDF3; --surface:#F4F7FA; --card:#FFFFFF;
+
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px;
+  --shadow-1:0 1px 2px rgba(14,26,43,.05),0 2px 8px rgba(14,26,43,.05);
+  --shadow-2:0 8px 24px rgba(11,92,171,.14);
+  --grad-brand:linear-gradient(135deg,#0B5CAB 0%,#0A79C2 48%,#5DB54A 100%);
+
+  /* showcase page (not the app) */
+  --page-bg:#EEF2F6; --page-ink:#0E1A2B; --page-muted:#5B6B7D; --page-card:#FFFFFF; --page-line:#DCE3EA;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-et:"Noto Sans Ethiopic","Plus Jakarta Sans",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page-bg:#0A1220; --page-ink:#E8EEF5; --page-muted:#93A3B6; --page-card:#121D2E; --page-line:#22324A;
+  }
+}
+:root[data-theme="dark"]{
+  --page-bg:#0A1220; --page-ink:#E8EEF5; --page-muted:#93A3B6; --page-card:#121D2E; --page-line:#22324A;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--page-bg);color:var(--page-ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.et{font-family:var(--font-et)}
+
+/* ---------------- Showcase chrome ---------------- */
+.wrap{max-width:1320px;margin:0 auto;padding:48px 16px 80px}
+.hero{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;margin-bottom:36px}
+.brandmark{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.01em}
+.brandmark .dot{width:30px;height:30px;border-radius:9px;background:var(--grad-brand);display:grid;place-items:center;color:#fff}
+.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:800;margin:16px 0 12px;max-width:16ch}
+.hero h1 span{background:linear-gradient(90deg,var(--tb-blue),var(--tb-green-600));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--page-muted);max-width:56ch;font-size:16px}
+.disclaimer{font-size:12px;color:var(--page-muted);border:1px solid var(--page-line);border-radius:999px;padding:6px 12px;background:var(--page-card)}
+
+.section-title{display:flex;align-items:baseline;gap:12px;margin:56px 0 20px}
+.section-title h2{font-size:22px;letter-spacing:-.02em}
+.section-title span{color:var(--page-muted);font-size:14px}
+
+.tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.tcard{background:var(--page-card);border:1px solid var(--page-line);border-radius:20px;padding:20px}
+.tcard h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--page-muted);margin-bottom:14px}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sw{border-radius:12px;height:56px;position:relative;overflow:hidden}
+.sw small{position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:600;color:#fff;mix-blend-mode:normal;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.sw.light small{color:var(--ink);text-shadow:none}
+.typescale div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--page-line);padding:6px 0}
+.typescale div:last-child{border:0}
+.typescale em{font-style:normal;font-size:11px;color:var(--page-muted)}
+.comp-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.principles li{list-style:none;display:flex;gap:10px;padding:7px 0;font-size:14px;color:var(--page-ink)}
+.principles b{display:inline-grid;place-items:center;flex:none;width:22px;height:22px;border-radius:7px;background:var(--tb-green-100);color:var(--tb-green-700);font-size:12px}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:40px 24px;justify-items:center}
+.shot{display:flex;flex-direction:column;align-items:center;gap:14px}
+.shot figcaption{text-align:center}
+.shot figcaption b{display:block;font-size:15px}
+.shot figcaption span{font-size:13px;color:var(--page-muted)}
+
+/* ---------------- Phone frame ---------------- */
+.phone{width:340px;height:720px;border-radius:48px;padding:10px;background:#0B1220;box-shadow:0 30px 60px -20px rgba(6,43,82,.35),0 0 0 1px rgba(255,255,255,.04) inset;position:relative;flex:none}
+.screen{width:100%;height:100%;border-radius:38px;overflow:hidden;position:relative;background:var(--surface);color:var(--ink);font-size:14px}
+.scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:96px}
+.scroll::-webkit-scrollbar{display:none}
+.statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 30px;font-size:13px;font-weight:700;position:relative;z-index:3}
+.statusbar .notch{position:absolute;left:50%;top:9px;transform:translateX(-50%);width:96px;height:26px;border-radius:20px;background:#0B1220}
+.statusbar .sb-icons{display:flex;gap:5px;align-items:center}
+.statusbar .sb-icons svg{width:15px;height:15px}
+.on-dark{color:#fff}
+
+/* ---------------- App components ---------------- */
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 20px 14px}
+.appbar h4{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--card);box-shadow:var(--shadow-1);position:relative}
+.icon-btn.glass{background:rgba(255,255,255,.16);box-shadow:none;color:#fff;backdrop-filter:blur(6px)}
+.icon-btn .badge{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--tb-gold);box-shadow:0 0 0 2px var(--tb-blue)}
+.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+
+.header-home{background:var(--grad-brand);color:#fff;padding-bottom:84px;position:relative;overflow:hidden}
+.header-home::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-90px;top:-70px;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)}
+.header-home::after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;left:-80px;bottom:-110px;background:radial-gradient(circle,rgba(141,198,63,.45),transparent 70%)}
+.greet{display:flex;align-items:center;gap:12px;padding:4px 20px 0;position:relative;z-index:1}
+.greet .who{flex:1}
+.greet small{opacity:.8;font-size:12px}
+.greet b{display:block;font-size:16px;letter-spacing:-.01em}
+
+.balance{margin:-64px 16px 0;background:var(--card);border-radius:var(--r-xl);padding:18px 18px 16px;box-shadow:var(--shadow-2);position:relative;z-index:2}
+.balance .row{display:flex;align-items:center;justify-content:space-between}
+.balance .lbl{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.balance .amt{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px;display:flex;align-items:baseline;gap:6px}
+.balance .amt small{font-size:14px;font-weight:600;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--tb-green-50);color:var(--tb-green-700)}
+.chip.blue{background:var(--tb-blue-50);color:var(--tb-blue)}
+.chip.ghost{background:var(--surface);color:var(--ink-2)}
+.chip.active{background:var(--ink);color:#fff}
+.eye{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:var(--muted);background:var(--surface)}
+.eye svg{width:18px;height:18px}
+.sub-balances{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.sub-balances div{background:var(--surface);border-radius:12px;padding:9px 11px}
+.sub-balances small{font-size:11px;color:var(--muted);display:block}
+.sub-balances b{font-size:13px}
+
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.quick button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--ink-2)}
+.quick .qi{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--tb-blue);color:#fff}
+.quick button:nth-child(2) .qi{background:var(--tb-green);}
+.quick button:nth-child(3) .qi{background:var(--tb-blue-50);color:var(--tb-blue)}
+.quick button:nth-child(4) .qi{background:var(--tb-green-50);color:var(--tb-green-700)}
+
+.block{padding:0 16px;margin-top:22px}
+.block-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px}
+.block-head h5{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.block-head a{font-size:12px;font-weight:600;color:var(--tb-blue);text-decoration:none}
+
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px;background:var(--card);border-radius:var(--r-lg);padding:16px 8px;box-shadow:var(--shadow-1)}
+.svc{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.2}
+.svc .si{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
+.si.g{background:var(--tb-green-50);color:var(--tb-green-700)}
+.si.b{background:var(--tb-blue-50);color:var(--tb-blue)}
+.si.c{background:#E3F6FD;color:#0587B8}
+.si.y{background:#FEF5DD;color:#B07B00}
+.si.r{background:#FDECEC;color:#C2373B}
+.si.p{background:#EFEAFB;color:#6B4BC8}
+
+.promo{border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;gap:14px;background:linear-gradient(120deg,var(--tb-green) 0%,#62B34A 100%);color:#fff;position:relative;overflow:hidden}
+.promo::after{content:"";position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.15)}
+.promo b{font-size:15px;display:block;letter-spacing:-.01em}
+.promo small{font-size:12px;opacity:.92}
+.promo .pi{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.22);display:grid;place-items:center;flex:none}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:10px}
+.dots i{width:6px;height:6px;border-radius:3px;background:var(--line)}
+.dots i.on{width:18px;background:var(--tb-blue)}
+
+.list{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:4px 14px}
+.tx{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.tx:last-child{border:0}
+.tx .ti{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;flex:none}
+.tx .ti svg{width:20px;height:20px}
+.tx .mid{flex:1;min-width:0}
+.tx .mid b{font-size:13.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx .mid small{font-size:11.5px;color:var(--muted)}
+.tx .amt{font-weight:700;font-size:13.5px;text-align:right}
+.tx .amt small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.pos{color:var(--tb-green-700)}
+.neg{color:var(--ink)}
+
+/* bottom nav */
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:84px;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);align-items:start;padding:10px 6px 0;z-index:5}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:var(--faint)}
+.tab.on{color:var(--tb-blue)}
+.tab.on svg{stroke-width:2.2}
+.fab{width:56px;height:56px;border-radius:19px;margin:-26px auto 0;background:var(--grad-brand);color:#fff;display:grid;place-items:center;box-shadow:0 10px 22px rgba(11,92,171,.35);border:4px solid var(--surface)}
+.fab svg{width:24px;height:24px}
+.home-ind{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:2px;background:var(--ink);opacity:.85;z-index:6}
+.home-ind.light{background:#fff}
+
+/* send money */
+.search{margin:0 20px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--muted);font-size:13px}
+.search svg{width:18px;height:18px}
+.seg{display:flex;background:#E9EEF3;border-radius:12px;padding:4px;margin:14px 20px 0}
+.seg button{flex:1;padding:8px 0;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow-1)}
+.contacts{display:flex;gap:14px;padding:0 20px;overflow:hidden}
+.contact{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ink-2);width:52px;flex:none}
+.contact .avatar{width:50px;height:50px;font-size:15px}
+.contact.add .avatar{border:1.5px dashed var(--faint);background:transparent;color:var(--muted)}
+.recipient{margin:0 20px;background:var(--card);border-radius:var(--r-lg);padding:14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-1)}
+.recipient .mid{flex:1}
+.recipient b{font-size:14px;display:block}
+.recipient small{font-size:12px;color:var(--muted)}
+.verified{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--tb-green-700)}
+.verified svg{width:14px;height:14px}
+.amount-entry{text-align:center;padding:12px 0 2px}
+.amount-entry small{font-size:12px;color:var(--muted);font-weight:600}
+.amount-entry .big{font-size:42px;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-top:4px}
+.amount-entry .big span{font-size:18px;color:var(--muted);font-weight:700;margin-right:6px;vertical-align:middle}
+.amount-entry .caret{display:inline-block;width:2px;height:36px;background:var(--tb-blue);vertical-align:middle;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.presets{display:flex;gap:8px;justify-content:center;margin:10px 0 0}
+.note-field{margin:14px 20px 0;display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:11px 14px;font-size:12.5px;color:var(--muted);border:1px solid var(--line)}
+.note-field svg{width:18px;height:18px}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:8px 28px 0}
+.keypad button{height:40px;border-radius:14px;font-size:21px;font-weight:600}
+.keypad button:active{background:var(--line)}
+.cta{position:absolute;left:20px;right:20px;bottom:28px;height:54px;border-radius:16px;background:var(--tb-blue);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 20px rgba(11,92,171,.28);z-index:5}
+.cta.green{background:var(--tb-green-600);box-shadow:0 10px 20px rgba(111,166,42,.3)}
+.fee-line{display:flex;justify-content:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:10px}
+
+/* scan */
+.scan-screen{background:#06111F;color:#fff}
+.scan-bg{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 40%,#1D3554 0%,#0A1628 60%,#050C17 100%)}
+.scan-bg::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px)}
+.viewfinder{position:absolute;left:50%;top:218px;transform:translateX(-50%);width:230px;height:230px}
+.viewfinder i{position:absolute;width:44px;height:44px;border:4px solid var(--tb-green);}
+.viewfinder i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0;border-top-left-radius:22px}
+.viewfinder i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0;border-top-right-radius:22px}
+.viewfinder i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-bottom-left-radius:22px}
+.viewfinder i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-bottom-right-radius:22px}
+.laser{position:absolute;left:14px;right:14px;height:2px;top:20px;background:linear-gradient(90deg,transparent,var(--tb-green),transparent);box-shadow:0 0 14px var(--tb-green);animation:scan 2.4s ease-in-out infinite alternate}
+@keyframes scan{to{top:206px}}
+.qr-ghost{position:absolute;inset:38px;opacity:.12;background:
+  conic-gradient(from 90deg at 2px 2px,#fff 25%,transparent 0) 0 0/16px 16px}
+.scan-top{position:absolute;top:44px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:8px 20px;z-index:2}
+.scan-top h4{font-size:17px}
+.scan-hint{position:absolute;top:470px;left:0;right:0;text-align:center;font-size:13px;color:rgba(255,255,255,.75);z-index:2}
+.scan-tools{position:absolute;top:510px;left:0;right:0;display:flex;justify-content:center;gap:28px;z-index:2}
+.scan-tools button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.8)}
+.scan-tools .ring{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;backdrop-filter:blur(8px)}
+.scan-sheet{position:absolute;left:12px;right:12px;bottom:14px;background:#fff;color:var(--ink);border-radius:26px;padding:8px;display:flex;gap:6px;z-index:3}
+.scan-sheet button{flex:1;height:48px;border-radius:19px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
+.scan-sheet button.on{background:var(--tb-blue);color:#fff}
+
+/* activity */
+.summary{margin:0 16px;background:var(--card);border-radius:var(--r-xl);padding:18px;box-shadow:var(--shadow-1)}
+.summary .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.summary .split div{border-radius:14px;padding:10px 12px}
+.summary .split small{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px}
+.summary .split b{font-size:16px;letter-spacing:-.02em}
+.bars{display:flex;align-items:flex-end;gap:8px;height:92px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.bars span{width:100%;border-radius:7px 7px 4px 4px;background:var(--tb-blue-100)}
+.bars div.on span{background:var(--tb-blue)}
+.bars small{font-size:10px;color:var(--faint);font-weight:600}
+.bars div.on small{color:var(--ink)}
+.chips{display:flex;gap:8px;padding:0 16px;overflow:hidden;margin-top:16px}
+.date-sep{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;padding:16px 20px 8px}
+
+/* explore / mini apps */
+.feature-card{margin:0 16px;border-radius:var(--r-xl);padding:18px;color:#fff;background:linear-gradient(140deg,var(--tb-blue-700),var(--tb-blue) 55%,var(--tb-cyan));position:relative;overflow:hidden;min-height:150px}
+.feature-card::after{content:"";position:absolute;right:-40px;bottom:-60px;width:200px;height:200px;border-radius:50%;border:28px solid rgba(141,198,63,.35)}
+.feature-card small{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.feature-card b{display:block;font-size:20px;letter-spacing:-.02em;margin:6px 0 4px;max-width:14ch;line-height:1.2}
+.feature-card p{font-size:12px;opacity:.85;max-width:22ch}
+.feature-card .go{position:absolute;right:18px;top:18px;background:#fff;color:var(--tb-blue);font-weight:700;font-size:12px;border-radius:999px;padding:7px 12px;z-index:1}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 6px}
+.app{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.2}
+.app .ai{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:17px;box-shadow:var(--shadow-1)}
+.app .ai svg{width:24px;height:24px}
+
+/* profile */
+.profile-head{text-align:center;padding:4px 20px 0}
+.profile-head .avatar{width:84px;height:84px;font-size:28px;margin:0 auto;background:var(--grad-brand);color:#fff;box-shadow:0 0 0 4px #fff,0 8px 20px rgba(11,92,171,.25)}
+.profile-head h4{font-size:19px;margin-top:12px;letter-spacing:-.02em}
+.profile-head small{color:var(--muted);font-size:12.5px}
+.level{margin:16px 16px 0;border-radius:var(--r-lg);padding:14px 16px;background:linear-gradient(120deg,#0E1A2B,#173455);color:#fff;display:flex;align-items:center;gap:12px}
+.level .mid{flex:1}
+.level b{font-size:14px;display:block}
+.level small{font-size:11.5px;opacity:.7}
+.progress{height:6px;background:rgba(255,255,255,.15);border-radius:3px;margin-top:8px;overflow:hidden}
+.progress i{display:block;height:100%;width:68%;background:linear-gradient(90deg,var(--tb-green),var(--tb-gold));border-radius:3px}
+.settings .row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px;font-weight:600}
+.settings .row:last-child{border:0}
+.settings .row .mid{flex:1}
+.settings .row small{display:block;font-size:11.5px;color:var(--muted);font-weight:500}
+.settings .row .ri{width:36px;height:36px;border-radius:11px;display:grid;place-items:center}
+.settings .row .ri svg{width:19px;height:19px}
+.chev{color:var(--faint);width:18px!important;height:18px!important}
+.toggle{width:40px;height:24px;border-radius:12px;background:var(--tb-green);position:relative;flex:none}
+.toggle::after{content:"";position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.lang{display:flex;background:var(--surface);border-radius:10px;padding:3px;font-size:11.5px}
+.lang span{padding:4px 8px;border-radius:7px;color:var(--muted);font-weight:600}
+.lang span.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow-1)}
+
+/* success */
+.success{position:absolute;inset:0;background:linear-gradient(180deg,var(--tb-green-50) 0%,var(--surface) 46%)}
+.tick{width:84px;height:84px;border-radius:50%;margin:56px auto 0;background:var(--tb-green);display:grid;place-items:center;color:#fff;box-shadow:0 0 0 12px rgba(141,198,63,.2),0 0 0 26px rgba(141,198,63,.1)}
+.tick svg{width:40px;height:40px;stroke-width:2.6}
+.success h4{text-align:center;font-size:20px;margin-top:30px;letter-spacing:-.02em}
+.success .sum{text-align:center;font-size:36px;font-weight:800;letter-spacing:-.04em;margin-top:2px}
+.success .sum span{font-size:16px;color:var(--muted);margin-right:4px}
+.success .to{text-align:center;color:var(--muted);font-size:13px}
+.receipt{margin:22px 16px 0;background:var(--card);border-radius:var(--r-lg);padding:6px 16px;box-shadow:var(--shadow-1);position:relative}
+.receipt::before,.receipt::after{content:"";position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:var(--surface);transform:translateY(-50%)}
+.receipt::before{left:-9px}.receipt::after{right:-9px}
+.receipt .r{display:flex;justify-content:space-between;padding:10px 0;font-size:12.5px;border-bottom:1px dashed var(--line)}
+.receipt .r:last-child{border:0}
+.receipt .r span{color:var(--muted)}
+.receipt .r b{font-weight:700}
+.success-actions{position:absolute;left:16px;right:16px;bottom:28px;display:flex;gap:10px}
+.success-actions button{flex:1;height:52px;border-radius:16px;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-secondary{background:var(--card);color:var(--tb-blue);box-shadow:var(--shadow-1)}
+.btn-primary{background:var(--tb-blue);color:#fff}
+
+/* components demo buttons on showcase */
+.demo-btn{height:44px;padding:0 18px;border-radius:14px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px}
+
+.foot{margin-top:64px;padding-top:24px;border-top:1px solid var(--page-line);color:var(--page-muted);font-size:13px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+@media (max-width:400px){
+  .wrap{padding:32px 16px 64px}
+  .gallery{grid-template-columns:1fr}
+  .phone{transform:scale(.92);transform-origin:top center;margin-bottom:-58px}
+}
+</style>
+</head>
+<body>
+
+<!-- ---------------- Icon sprite (stroke icons, 24px grid) ---------------- -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-receive" viewBox="0 0 24 24"><path d="M17 7 7 17M16 17H7V8"/></symbol>
+    <symbol id="i-cashout" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/><path d="M7 9.5v5M17 9.5v5"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M7 12h10"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.6 15.8a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19" r="1"/></symbol>
+    <symbol id="i-bill" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></symbol>
+    <symbol id="i-piggy" viewBox="0 0 24 24"><path d="M19 11c0-3.3-3.1-6-7-6S5 7.7 5 11c0 1.9 1 3.5 2.5 4.6V19h3v-2h3v2h3v-3.4c1-.7 1.8-1.6 2.2-2.6H21v-3h-2.2"/><circle cx="15" cy="10" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-loan" viewBox="0 0 24 24"><path d="M12 3v18M16.5 7.5C16 6 14.3 5 12 5c-2.8 0-4.5 1.3-4.5 3.2 0 4.3 9 2.2 9 6.6C16.5 16.8 14.6 19 12 19c-2.5 0-4.3-1.1-4.8-2.8"/></symbol>
+    <symbol id="i-group" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3 3-4.8 6-4.8s5.4 1.8 6 4.8"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18 14.6c1.6.6 2.7 2 3 4.4"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19z"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19v-7M21 19H3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.9-3.8 3.9-6 7.5-6s6.6 2.2 7.5 6"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 6a9.8 9.8 0 0 1 1.4-.1c6 0 9.5 6.1 9.5 6.1a17 17 0 0 1-2.7 3.4M6.6 6.7C4 8.4 2.5 12 2.5 12s3.5 6.5 9.5 6.5c1.6 0 3-.4 4.3-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-flash" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4.5 3.5"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.2"/><rect x="14" y="4" width="6" height="6" rx="1.2"/><rect x="4" y="14" width="6" height="6" rx="1.2"/><path d="M14 14h2v2h-2zM18 14h2M14 18v2h2M18 18h2v2"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12M12 8C10.5 4 7 4 7 6.2S10 8 12 8zM12 8c1.5-4 5-4 5-1.8S14 8 12 8z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5z"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 0 1 4.8.8c0 1.7-2.4 2.2-2.4 3.7"/><circle cx="12" cy="17" r=".7" fill="currentColor"/></symbol>
+    <symbol id="i-finger" viewBox="0 0 24 24"><path d="M7 18.5c-1-1.8-1.5-4-1.5-6.5a6.5 6.5 0 0 1 11.4-4.3M18.4 11c.1.3.1.7.1 1 0 3.5-.6 6-1.8 8.5M9.5 20.5c-.8-2.4-1.2-5-1.2-8.5a3.7 3.7 0 0 1 7.4 0c0 2.5-.2 4.5-.7 6.5M12 12c0 3.5-.3 6.2-1 8.5"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 13.5 4 11l1-1.5 7 1 4-4.5c1-1 2.5-1.3 3-.8s.2 2-.8 3L14 12l1 7-1.5 1-2.5-6.5L7.5 17v2.5L6 20.5l-1-3-3-1 1-1.5h2.5z"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V12l1.8-4.2A2 2 0 0 1 8.6 6.5h6.8a2 2 0 0 1 1.8 1.3L19 12v4M4 12h16v4.5H4z"/><circle cx="7.5" cy="16.5" r="1.6"/><circle cx="16.5" cy="16.5" r="1.6"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 5.5 13.5H12l-1 8 7.5-11H12z"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3.5 4.5h2l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.4-1.1L20.5 8H6.4"/><circle cx="9.5" cy="19.5" r="1.2"/><circle cx="17" cy="19.5" r="1.2"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2.5 9.5 12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5v4.3c1.4 1.4 3.4 2.2 5.5 2.2s4.1-.8 5.5-2.2v-4.3M21.5 9.5v5"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3.5 8.5V6.5h17v2a2.5 2.5 0 0 0 0 5v2h-17v-2a2.5 2.5 0 0 0 0-5z"/><path d="M14 6.5v11" stroke-dasharray="2 2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 19.5s-7.5-4.3-7.5-10A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.5c0 5.7-7.5 10-7.5 10z"/></symbol>
+    <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 18v-2M9 18v-5M14 18V9M19 18V5" stroke-width="2.6"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><rect x="4.5" y="9" width="11" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M21.5 10.5v3"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4M5 12v6.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V12"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14M10 16l-4-4 4-4M6 12h10"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.8 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></symbol>
+    <symbol id="i-backspace" viewBox="0 0 24 24"><path d="M9 5.5h10.5A1.5 1.5 0 0 1 21 7v10a1.5 1.5 0 0 1-1.5 1.5H9L3 12z"/><path d="m12.5 9.5 5 5M17.5 9.5l-5 5"/></symbol>
+  </defs>
+</svg>
+
+<main class="wrap">
+
+  <!-- ================= Hero ================= -->
+  <header class="hero">
+    <div>
+      <div class="brandmark"><span class="dot"><svg class="i" style="width:16px;height:16px"><use href="#i-send"/></svg></span>telebirr · redesign concept</div>
+      <h1>The same telebirr, <span>calmer and quicker.</span></h1>
+      <p>A clean, modern take on Ethiopia's mobile money app. It keeps telebirr's lime green and blue, its services and its bilingual voice. It drops the clutter, adds hierarchy, and puts the four things people do most one tap from home.</p>
+    </div>
+    <span class="disclaimer">Unofficial design concept · not affiliated with Ethio telecom</span>
+  </header>
+
+  <!-- ================= Design system ================= -->
+  <div class="section-title"><h2>Design system</h2><span>telebirr's colours, refined into a token set</span></div>
+  <section class="tokens">
+    <div class="tcard">
+      <h3>Brand colour</h3>
+      <div class="swatches">
+        <div class="sw" style="background:var(--tb-blue-900)"><small>Blue 900</small></div>
+        <div class="sw" style="background:var(--tb-blue)"><small>Blue</small></div>
+        <div class="sw" style="background:var(--tb-blue-400)"><small>Blue 400</small></div>
+        <div class="sw light" style="background:var(--tb-blue-50)"><small>Blue 50</small></div>
+        <div class="sw" style="background:var(--tb-green-700)"><small>Green 700</small></div>
+        <div class="sw" style="background:var(--tb-green)"><small>Green</small></div>
+        <div class="sw light" style="background:var(--tb-green-400)"><small>Green 400</small></div>
+        <div class="sw light" style="background:var(--tb-green-50)"><small>Green 50</small></div>
+      </div>
+      <div class="sw" style="background:var(--grad-brand);margin-top:8px;height:44px"><small>Brand gradient · hero surfaces only</small></div>
+    </div>
+    <div class="tcard">
+      <h3>Type · Plus Jakarta Sans + Noto Sans Ethiopic</h3>
+      <div class="typescale">
+        <div><b style="font-size:30px;letter-spacing:-.03em">12,480.50</b><em>Display 30/800</em></div>
+        <div><b style="font-size:18px;letter-spacing:-.02em">Send money</b><em>Title 18/700</em></div>
+        <div><b style="font-size:15px">Recent activity</b><em>Heading 15/700</em></div>
+        <div><span style="font-size:14px">Paid to Kaldi's Coffee</span><em>Body 14/500</em></div>
+        <div><span class="et" style="font-size:15px;font-weight:600">ገንዘብ ላክ · ክፈል</span><em>Amharic 15/600</em></div>
+      </div>
+    </div>
+    <div class="tcard">
+      <h3>Components</h3>
+      <div class="comp-row" style="margin-bottom:12px">
+        <button class="demo-btn" style="background:var(--tb-blue);color:#fff">Continue</button>
+        <button class="demo-btn" style="background:var(--tb-green-600);color:#fff"><svg class="i" style="width:18px;height:18px"><use href="#i-check"/></svg>Confirm</button>
+        <button class="demo-btn" style="background:var(--tb-blue-50);color:var(--tb-blue)">Cancel</button>
+      </div>
+      <div class="comp-row" style="margin-bottom:12px">
+        <span class="chip">+ 2.4% this month</span><span class="chip blue">Verified</span><span class="chip ghost">All</span><span class="chip active" style="background:#0E1A2B;color:#fff">Received</span>
+      </div>
+      <div class="comp-row">
+        <span class="si g" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-phone"/></svg></span>
+        <span class="si b" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-bank"/></svg></span>
+        <span class="si c" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-wifi"/></svg></span>
+        <span class="si y" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-piggy"/></svg></span>
+        <span class="si p" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-group"/></svg></span>
+      </div>
+      <p style="font-size:12px;color:var(--page-muted);margin-top:10px">Radius 10 / 14 / 20 / 28 · 4-pt spacing · 1.8 px stroke icons on tinted tiles</p>
+    </div>
+    <div class="tcard">
+      <h3>What changed</h3>
+      <ul class="principles">
+        <li><b>1</b>Balance becomes the hero card, with a hide toggle and wallet sub-balances.</li>
+        <li><b>2</b>Send, Cash out, Scan and Top up sit on the balance card. No hunting.</li>
+        <li><b>3</b>The 20+ icon wall becomes 8 core services. Everything else moves to Explore.</li>
+        <li><b>4</b>Scan to pay is the centre tab, always one thumb away.</li>
+        <li><b>5</b>English and አማርኛ have equal standing, with a proper Ethiopic font.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= Screens ================= -->
+  <div class="section-title"><h2>Screens</h2><span>Tap the eye on Home to hide the balance</span></div>
+  <section class="gallery">
+
+    <!-- ---------- 1. HOME ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen">
+        <div class="scroll">
+          <div class="header-home">
+            <div class="statusbar on-dark"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+            <div class="greet">
+              <div class="avatar" style="background:rgba(255,255,255,.2);color:#fff">AT</div>
+              <div class="who"><small>Good morning · <span class="et">እንደምን አደሩ</span></small><b>Abeba Tesfaye</b></div>
+              <button class="icon-btn glass" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg><span class="badge"></span></button>
+            </div>
+          </div>
+
+          <div class="balance">
+            <div class="row">
+              <span class="lbl">Main wallet balance</span>
+              <button class="eye" id="eyeBtn" aria-label="Hide balance"><svg class="i"><use href="#i-eye"/></svg></button>
+            </div>
+            <div class="amt" id="balAmt"><small>ETB</small><span>12,480.50</span></div>
+            <span class="chip">+ ETB 3,200 received this week</span>
+            <div class="sub-balances">
+              <div><small>Endekise savings</small><b data-mask>ETB 5,000.00</b></div>
+              <div><small>Reward points</small><b>1,240 pts</b></div>
+            </div>
+            <div class="quick">
+              <button><span class="qi"><svg class="i"><use href="#i-send"/></svg></span>Send</button>
+              <button><span class="qi"><svg class="i"><use href="#i-cashout"/></svg></span>Cash out</button>
+              <button><span class="qi"><svg class="i"><use href="#i-qr"/></svg></span>My QR</button>
+              <button><span class="qi"><svg class="i"><use href="#i-plus"/></svg></span>Top up</button>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block-head"><h5>Services</h5><a href="#">See all</a></div>
+            <div class="services">
+              <div class="svc"><span class="si g"><svg class="i"><use href="#i-phone"/></svg></span>Airtime</div>
+              <div class="svc"><span class="si c"><svg class="i"><use href="#i-wifi"/></svg></span>Packages</div>
+              <div class="svc"><span class="si b"><svg class="i"><use href="#i-bill"/></svg></span>Pay bills</div>
+              <div class="svc"><span class="si b"><svg class="i"><use href="#i-bank"/></svg></span>Bank transfer</div>
+              <div class="svc"><span class="si y"><svg class="i"><use href="#i-piggy"/></svg></span>Endekise</div>
+              <div class="svc"><span class="si g"><svg class="i"><use href="#i-loan"/></svg></span>Mela loan</div>
+              <div class="svc"><span class="si p"><svg class="i"><use href="#i-group"/></svg></span>Equb</div>
+              <div class="svc"><span class="si" style="background:var(--surface);color:var(--ink-2)"><svg class="i"><use href="#i-grid"/></svg></span>More</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="promo">
+              <span class="pi"><svg class="i" style="width:26px;height:26px"><use href="#i-gift"/></svg></span>
+              <div style="position:relative;z-index:1"><b>Get 10% back on airtime</b><small>Buy any package with telebirr this week</small></div>
+            </div>
+            <div class="dots"><i class="on"></i><i></i><i></i></div>
+          </div>
+
+          <div class="block">
+            <div class="block-head"><h5>Recent activity</h5><a href="#">View all</a></div>
+            <div class="list">
+              <div class="tx"><span class="ti si g"><svg class="i"><use href="#i-receive"/></svg></span><div class="mid"><b>Dawit Bekele</b><small>Received · 09:12</small></div><div class="amt pos">+2,500.00</div></div>
+              <div class="tx"><span class="ti si b"><svg class="i"><use href="#i-cart"/></svg></span><div class="mid"><b>Kaldi's Coffee</b><small>Merchant payment · Yesterday</small></div><div class="amt neg">−185.00</div></div>
+              <div class="tx"><span class="ti si c"><svg class="i"><use href="#i-wifi"/></svg></span><div class="mid"><b>Monthly data 12 GB</b><small>Package · Oct 8</small></div><div class="amt neg">−399.00</div></div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="tabbar">
+          <button class="tab on"><svg class="i"><use href="#i-home"/></svg>Home</button>
+          <button class="tab"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
+          <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
+          <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
+        </nav>
+        <span class="home-ind"></span>
+      </div></div>
+      <figcaption><b>Home</b><span>Balance first, actions on the card, 8 core services</span></figcaption>
+    </figure>
+
+    <!-- ---------- 2. SEND MONEY ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen">
+        <div class="scroll" style="padding-bottom:0">
+          <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+          <div class="appbar">
+            <button class="icon-btn" aria-label="Back"><svg class="i"><use href="#i-back"/></svg></button>
+            <h4>Send money</h4>
+            <button class="icon-btn" aria-label="Scan"><svg class="i"><use href="#i-scan"/></svg></button>
+          </div>
+
+          <div class="recipient">
+            <div class="avatar" style="background:var(--tb-green-100);color:var(--tb-green-700);width:46px;height:46px">DB</div>
+            <div class="mid"><b>Dawit Bekele</b><small>+251 91 ••• 4821</small><br><span class="verified"><svg class="i"><use href="#i-shield"/></svg>Verified telebirr account</span></div>
+            <button class="chip ghost">Change</button>
+          </div>
+
+          <div class="amount-entry">
+            <small>Amount</small>
+            <div class="big"><span>ETB</span>1,500<i class="caret"></i></div>
+            <div class="fee-line">Fee: free · Available ETB 12,480.50</div>
+            <div class="presets"><span class="chip blue">500</span><span class="chip blue">1,000</span><span class="chip blue">2,000</span><span class="chip blue">5,000</span></div>
+          </div>
+
+          <div class="note-field"><svg class="i"><use href="#i-note"/></svg>Add a note, e.g. “Rent for October”</div>
+
+          <div class="keypad">
+            <button>1</button><button>2</button><button>3</button>
+            <button>4</button><button>5</button><button>6</button>
+            <button>7</button><button>8</button><button>9</button>
+            <button>.</button><button>0</button><button aria-label="Delete"><svg class="i" style="margin:auto"><use href="#i-backspace"/></svg></button>
+          </div>
+        </div>
+        <button class="cta">Continue <svg class="i" style="width:18px;height:18px"><use href="#i-chev"/></svg></button>
+        <span class="home-ind"></span>
+      </div></div>
+      <figcaption><b>Send money</b><span>Verified recipient, big amount, fee shown up front</span></figcaption>
+    </figure>
+
+    <!-- ---------- 3. SCAN ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen scan-screen">
+        <div class="scan-bg"></div>
+        <div class="statusbar on-dark"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+        <div class="scan-top">
+          <button class="icon-btn glass" aria-label="Close"><svg class="i"><use href="#i-close"/></svg></button>
+          <h4>Scan to pay</h4>
+          <button class="icon-btn glass" aria-label="Help"><svg class="i"><use href="#i-help"/></svg></button>
+        </div>
+        <div class="viewfinder"><i></i><i></i><i></i><i></i><div class="qr-ghost"></div><div class="laser"></div></div>
+        <p class="scan-hint">Point at any telebirr merchant QR code</p>
+        <div class="scan-tools">
+          <button><span class="ring"><svg class="i"><use href="#i-flash"/></svg></span>Flash</button>
+          <button><span class="ring"><svg class="i"><use href="#i-image"/></svg></span>Gallery</button>
+          <button><span class="ring"><svg class="i"><use href="#i-note"/></svg></span>Enter code</button>
+        </div>
+        <div class="scan-sheet">
+          <button class="on"><svg class="i" style="width:18px;height:18px"><use href="#i-scan"/></svg>Scan</button>
+          <button><svg class="i" style="width:18px;height:18px"><use href="#i-qr"/></svg>My code</button>
+        </div>
+        <span class="home-ind light" style="bottom:4px;opacity:.5"></span>
+      </div></div>
+      <figcaption><b>Scan to pay</b><span>Full-bleed camera, green brand frame, one switch to “My code”</span></figcaption>
+    </figure>
+
+    <!-- ---------- 4. ACTIVITY ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen">
+        <div class="scroll">
+          <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+          <div class="appbar">
+            <h4>Activity</h4>
+            <div style="display:flex;gap:8px">
+              <button class="icon-btn" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></button>
+              <button class="icon-btn" aria-label="Download statement"><svg class="i"><use href="#i-download"/></svg></button>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="block-head" style="padding:0;margin-bottom:12px"><h5>October 2026</h5><span class="chip ghost">Month ▾</span></div>
+            <div class="split">
+              <div style="background:var(--tb-green-50)"><small style="color:var(--tb-green-700)"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow-down"/></svg>Money in</small><b>ETB 18,250</b></div>
+              <div style="background:var(--tb-blue-50)"><small style="color:var(--tb-blue)"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow-up"/></svg>Money out</small><b>ETB 9,412</b></div>
+            </div>
+            <div class="bars">
+              <div><span style="height:44%"></span><small>May</small></div>
+              <div><span style="height:62%"></span><small>Jun</small></div>
+              <div><span style="height:38%"></span><small>Jul</small></div>
+              <div><span style="height:70%"></span><small>Aug</small></div>
+              <div><span style="height:55%"></span><small>Sep</small></div>
+              <div class="on"><span style="height:82%"></span><small>Oct</small></div>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip active">All</span><span class="chip ghost">Received</span><span class="chip ghost">Sent</span><span class="chip ghost">Payments</span><span class="chip ghost">Airtime</span>
+          </div>
+
+          <p class="date-sep">Today</p>
+          <div class="block" style="margin-top:0">
+            <div class="list">
+              <div class="tx"><span class="ti si g"><svg class="i"><use href="#i-receive"/></svg></span><div class="mid"><b>Dawit Bekele</b><small>Received · 09:12</small></div><div class="amt pos">+2,500.00<small>Completed</small></div></div>
+              <div class="tx"><span class="ti si y"><svg class="i"><use href="#i-bolt"/></svg></span><div class="mid"><b>EEU electricity bill</b><small>Bill payment · 08:40</small></div><div class="amt neg">−642.30<small>Completed</small></div></div>
+            </div>
+          </div>
+          <p class="date-sep">Yesterday</p>
+          <div class="block" style="margin-top:0">
+            <div class="list">
+              <div class="tx"><span class="ti si b"><svg class="i"><use href="#i-cart"/></svg></span><div class="mid"><b>Kaldi's Coffee</b><small>Merchant payment · 17:22</small></div><div class="amt neg">−185.00<small>Completed</small></div></div>
+              <div class="tx"><span class="ti si b"><svg class="i"><use href="#i-bank"/></svg></span><div class="mid"><b>To CBE ••• 0942</b><small>Bank transfer · 12:05</small></div><div class="amt neg">−3,000.00<small>Completed</small></div></div>
+              <div class="tx"><span class="ti si g"><svg class="i"><use href="#i-phone"/></svg></span><div class="mid"><b>Airtime for Mom</b><small>+251 91 ••• 3307 · 10:15</small></div><div class="amt neg">−100.00<small>Completed</small></div></div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
+          <button class="tab on"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
+          <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
+          <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
+        </nav>
+        <span class="home-ind"></span>
+      </div></div>
+      <figcaption><b>Activity</b><span>Monthly in/out at a glance, grouped by day, filter chips</span></figcaption>
+    </figure>
+
+    <!-- ---------- 5. EXPLORE ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen">
+        <div class="scroll">
+          <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+          <div class="appbar"><h4>Explore</h4><button class="icon-btn" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg></button></div>
+          <div class="search" style="margin-bottom:16px"><svg class="i"><use href="#i-search"/></svg>Search services, billers, mini apps</div>
+
+          <div class="feature-card">
+            <span class="go">Open</span>
+            <small>Featured mini app</small>
+            <b>Book flights, pay with telebirr</b>
+            <p>Domestic and international tickets in a few taps.</p>
+          </div>
+
+          <div class="block">
+            <div class="block-head"><h5>Financial</h5><a href="#">All</a></div>
+            <div class="apps">
+              <div class="app"><span class="ai" style="background:var(--tb-green)"><svg class="i"><use href="#i-piggy"/></svg></span>Endekise</div>
+              <div class="app"><span class="ai" style="background:var(--tb-green-700)"><svg class="i"><use href="#i-loan"/></svg></span>Mela</div>
+              <div class="app"><span class="ai" style="background:#6B4BC8"><svg class="i"><use href="#i-group"/></svg></span>Equb</div>
+              <div class="app"><span class="ai" style="background:var(--tb-blue)"><svg class="i"><use href="#i-bank"/></svg></span>Banks</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block-head"><h5>Bills &amp; utilities</h5><a href="#">All</a></div>
+            <div class="apps">
+              <div class="app"><span class="ai" style="background:var(--tb-gold)"><svg class="i"><use href="#i-bolt"/></svg></span>Electricity</div>
+              <div class="app"><span class="ai" style="background:var(--tb-cyan)"><svg class="i"><use href="#i-drop"/></svg></span>Water</div>
+              <div class="app"><span class="ai" style="background:var(--tb-blue-400)"><svg class="i"><use href="#i-cap"/></svg></span>School fees</div>
+              <div class="app"><span class="ai" style="background:var(--tb-red)"><svg class="i"><use href="#i-heart"/></svg></span>Donate</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="block-head"><h5>Lifestyle</h5><a href="#">All</a></div>
+            <div class="apps">
+              <div class="app"><span class="ai" style="background:var(--tb-blue-900)"><svg class="i"><use href="#i-plane"/></svg></span>Flights</div>
+              <div class="app"><span class="ai" style="background:#0E1A2B"><svg class="i"><use href="#i-car"/></svg></span>Ride</div>
+              <div class="app"><span class="ai" style="background:#E2742B"><svg class="i"><use href="#i-cart"/></svg></span>Shop</div>
+              <div class="app"><span class="ai" style="background:#C2373B"><svg class="i"><use href="#i-ticket"/></svg></span>Events</div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
+          <button class="tab"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
+          <button class="tab on"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
+          <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
+        </nav>
+        <span class="home-ind"></span>
+      </div></div>
+      <figcaption><b>Explore</b><span>Mini apps and billers grouped by intent, with search</span></figcaption>
+    </figure>
+
+    <!-- ---------- 6. ME ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen">
+        <div class="scroll">
+          <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+          <div class="appbar"><h4>Me</h4><button class="icon-btn" aria-label="Show my QR"><svg class="i"><use href="#i-qr"/></svg></button></div>
+          <div class="profile-head">
+            <div class="avatar">AT</div>
+            <h4>Abeba Tesfaye</h4>
+            <small>+251 91 234 5678 · <span class="verified"><svg class="i"><use href="#i-shield"/></svg>KYC Level 2</span></small>
+          </div>
+          <div class="level">
+            <span class="si y" style="width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(245,178,27,.18);color:var(--tb-gold)"><svg class="i"><use href="#i-star"/></svg></span>
+            <div class="mid"><b>Gold member</b><small>1,240 / 1,800 pts to Platinum</small><div class="progress"><i></i></div></div>
+          </div>
+
+          <div class="block">
+            <div class="list settings">
+              <div class="row"><span class="ri si b"><svg class="i"><use href="#i-lock"/></svg></span><div class="mid">Change PIN<small>Last changed 3 months ago</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="ri si g"><svg class="i"><use href="#i-finger"/></svg></span><div class="mid">Biometric login<small>Face or fingerprint</small></div><span class="toggle"></span></div>
+              <div class="row"><span class="ri si c"><svg class="i"><use href="#i-globe"/></svg></span><div class="mid">Language</div><div class="lang"><span class="on">EN</span><span class="et">አማ</span><span>Orm</span></div></div>
+              <div class="row"><span class="ri si y"><svg class="i"><use href="#i-bank"/></svg></span><div class="mid">Linked banks<small>CBE, Awash</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="list settings">
+              <div class="row"><span class="ri si p"><svg class="i"><use href="#i-help"/></svg></span><div class="mid">Help &amp; support<small>Call 127 or chat with us</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="ri si r"><svg class="i"><use href="#i-logout"/></svg></span><div class="mid" style="color:#C2373B">Log out</div></div>
+            </div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
+          <button class="tab"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
+          <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
+          <button class="tab on"><svg class="i"><use href="#i-user"/></svg>Me</button>
+        </nav>
+        <span class="home-ind"></span>
+      </div></div>
+      <figcaption><b>Me</b><span>Identity, rewards tier, security and language in one place</span></figcaption>
+    </figure>
+
+    <!-- ---------- 7. SUCCESS ---------- -->
+    <figure class="shot">
+      <div class="phone"><div class="screen">
+        <div class="success">
+          <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+          <div class="tick"><svg class="i"><use href="#i-check"/></svg></div>
+          <h4>Money sent</h4>
+          <div class="sum"><span>ETB</span>1,500.00</div>
+          <p class="to">to Dawit Bekele · +251 91 ••• 4821</p>
+          <div class="receipt">
+            <div class="r"><span>Transaction ID</span><b>DJA8K2L9QX</b></div>
+            <div class="r"><span>Date</span><b>Oct 10, 2026 · 09:41</b></div>
+            <div class="r"><span>Service fee</span><b class="pos">Free</b></div>
+            <div class="r"><span>Note</span><b>Rent for October</b></div>
+            <div class="r"><span>New balance</span><b>ETB 10,980.50</b></div>
+          </div>
+        </div>
+        <div class="success-actions">
+          <button class="btn-secondary"><svg class="i" style="width:18px;height:18px"><use href="#i-share"/></svg>Share receipt</button>
+          <button class="btn-primary">Done</button>
+        </div>
+        <span class="home-ind"></span>
+      </div></div>
+      <figcaption><b>Confirmation</b><span>Clear outcome, shareable receipt, new balance</span></figcaption>
+    </figure>
+
+  </section>
+
+  <footer class="foot">
+    <span>Concept redesign for portfolio and discussion. telebirr and Ethio telecom are trademarks of their owners.</span>
+    <span>Names, numbers and amounts are fictional.</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var btn=document.getElementById('eyeBtn');
+  var amt=document.querySelector('#balAmt span');
+  var masked=document.querySelectorAll('[data-mask]');
+  var real=amt.textContent, realSub=[].map.call(masked,function(e){return e.textContent});
+  var hidden=false;
+  btn.addEventListener('click',function(){
+    hidden=!hidden;
+    amt.textContent=hidden?'••••••':real;
+    masked.forEach(function(e,i){e.textContent=hidden?'ETB ••••':realSub[i]});
+    btn.querySelector('use').setAttribute('href',hidden?'#i-eye-off':'#i-eye');
+    btn.setAttribute('aria-label',hidden?'Show balance':'Hide balance');
+  });
+})();
+</script>
+</body>
+</html>
