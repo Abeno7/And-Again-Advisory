@@ -2,91 +2,136 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A clean, modern redesign of the telebirr mobile money app with an animated insights dashboard and a dark theme.">
 <title>telebirr Redesign Concept</title>
-<meta name="description" content="Unofficial concept: a clean, modern redesign of the telebirr mobile money app that keeps its green-and-blue design language.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ------------------------------------------------------------------
-   DESIGN TOKENS — telebirr palette, refined
-   Brand green (Ethio telecom lime) + telebirr blue stay the anchors.
-   Neutrals are cooler and lighter so the brand colours do the work.
-------------------------------------------------------------------- */
+/* Layout: showcase page. Hero = pitch + live animated dashboard phone, then token cards, then a gallery of phone screens.
+   Palette: brand blue + light green on white (light) or deep navy (dark); gradients only on hero surfaces. */
 :root{
-  --tb-green-50:#F3FAE8; --tb-green-100:#E2F3C9; --tb-green-400:#A3D45A;
-  --tb-green:#8DC63F;    --tb-green-600:#6FA62A; --tb-green-700:#558321;
-  --tb-blue-50:#EAF2FB;  --tb-blue-100:#CFE2F6;  --tb-blue-400:#3B8AD9;
-  --tb-blue:#0B5CAB;     --tb-blue-700:#08447F;  --tb-blue-900:#062B52;
-  --tb-cyan:#00A6E0;     --tb-gold:#F5B21B;      --tb-red:#E5484D;
+  /* brand: fixed across themes */
+  --tb-blue:#0B5CAB; --tb-blue-400:#3B8AD9; --tb-blue-700:#08447F; --tb-blue-900:#062B52;
+  --tb-green:#8DC63F; --tb-green-400:#A3D45A; --tb-green-600:#6FA62A; --tb-green-700:#558321;
+  --tb-cyan:#00A6E0; --tb-gold:#F5B21B; --tb-red:#E5484D;
+  --grad-brand:linear-gradient(135deg,#0B5CAB 0%,#0A79C2 45%,#5DB54A 100%);
+  --grad-soft:linear-gradient(135deg,#0B5CAB,#3B8AD9 60%,#8DC63F);
 
-  --ink:#0E1A2B; --ink-2:#3A4A5E; --muted:#6B7A8C; --faint:#9AA7B6;
-  --line:#E7EDF3; --surface:#F4F7FA; --card:#FFFFFF;
-
-  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px;
+  /* app surface tokens (light) */
+  --surface:#F4F7FA; --card:#FFFFFF; --card-2:#F4F7FA; --line:#E7EDF3;
+  --ink:#0E1A2B; --ink-2:#3A4A5E; --muted:#6B7A8C; --faint:#9AA7B6; --ink-inv:#FFFFFF;
+  --g-tint:#F3FAE8; --g-tint-2:#E2F3C9; --g-text:#558321;
+  --b-tint:#EAF2FB; --b-tint-2:#CFE2F6; --b-text:#0B5CAB;
+  --c-tint:#E3F6FD; --c-text:#0587B8; --y-tint:#FEF5DD; --y-text:#B07B00;
+  --r-tint:#FDECEC; --r-text:#C2373B; --p-tint:#EFEAFB; --p-text:#6B4BC8;
+  --tabbar:rgba(255,255,255,.92); --seg:#E9EEF3; --btn:#0B5CAB;
   --shadow-1:0 1px 2px rgba(14,26,43,.05),0 2px 8px rgba(14,26,43,.05);
   --shadow-2:0 8px 24px rgba(11,92,171,.14);
-  --grad-brand:linear-gradient(135deg,#0B5CAB 0%,#0A79C2 48%,#5DB54A 100%);
 
-  /* showcase page (not the app) */
-  --page-bg:#EEF2F6; --page-ink:#0E1A2B; --page-muted:#5B6B7D; --page-card:#FFFFFF; --page-line:#DCE3EA;
+  /* showcase page tokens (light) */
+  --page-bg:#EDF2F7; --page-ink:#0E1A2B; --page-muted:#5B6B7D; --page-card:#FFFFFF; --page-line:#DCE3EA;
+  --glow-a:rgba(59,138,217,.18); --glow-b:rgba(141,198,63,.20); --frame:#0B1220; --frame-edge:rgba(255,255,255,.04);
+
+  --r-sm:10px; --r-md:14px; --r-lg:20px; --r-xl:28px;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:"Bricolage Grotesque","Plus Jakarta Sans",system-ui,sans-serif;
   --font-et:"Noto Sans Ethiopic","Plus Jakarta Sans",sans-serif;
+  color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --page-bg:#0A1220; --page-ink:#E8EEF5; --page-muted:#93A3B6; --page-card:#121D2E; --page-line:#22324A;
+    --surface:#071423; --card:#0E1F33; --card-2:#13273F; --line:#1B3049;
+    --ink:#EAF2FA; --ink-2:#BFCEDD; --muted:#8AA0B6; --faint:#5E7690; --ink-inv:#071423;
+    --g-tint:rgba(141,198,63,.14); --g-tint-2:rgba(141,198,63,.26); --g-text:#A9DA62;
+    --b-tint:rgba(59,138,217,.16); --b-tint-2:rgba(59,138,217,.32); --b-text:#73B2F2;
+    --c-tint:rgba(0,166,224,.16); --c-text:#4FC6EE; --y-tint:rgba(245,178,27,.15); --y-text:#F5C24B;
+    --r-tint:rgba(229,72,77,.16); --r-text:#FF8A8E; --p-tint:rgba(139,108,226,.18); --p-text:#B9A4F5;
+    --tabbar:rgba(9,22,38,.9); --seg:#0A192B; --btn:#1F74C9;
+    --shadow-1:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.25);
+    --shadow-2:0 10px 30px rgba(0,0,0,.45);
+    --page-bg:#050D18; --page-ink:#E8EEF5; --page-muted:#93A3B6; --page-card:#0B1727; --page-line:#1A2A40;
+    --glow-a:rgba(31,116,201,.28); --glow-b:rgba(141,198,63,.14); --frame:#1A2638; --frame-edge:rgba(255,255,255,.08);
+    color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --page-bg:#0A1220; --page-ink:#E8EEF5; --page-muted:#93A3B6; --page-card:#121D2E; --page-line:#22324A;
+  --surface:#071423; --card:#0E1F33; --card-2:#13273F; --line:#1B3049;
+  --ink:#EAF2FA; --ink-2:#BFCEDD; --muted:#8AA0B6; --faint:#5E7690; --ink-inv:#071423;
+  --g-tint:rgba(141,198,63,.14); --g-tint-2:rgba(141,198,63,.26); --g-text:#A9DA62;
+  --b-tint:rgba(59,138,217,.16); --b-tint-2:rgba(59,138,217,.32); --b-text:#73B2F2;
+  --c-tint:rgba(0,166,224,.16); --c-text:#4FC6EE; --y-tint:rgba(245,178,27,.15); --y-text:#F5C24B;
+  --r-tint:rgba(229,72,77,.16); --r-text:#FF8A8E; --p-tint:rgba(139,108,226,.18); --p-text:#B9A4F5;
+  --tabbar:rgba(9,22,38,.9); --seg:#0A192B; --btn:#1F74C9;
+  --shadow-1:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.25);
+  --shadow-2:0 10px 30px rgba(0,0,0,.45);
+  --page-bg:#050D18; --page-ink:#E8EEF5; --page-muted:#93A3B6; --page-card:#0B1727; --page-line:#1A2A40;
+  --glow-a:rgba(31,116,201,.28); --glow-b:rgba(141,198,63,.14); --frame:#1A2638; --frame-edge:rgba(255,255,255,.08);
+  color-scheme:dark;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{font-family:var(--font);background:var(--page-bg);color:var(--page-ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--page-bg);color:var(--page-ink);line-height:1.45;-webkit-font-smoothing:antialiased;transition:background-color .4s ease,color .4s ease}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:focus-visible{outline:2px solid var(--tb-green);outline-offset:2px;border-radius:10px}
 svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .et{font-family:var(--font-et)}
+.num{font-variant-numeric:tabular-nums}
 
 /* ---------------- Showcase chrome ---------------- */
-.wrap{max-width:1320px;margin:0 auto;padding:48px 16px 80px}
-.hero{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;margin-bottom:36px}
+.backdrop{position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  radial-gradient(40rem 30rem at 85% -5%,var(--glow-a),transparent 70%),
+  radial-gradient(36rem 28rem at -10% 40%,var(--glow-b),transparent 70%)}
+.wrap{position:relative;z-index:1;overflow-x:clip;max-width:1320px;margin:0 auto;padding-inline:16px;padding-block:24px 80px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}
 .brandmark{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:-.01em}
-.brandmark .dot{width:30px;height:30px;border-radius:9px;background:var(--grad-brand);display:grid;place-items:center;color:#fff}
-.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.05;letter-spacing:-.035em;font-weight:800;margin:16px 0 12px;max-width:16ch}
-.hero h1 span{background:linear-gradient(90deg,var(--tb-blue),var(--tb-green-600));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--page-muted);max-width:56ch;font-size:16px}
-.disclaimer{font-size:12px;color:var(--page-muted);border:1px solid var(--page-line);border-radius:999px;padding:6px 12px;background:var(--page-card)}
+.brandmark .dot{width:32px;height:32px;border-radius:10px;background:var(--grad-brand);display:grid;place-items:center;color:#fff;flex:none}
+.top-actions{display:flex;gap:8px}
+.pill-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--page-line);background:var(--page-card);font-size:13px;font-weight:600;color:var(--page-ink)}
+.pill-btn svg{width:18px;height:18px}
+.pill-btn:hover{border-color:var(--tb-blue-400)}
 
-.section-title{display:flex;align-items:baseline;gap:12px;margin:56px 0 20px}
-.section-title h2{font-size:22px;letter-spacing:-.02em}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center;margin-bottom:24px}
+.hero h1{font-family:var(--font-display);font-size:clamp(36px,6vw,68px);line-height:1;letter-spacing:-.04em;font-weight:800;margin:14px 0 18px;text-wrap:balance}
+.hero h1 span{background:linear-gradient(90deg,var(--tb-blue-400),var(--tb-green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--page-muted);max-width:52ch;font-size:16.5px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g-text)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:28px;margin-top:28px}
+.hero-stats b{display:block;font-family:var(--font-display);font-size:28px;letter-spacing:-.03em}
+.hero-stats span{font-size:12.5px;color:var(--page-muted)}
+.disclaimer{display:inline-block;margin-top:22px;font-size:12px;color:var(--page-muted);border:1px solid var(--page-line);border-radius:999px;padding:6px 12px;background:var(--page-card)}
+.hero-phone{position:relative}
+.hero-phone::before{content:"";position:absolute;inset:8% 0 -6%;background:var(--grad-soft);filter:blur(60px);opacity:.35;border-radius:50%;z-index:-1}
+
+.section-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:64px 0 20px}
+.section-title h2{font-family:var(--font-display);font-size:26px;letter-spacing:-.03em}
 .section-title span{color:var(--page-muted);font-size:14px}
 
 .tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.tcard{background:var(--page-card);border:1px solid var(--page-line);border-radius:20px;padding:20px}
-.tcard h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--page-muted);margin-bottom:14px}
+.tcard{background:var(--page-card);border:1px solid var(--page-line);border-radius:20px;padding:20px;min-width:0}
+.tcard h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--page-muted);margin-bottom:14px}
 .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .sw{border-radius:12px;height:56px;position:relative;overflow:hidden}
-.sw small{position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:600;color:#fff;mix-blend-mode:normal;text-shadow:0 1px 2px rgba(0,0,0,.25)}
-.sw.light small{color:var(--ink);text-shadow:none}
-.typescale div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--page-line);padding:6px 0}
+.sw small{position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.sw.light small{color:#0E1A2B;text-shadow:none}
+.typescale div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:1px dashed var(--page-line);padding:6px 0}
 .typescale div:last-child{border:0}
-.typescale em{font-style:normal;font-size:11px;color:var(--page-muted)}
+.typescale em{font-style:normal;font-size:11px;color:var(--page-muted);white-space:nowrap}
 .comp-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.principles li{list-style:none;display:flex;gap:10px;padding:7px 0;font-size:14px;color:var(--page-ink)}
-.principles b{display:inline-grid;place-items:center;flex:none;width:22px;height:22px;border-radius:7px;background:var(--tb-green-100);color:var(--tb-green-700);font-size:12px}
+.principles li{list-style:none;display:flex;gap:10px;padding:7px 0;font-size:14px}
+.principles b{display:inline-grid;place-items:center;flex:none;width:22px;height:22px;border-radius:7px;background:var(--g-tint-2);color:var(--g-text);font-size:12px}
 
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:40px 24px;justify-items:center}
 .shot{display:flex;flex-direction:column;align-items:center;gap:14px}
-.shot figcaption{text-align:center}
+.shot figcaption{text-align:center;max-width:320px}
 .shot figcaption b{display:block;font-size:15px}
 .shot figcaption span{font-size:13px;color:var(--page-muted)}
 
 /* ---------------- Phone frame ---------------- */
-.phone{width:340px;height:720px;border-radius:48px;padding:10px;background:#0B1220;box-shadow:0 30px 60px -20px rgba(6,43,82,.35),0 0 0 1px rgba(255,255,255,.04) inset;position:relative;flex:none}
-.screen{width:100%;height:100%;border-radius:38px;overflow:hidden;position:relative;background:var(--surface);color:var(--ink);font-size:14px}
+.phone{width:340px;height:720px;border-radius:48px;padding:10px;background:var(--frame);box-shadow:0 30px 60px -20px rgba(6,43,82,.35),0 0 0 1px var(--frame-edge) inset;position:relative;flex:none;transition:background-color .4s}
+.screen{width:100%;height:100%;border-radius:38px;overflow:hidden;position:relative;background:var(--surface);color:var(--ink);font-size:14px;transition:background-color .4s,color .4s}
 .scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-bottom:96px}
 .scroll::-webkit-scrollbar{display:none}
 .statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 30px;font-size:13px;font-weight:700;position:relative;z-index:3}
@@ -96,67 +141,77 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .on-dark{color:#fff}
 
 /* ---------------- App components ---------------- */
-.appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 20px 14px}
+.appbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 20px 14px}
 .appbar h4{font-size:18px;font-weight:700;letter-spacing:-.02em}
-.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--card);box-shadow:var(--shadow-1);position:relative}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--card);box-shadow:var(--shadow-1);position:relative;color:var(--ink)}
 .icon-btn.glass{background:rgba(255,255,255,.16);box-shadow:none;color:#fff;backdrop-filter:blur(6px)}
 .icon-btn .badge{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--tb-gold);box-shadow:0 0 0 2px var(--tb-blue)}
 .avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
 
-.header-home{background:var(--grad-brand);color:#fff;padding-bottom:84px;position:relative;overflow:hidden}
-.header-home::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-90px;top:-70px;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)}
+.header-home{background:linear-gradient(120deg,#0B5CAB,#0A79C2,#3FA4C8,#5DB54A,#0A79C2,#0B5CAB);background-size:300% 300%;color:#fff;padding-bottom:84px;position:relative;overflow:hidden}
+.play .header-home{animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{background-position:100% 50%}}
+.header-home::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-90px;top:-70px;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%)}
 .header-home::after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;left:-80px;bottom:-110px;background:radial-gradient(circle,rgba(141,198,63,.45),transparent 70%)}
 .greet{display:flex;align-items:center;gap:12px;padding:4px 20px 0;position:relative;z-index:1}
 .greet .who{flex:1}
-.greet small{opacity:.8;font-size:12px}
+.greet small{opacity:.85;font-size:12px}
 .greet b{display:block;font-size:16px;letter-spacing:-.01em}
 
 .balance{margin:-64px 16px 0;background:var(--card);border-radius:var(--r-xl);padding:18px 18px 16px;box-shadow:var(--shadow-2);position:relative;z-index:2}
 .balance .row{display:flex;align-items:center;justify-content:space-between}
-.balance .lbl{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.balance .amt{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px;display:flex;align-items:baseline;gap:6px}
+.balance .lbl{font-size:12px;color:var(--muted)}
+.balance .amt{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:4px 0 6px;display:flex;align-items:baseline;gap:6px}
 .balance .amt small{font-size:14px;font-weight:600;color:var(--muted)}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--tb-green-50);color:var(--tb-green-700)}
-.chip.blue{background:var(--tb-blue-50);color:var(--tb-blue)}
-.chip.ghost{background:var(--surface);color:var(--ink-2)}
-.chip.active{background:var(--ink);color:#fff}
-.eye{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:var(--muted);background:var(--surface)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--g-tint);color:var(--g-text);white-space:nowrap}
+.chip.blue{background:var(--b-tint);color:var(--b-text)}
+.chip.ghost{background:var(--card-2);color:var(--ink-2)}
+.chip.active{background:var(--ink);color:var(--ink-inv)}
+button.chip:hover{filter:brightness(1.05)}
+.eye{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:var(--muted);background:var(--card-2)}
 .eye svg{width:18px;height:18px}
-.sub-balances{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.sub-balances div{background:var(--surface);border-radius:12px;padding:9px 11px}
+.sub-balances{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.sub-balances div{background:var(--card-2);border-radius:12px;padding:9px 11px}
 .sub-balances small{font-size:11px;color:var(--muted);display:block}
 .sub-balances b{font-size:13px}
 
 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .quick button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--ink-2)}
-.quick .qi{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--tb-blue);color:#fff}
-.quick button:nth-child(2) .qi{background:var(--tb-green);}
-.quick button:nth-child(3) .qi{background:var(--tb-blue-50);color:var(--tb-blue)}
-.quick button:nth-child(4) .qi{background:var(--tb-green-50);color:var(--tb-green-700)}
+.quick .qi{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--btn);color:#fff;transition:transform .2s}
+.quick button:hover .qi{transform:translateY(-2px)}
+.quick button:nth-child(2) .qi{background:var(--tb-green-600)}
+.quick button:nth-child(3) .qi{background:var(--b-tint);color:var(--b-text)}
+.quick button:nth-child(4) .qi{background:var(--g-tint);color:var(--g-text)}
 
 .block{padding:0 16px;margin-top:22px}
 .block-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px}
 .block-head h5{font-size:15px;font-weight:700;letter-spacing:-.01em}
-.block-head a{font-size:12px;font-weight:600;color:var(--tb-blue);text-decoration:none}
+.block-head a{font-size:12px;font-weight:600;color:var(--b-text);text-decoration:none}
 
 .services{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px;background:var(--card);border-radius:var(--r-lg);padding:16px 8px;box-shadow:var(--shadow-1)}
 .svc{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.2}
 .svc .si{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
-.si.g{background:var(--tb-green-50);color:var(--tb-green-700)}
-.si.b{background:var(--tb-blue-50);color:var(--tb-blue)}
-.si.c{background:#E3F6FD;color:#0587B8}
-.si.y{background:#FEF5DD;color:#B07B00}
-.si.r{background:#FDECEC;color:#C2373B}
-.si.p{background:#EFEAFB;color:#6B4BC8}
+.si.g{background:var(--g-tint);color:var(--g-text)}
+.si.b{background:var(--b-tint);color:var(--b-text)}
+.si.c{background:var(--c-tint);color:var(--c-text)}
+.si.y{background:var(--y-tint);color:var(--y-text)}
+.si.r{background:var(--r-tint);color:var(--r-text)}
+.si.p{background:var(--p-tint);color:var(--p-text)}
+.si.n{background:var(--card-2);color:var(--ink-2)}
 
-.promo{border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;gap:14px;background:linear-gradient(120deg,var(--tb-green) 0%,#62B34A 100%);color:#fff;position:relative;overflow:hidden}
+.carousel{overflow:hidden;border-radius:var(--r-lg)}
+.track{display:flex;transition:transform .6s cubic-bezier(.65,0,.35,1)}
+.promo{flex:0 0 100%;border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;gap:14px;color:#fff;position:relative;overflow:hidden;min-height:84px}
+.promo.p1{background:linear-gradient(120deg,var(--tb-green-600),#4FA84A)}
+.promo.p2{background:linear-gradient(120deg,var(--tb-blue),var(--tb-cyan))}
+.promo.p3{background:linear-gradient(120deg,var(--tb-blue-700),var(--tb-green-600))}
 .promo::after{content:"";position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.15)}
 .promo b{font-size:15px;display:block;letter-spacing:-.01em}
 .promo small{font-size:12px;opacity:.92}
 .promo .pi{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.22);display:grid;place-items:center;flex:none}
 .dots{display:flex;gap:4px;justify-content:center;margin-top:10px}
-.dots i{width:6px;height:6px;border-radius:3px;background:var(--line)}
-.dots i.on{width:18px;background:var(--tb-blue)}
+.dots i{width:6px;height:6px;border-radius:3px;background:var(--line);transition:width .3s,background-color .3s;cursor:pointer}
+.dots i.on{width:18px;background:var(--b-text)}
 
 .list{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:4px 14px}
 .tx{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -166,76 +221,132 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .tx .mid{flex:1;min-width:0}
 .tx .mid b{font-size:13.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tx .mid small{font-size:11.5px;color:var(--muted)}
-.tx .amt{font-weight:700;font-size:13.5px;text-align:right}
+.tx .amt{font-weight:700;font-size:13.5px;text-align:right;font-variant-numeric:tabular-nums}
 .tx .amt small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
-.pos{color:var(--tb-green-700)}
+.pos{color:var(--g-text)}
 .neg{color:var(--ink)}
 
 /* bottom nav */
-.tabbar{position:absolute;left:0;right:0;bottom:0;height:84px;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);align-items:start;padding:10px 6px 0;z-index:5}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:84px;background:var(--tabbar);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);align-items:start;padding:10px 6px 0;z-index:5}
 .tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:var(--faint)}
-.tab.on{color:var(--tb-blue)}
+.tab.on{color:var(--b-text)}
 .tab.on svg{stroke-width:2.2}
-.fab{width:56px;height:56px;border-radius:19px;margin:-26px auto 0;background:var(--grad-brand);color:#fff;display:grid;place-items:center;box-shadow:0 10px 22px rgba(11,92,171,.35);border:4px solid var(--surface)}
+.fab{width:56px;height:56px;border-radius:19px;margin:-26px auto 0;background:var(--grad-brand);color:#fff;display:grid;place-items:center;box-shadow:0 10px 22px rgba(11,92,171,.35);border:4px solid var(--surface);position:relative}
 .fab svg{width:24px;height:24px}
+.play .fab::after{content:"";position:absolute;inset:-4px;border-radius:21px;border:2px solid var(--tb-green);opacity:0;animation:ping 2.8s ease-out 1.5s infinite}
+@keyframes ping{0%{opacity:.7;transform:scale(1)}80%,100%{opacity:0;transform:scale(1.35)}}
 .home-ind{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:2px;background:var(--ink);opacity:.85;z-index:6}
-.home-ind.light{background:#fff}
 
 /* send money */
-.search{margin:0 20px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--muted);font-size:13px}
-.search svg{width:18px;height:18px}
-.seg{display:flex;background:#E9EEF3;border-radius:12px;padding:4px;margin:14px 20px 0}
-.seg button{flex:1;padding:8px 0;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--muted)}
-.seg button.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow-1)}
-.contacts{display:flex;gap:14px;padding:0 20px;overflow:hidden}
-.contact{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ink-2);width:52px;flex:none}
-.contact .avatar{width:50px;height:50px;font-size:15px}
-.contact.add .avatar{border:1.5px dashed var(--faint);background:transparent;color:var(--muted)}
 .recipient{margin:0 20px;background:var(--card);border-radius:var(--r-lg);padding:14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-1)}
-.recipient .mid{flex:1}
+.recipient .mid{flex:1;min-width:0}
 .recipient b{font-size:14px;display:block}
 .recipient small{font-size:12px;color:var(--muted)}
-.verified{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--tb-green-700)}
+.verified{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--g-text)}
 .verified svg{width:14px;height:14px}
 .amount-entry{text-align:center;padding:12px 0 2px}
 .amount-entry small{font-size:12px;color:var(--muted);font-weight:600}
-.amount-entry .big{font-size:42px;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-top:4px}
+.amount-entry .big{font-size:42px;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums}
 .amount-entry .big span{font-size:18px;color:var(--muted);font-weight:700;margin-right:6px;vertical-align:middle}
-.amount-entry .caret{display:inline-block;width:2px;height:36px;background:var(--tb-blue);vertical-align:middle;margin-left:2px;animation:blink 1s steps(1) infinite}
+.caret{display:inline-block;width:2px;height:36px;background:var(--b-text);vertical-align:middle;margin-left:2px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
+.big.bump{animation:bump .18s ease-out}
+@keyframes bump{50%{transform:scale(1.05)}}
 .presets{display:flex;gap:8px;justify-content:center;margin:10px 0 0}
 .note-field{margin:14px 20px 0;display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:11px 14px;font-size:12.5px;color:var(--muted);border:1px solid var(--line)}
 .note-field svg{width:18px;height:18px}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:8px 28px 0}
-.keypad button{height:40px;border-radius:14px;font-size:21px;font-weight:600}
-.keypad button:active{background:var(--line)}
-.cta{position:absolute;left:20px;right:20px;bottom:28px;height:54px;border-radius:16px;background:var(--tb-blue);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 20px rgba(11,92,171,.28);z-index:5}
-.cta.green{background:var(--tb-green-600);box-shadow:0 10px 20px rgba(111,166,42,.3)}
-.fee-line{display:flex;justify-content:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:10px}
+.keypad button{height:40px;border-radius:14px;font-size:21px;font-weight:600;color:var(--ink);transition:background-color .15s}
+.keypad button:active,.keypad button:hover{background:var(--card-2)}
+.cta{position:absolute;left:20px;right:20px;bottom:28px;height:54px;border-radius:16px;background:var(--btn);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 20px rgba(11,92,171,.28);z-index:5}
+.fee-line{display:flex;justify-content:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:8px}
 
 /* scan */
 .scan-screen{background:#06111F;color:#fff}
 .scan-bg{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 40%,#1D3554 0%,#0A1628 60%,#050C17 100%)}
-.scan-bg::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px)}
 .viewfinder{position:absolute;left:50%;top:218px;transform:translateX(-50%);width:230px;height:230px}
-.viewfinder i{position:absolute;width:44px;height:44px;border:4px solid var(--tb-green);}
+.viewfinder i{position:absolute;width:44px;height:44px;border:4px solid var(--tb-green)}
 .viewfinder i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0;border-top-left-radius:22px}
 .viewfinder i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0;border-top-right-radius:22px}
 .viewfinder i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-bottom-left-radius:22px}
 .viewfinder i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-bottom-right-radius:22px}
-.laser{position:absolute;left:14px;right:14px;height:2px;top:20px;background:linear-gradient(90deg,transparent,var(--tb-green),transparent);box-shadow:0 0 14px var(--tb-green);animation:scan 2.4s ease-in-out infinite alternate}
+.play .viewfinder{animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateX(-50%) scale(1.03)}}
+.laser{position:absolute;left:14px;right:14px;height:2px;top:20px;background:linear-gradient(90deg,transparent,var(--tb-green),transparent);box-shadow:0 0 14px var(--tb-green)}
+.play .laser{animation:scan 2.4s ease-in-out infinite alternate}
 @keyframes scan{to{top:206px}}
-.qr-ghost{position:absolute;inset:38px;opacity:.12;background:
-  conic-gradient(from 90deg at 2px 2px,#fff 25%,transparent 0) 0 0/16px 16px}
+.qr-ghost{position:absolute;inset:38px;opacity:.12;background:conic-gradient(from 90deg at 2px 2px,#fff 25%,transparent 0) 0 0/16px 16px}
 .scan-top{position:absolute;top:44px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:8px 20px;z-index:2}
 .scan-top h4{font-size:17px}
 .scan-hint{position:absolute;top:470px;left:0;right:0;text-align:center;font-size:13px;color:rgba(255,255,255,.75);z-index:2}
 .scan-tools{position:absolute;top:510px;left:0;right:0;display:flex;justify-content:center;gap:28px;z-index:2}
 .scan-tools button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.8)}
-.scan-tools .ring{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;backdrop-filter:blur(8px)}
-.scan-sheet{position:absolute;left:12px;right:12px;bottom:14px;background:#fff;color:var(--ink);border-radius:26px;padding:8px;display:flex;gap:6px;z-index:3}
+.scan-tools .ring{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center}
+.scan-sheet{position:absolute;left:12px;right:12px;bottom:14px;background:var(--card);color:var(--ink);border-radius:26px;padding:8px;display:flex;gap:6px;z-index:3}
 .scan-sheet button{flex:1;height:48px;border-radius:19px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
-.scan-sheet button.on{background:var(--tb-blue);color:#fff}
+.scan-sheet button.on{background:var(--btn);color:#fff}
+
+/* insights dashboard */
+.dash-card{margin:0 16px;background:var(--card);border-radius:var(--r-xl);padding:16px;box-shadow:var(--shadow-1)}
+.dash-card + .dash-card,.kpis + .dash-card{margin-top:12px}
+.trend-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.trend-head small{font-size:12px;color:var(--muted);display:block}
+.trend-head .big{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.trend-head .big span{font-size:13px;color:var(--muted);font-weight:600;margin-right:4px}
+.trend-head .big em{font-style:normal}
+.chart{display:block;width:100%;height:auto;margin-top:10px;overflow:visible}
+.chart .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.chart .line{fill:none;stroke:url(#lineGrad);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart .area{fill:url(#areaGrad)}
+.chart .dot{fill:var(--tb-green);stroke:var(--card);stroke-width:3;transform-box:fill-box;transform-origin:center}
+.chart .halo{fill:var(--tb-green);opacity:.25;transform-box:fill-box;transform-origin:center}
+.play .chart .line{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.6s cubic-bezier(.6,0,.2,1) .2s forwards}
+.play .chart .area{animation:fade .8s ease 1.2s both}
+.play .chart .dot{animation:pop .4s cubic-bezier(.3,1.6,.5,1) 1.7s both}
+.play .chart .halo{animation:halo 2s ease-out 2s infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{transform:scale(0)}}
+@keyframes halo{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.6);opacity:0}}
+.xlabels{display:flex;justify-content:space-between;font-size:10px;color:var(--faint);font-weight:600;margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 16px 0}
+.kpi{background:var(--card);border-radius:16px;padding:10px 10px 11px;box-shadow:var(--shadow-1);min-width:0}
+.kpi small{font-size:10.5px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:4px}
+.kpi small i{width:7px;height:7px;border-radius:50%;flex:none}
+.kpi b{display:block;font-size:14.5px;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.donut-wrap{display:flex;align-items:center;gap:14px}
+.donut{width:118px;height:118px;flex:none;position:relative}
+.donut svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:14}
+.donut .track-c{stroke:var(--card-2)}
+.donut .seg{transition:stroke-dasharray 1s cubic-bezier(.6,0,.2,1)}
+.donut-center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.15}
+.donut-center small{font-size:10px;color:var(--muted);font-weight:600;display:block}
+.donut-center b{font-size:15px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.legend{flex:1;display:grid;gap:7px;min-width:0}
+.legend div{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-2)}
+.legend i{width:8px;height:8px;border-radius:3px;flex:none}
+.legend span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legend b{font-size:11.5px;color:var(--ink);font-variant-numeric:tabular-nums}
+.budget{display:grid;gap:12px}
+.budget .row{display:grid;gap:6px}
+.budget .top{display:flex;justify-content:space-between;font-size:12.5px;font-weight:600}
+.budget .top small{font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.budget .top small.over{color:var(--r-text);font-weight:600}
+.meter{height:8px;border-radius:4px;background:var(--card-2);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:4px;transform-origin:left}
+.play .meter i{animation:fillx 1.1s cubic-bezier(.6,0,.2,1) both;animation-delay:calc(1s + var(--d,0) * 150ms)}
+@keyframes fillx{from{transform:scaleX(0)}}
+.goal{margin:12px 16px 0;border-radius:var(--r-xl);padding:16px;color:#fff;background:var(--grad-brand);display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.goal::after{content:"";position:absolute;right:-50px;top:-50px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.1)}
+.goal .ring{width:64px;height:64px;flex:none;position:relative}
+.goal .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.goal .ring circle{fill:none;stroke-width:7;stroke-linecap:round}
+.goal .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:14px}
+.goal small{font-size:11.5px;opacity:.85;display:block}
+.goal strong{display:block;font-size:15px}
+.play .goal .ring .prog{animation:ringfill 1.4s cubic-bezier(.6,0,.2,1) 1.4s both}
+@keyframes ringfill{from{stroke-dashoffset:176}}
 
 /* activity */
 .summary{margin:0 16px;background:var(--card);border-radius:var(--r-xl);padding:18px;box-shadow:var(--shadow-1)}
@@ -245,28 +356,35 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .summary .split b{font-size:16px;letter-spacing:-.02em}
 .bars{display:flex;align-items:flex-end;gap:8px;height:92px}
 .bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
-.bars span{width:100%;border-radius:7px 7px 4px 4px;background:var(--tb-blue-100)}
-.bars div.on span{background:var(--tb-blue)}
+.bars span{width:100%;border-radius:7px 7px 4px 4px;background:var(--b-tint-2);transform-origin:bottom}
+.bars div.on span{background:linear-gradient(180deg,var(--tb-blue-400),var(--tb-blue))}
+.play .bars span{animation:growy .9s cubic-bezier(.3,1.3,.5,1) both;animation-delay:calc(.2s + var(--d,0) * 90ms)}
+@keyframes growy{from{transform:scaleY(0)}}
 .bars small{font-size:10px;color:var(--faint);font-weight:600}
 .bars div.on small{color:var(--ink)}
 .chips{display:flex;gap:8px;padding:0 16px;overflow:hidden;margin-top:16px}
 .date-sep{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;padding:16px 20px 8px}
 
-/* explore / mini apps */
+/* explore */
+.search{margin:0 20px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--muted);font-size:13px}
+.search svg{width:18px;height:18px}
 .feature-card{margin:0 16px;border-radius:var(--r-xl);padding:18px;color:#fff;background:linear-gradient(140deg,var(--tb-blue-700),var(--tb-blue) 55%,var(--tb-cyan));position:relative;overflow:hidden;min-height:150px}
 .feature-card::after{content:"";position:absolute;right:-40px;bottom:-60px;width:200px;height:200px;border-radius:50%;border:28px solid rgba(141,198,63,.35)}
+.play .feature-card::after{animation:spinslow 18s ease-in-out infinite alternate}
+@keyframes spinslow{to{transform:translate(-14px,-10px) scale(1.12)}}
 .feature-card small{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
 .feature-card b{display:block;font-size:20px;letter-spacing:-.02em;margin:6px 0 4px;max-width:14ch;line-height:1.2}
 .feature-card p{font-size:12px;opacity:.85;max-width:22ch}
-.feature-card .go{position:absolute;right:18px;top:18px;background:#fff;color:var(--tb-blue);font-weight:700;font-size:12px;border-radius:999px;padding:7px 12px;z-index:1}
+.feature-card .go{position:absolute;right:18px;top:18px;background:#fff;color:#0B5CAB;font-weight:700;font-size:12px;border-radius:999px;padding:7px 12px;z-index:1}
 .apps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 6px}
 .app{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.2}
-.app .ai{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:17px;box-shadow:var(--shadow-1)}
+.app .ai{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;color:#fff;box-shadow:var(--shadow-1);transition:transform .2s}
+.app:hover .ai{transform:translateY(-3px) rotate(-3deg)}
 .app .ai svg{width:24px;height:24px}
 
 /* profile */
 .profile-head{text-align:center;padding:4px 20px 0}
-.profile-head .avatar{width:84px;height:84px;font-size:28px;margin:0 auto;background:var(--grad-brand);color:#fff;box-shadow:0 0 0 4px #fff,0 8px 20px rgba(11,92,171,.25)}
+.profile-head .avatar{width:84px;height:84px;font-size:28px;margin:0 auto;background:var(--grad-brand);color:#fff;box-shadow:0 0 0 4px var(--card),0 8px 20px rgba(11,92,171,.25)}
 .profile-head h4{font-size:19px;margin-top:12px;letter-spacing:-.02em}
 .profile-head small{color:var(--muted);font-size:12.5px}
 .level{margin:16px 16px 0;border-radius:var(--r-lg);padding:14px 16px;background:linear-gradient(120deg,#0E1A2B,#173455);color:#fff;display:flex;align-items:center;gap:12px}
@@ -274,7 +392,8 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .level b{font-size:14px;display:block}
 .level small{font-size:11.5px;opacity:.7}
 .progress{height:6px;background:rgba(255,255,255,.15);border-radius:3px;margin-top:8px;overflow:hidden}
-.progress i{display:block;height:100%;width:68%;background:linear-gradient(90deg,var(--tb-green),var(--tb-gold));border-radius:3px}
+.progress i{display:block;height:100%;width:68%;background:linear-gradient(90deg,var(--tb-green),var(--tb-gold));border-radius:3px;transform-origin:left}
+.play .progress i{animation:fillx 1.2s cubic-bezier(.6,0,.2,1) .4s both}
 .settings .row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px;font-weight:600}
 .settings .row:last-child{border:0}
 .settings .row .mid{flex:1}
@@ -282,18 +401,22 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .settings .row .ri{width:36px;height:36px;border-radius:11px;display:grid;place-items:center}
 .settings .row .ri svg{width:19px;height:19px}
 .chev{color:var(--faint);width:18px!important;height:18px!important}
-.toggle{width:40px;height:24px;border-radius:12px;background:var(--tb-green);position:relative;flex:none}
-.toggle::after{content:"";position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.lang{display:flex;background:var(--surface);border-radius:10px;padding:3px;font-size:11.5px}
+.toggle{width:40px;height:24px;border-radius:12px;background:var(--line);position:relative;flex:none;transition:background-color .25s}
+.toggle::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.toggle[aria-checked="true"]{background:var(--tb-green)}
+.toggle[aria-checked="true"]::after{transform:translateX(16px)}
+.lang{display:flex;background:var(--card-2);border-radius:10px;padding:3px;font-size:11.5px}
 .lang span{padding:4px 8px;border-radius:7px;color:var(--muted);font-weight:600}
 .lang span.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow-1)}
 
 /* success */
-.success{position:absolute;inset:0;background:linear-gradient(180deg,var(--tb-green-50) 0%,var(--surface) 46%)}
+.success{position:absolute;inset:0;background:linear-gradient(180deg,var(--g-tint) 0%,var(--surface) 46%)}
 .tick{width:84px;height:84px;border-radius:50%;margin:56px auto 0;background:var(--tb-green);display:grid;place-items:center;color:#fff;box-shadow:0 0 0 12px rgba(141,198,63,.2),0 0 0 26px rgba(141,198,63,.1)}
-.tick svg{width:40px;height:40px;stroke-width:2.6}
+.tick svg{width:40px;height:40px;stroke-width:2.8}
+.play .tick{animation:pop .5s cubic-bezier(.3,1.6,.5,1) .2s both}
+.play .tick path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .5s ease-out .6s forwards}
 .success h4{text-align:center;font-size:20px;margin-top:30px;letter-spacing:-.02em}
-.success .sum{text-align:center;font-size:36px;font-weight:800;letter-spacing:-.04em;margin-top:2px}
+.success .sum{text-align:center;font-size:36px;font-weight:800;letter-spacing:-.04em;margin-top:2px;font-variant-numeric:tabular-nums}
 .success .sum span{font-size:16px;color:var(--muted);margin-right:4px}
 .success .to{text-align:center;color:var(--muted);font-size:13px}
 .receipt{margin:22px 16px 0;background:var(--card);border-radius:var(--r-lg);padding:6px 16px;box-shadow:var(--shadow-1);position:relative}
@@ -302,21 +425,31 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .receipt .r{display:flex;justify-content:space-between;padding:10px 0;font-size:12.5px;border-bottom:1px dashed var(--line)}
 .receipt .r:last-child{border:0}
 .receipt .r span{color:var(--muted)}
-.receipt .r b{font-weight:700}
 .success-actions{position:absolute;left:16px;right:16px;bottom:28px;display:flex;gap:10px}
 .success-actions button{flex:1;height:52px;border-radius:16px;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-secondary{background:var(--card);color:var(--tb-blue);box-shadow:var(--shadow-1)}
-.btn-primary{background:var(--tb-blue);color:#fff}
+.btn-secondary{background:var(--card);color:var(--b-text);box-shadow:var(--shadow-1)}
+.btn-primary{background:var(--btn);color:#fff}
 
-/* components demo buttons on showcase */
+/* entrance stagger: runs once on load, from a visible resting state */
+.play .rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 80ms)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+
 .demo-btn{height:44px;padding:0 18px;border-radius:14px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px}
-
 .foot{margin-top:64px;padding-top:24px;border-top:1px solid var(--page-line);color:var(--page-muted);font-size:13px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 
-@media (max-width:400px){
-  .wrap{padding:32px 16px 64px}
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .hero p{margin-inline:auto}
+  .hero-stats{justify-content:center}
+}
+@media (max-width:420px){
   .gallery{grid-template-columns:1fr}
-  .phone{transform:scale(.92);transform-origin:top center;margin-bottom:-58px}
+  .phone{transform:scale(.9);transform-origin:top center;margin-bottom:-72px}
+  .pill-btn .lbl{display:none}
+  .brandmark{font-size:13px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
 }
 </style>
 </head>
@@ -339,7 +472,7 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <symbol id="i-group" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3 3-4.8 6-4.8s5.4 1.8 6 4.8"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18 14.6c1.6.6 2.7 2 3 4.4"/></symbol>
     <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19z"/></symbol>
-    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19v-7M21 19H3"/></symbol>
+    <symbol id="i-pie" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5H12z"/><path d="M15 3.8A8.5 8.5 0 0 1 20.2 9H15z"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c.9-3.8 3.9-6 7.5-6s6.6 2.2 7.5 6"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
@@ -359,6 +492,9 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5z"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 0 1 4.8.8c0 1.7-2.4 2.2-2.4 3.7"/><circle cx="12" cy="17" r=".7" fill="currentColor"/></symbol>
     <symbol id="i-finger" viewBox="0 0 24 24"><path d="M7 18.5c-1-1.8-1.5-4-1.5-6.5a6.5 6.5 0 0 1 11.4-4.3M18.4 11c.1.3.1.7.1 1 0 3.5-.6 6-1.8 8.5M9.5 20.5c-.8-2.4-1.2-5-1.2-8.5a3.7 3.7 0 0 1 7.4 0c0 2.5-.2 4.5-.7 6.5M12 12c0 3.5-.3 6.2-1 8.5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></symbol>
     <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 13.5 4 11l1-1.5 7 1 4-4.5c1-1 2.5-1.3 3-.8s.2 2-.8 3L14 12l1 7-1.5 1-2.5-6.5L7.5 17v2.5L6 20.5l-1-3-3-1 1-1.5h2.5z"/></symbol>
     <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V12l1.8-4.2A2 2 0 0 1 8.6 6.5h6.8a2 2 0 0 1 1.8 1.3L19 12v4M4 12h16v4.5H4z"/><circle cx="7.5" cy="16.5" r="1.6"/><circle cx="16.5" cy="16.5" r="1.6"/></symbol>
     <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 5.5 13.5H12l-1 8 7.5-11H12z"/></symbol>
@@ -371,7 +507,6 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><rect x="4.5" y="9" width="11" height="6" rx="1" fill="currentColor" stroke="none"/><path d="M21.5 10.5v3"/></symbol>
     <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
     <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
-    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
     <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4M5 12v6.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V12"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></symbol>
     <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14M10 16l-4-4 4-4M6 12h10"/></symbol>
@@ -380,20 +515,103 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
   </defs>
 </svg>
 
+<div class="backdrop" aria-hidden="true"></div>
 <main class="wrap">
 
-  <!-- ================= Hero ================= -->
+  <div class="topbar">
+    <div class="brandmark"><span class="dot"><svg class="i" style="width:17px;height:17px"><use href="#i-send"/></svg></span>telebirr · redesign concept</div>
+    <div class="top-actions">
+      <button class="pill-btn" id="replayBtn" type="button"><svg class="i"><use href="#i-replay"/></svg><span class="lbl">Replay</span></button>
+      <button class="pill-btn" id="themeBtn" type="button" aria-label="Switch theme"><svg class="i"><use href="#i-moon"/></svg><span class="lbl">Dark</span></button>
+    </div>
+  </div>
+
+  <!-- ================= Hero: pitch + animated dashboard ================= -->
   <header class="hero">
     <div>
-      <div class="brandmark"><span class="dot"><svg class="i" style="width:16px;height:16px"><use href="#i-send"/></svg></span>telebirr · redesign concept</div>
-      <h1>The same telebirr, <span>calmer and quicker.</span></h1>
-      <p>A clean, modern take on Ethiopia's mobile money app. It keeps telebirr's lime green and blue, its services and its bilingual voice. It drops the clutter, adds hierarchy, and puts the four things people do most one tap from home.</p>
+      <span class="eyebrow">Mobile money · Ethiopia</span>
+      <h1>Everyday money, <span>calmer and quicker.</span></h1>
+      <p>A clean, modern mobile money app in telebirr's blue, light green and white. Your balance comes first and the four most-used actions are one tap from home. An animated insights dashboard shows where your birr goes. A full dark theme is included, and English and <span class="et">አማርኛ</span> are available throughout.</p>
+      <div class="hero-stats">
+        <div><b class="num">7</b><span>screens</span></div>
+        <div><b class="num">2</b><span>themes, light and dark</span></div>
+        <div><b class="num">8</b><span>core services on Home</span></div>
+      </div>
+      <span class="disclaimer">Unofficial design concept · not affiliated with Ethio telecom</span>
     </div>
-    <span class="disclaimer">Unofficial design concept · not affiliated with Ethio telecom</span>
+
+    <!-- ---------- INSIGHTS DASHBOARD (hero) ---------- -->
+    <div class="hero-phone">
+      <div class="phone"><div class="screen">
+        <div class="scroll">
+          <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
+          <div class="appbar rise" style="--d:0"><h4>Insights</h4><span class="chip ghost">Oct 2026 ▾</span></div>
+
+          <div class="dash-card rise" style="--d:1">
+            <div class="trend-head">
+              <div><small>Total balance</small><div class="big"><span>ETB</span><em data-count="12480.50" data-dec="2">12,480.50</em></div></div>
+              <span class="chip"><svg class="i" style="width:13px;height:13px"><use href="#i-arrow-up"/></svg>27.1%</span>
+            </div>
+            <svg class="chart" id="trendChart" viewBox="0 0 288 110" role="img" aria-label="Balance over the last 31 days, rising from ETB 9,820 to ETB 12,480.50">
+              <defs>
+                <linearGradient id="lineGrad" x1="0" x2="1"><stop offset="0" stop-color="#3B8AD9"/><stop offset="1" stop-color="#8DC63F"/></linearGradient>
+                <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3B8AD9" stop-opacity=".32"/><stop offset="1" stop-color="#8DC63F" stop-opacity="0"/></linearGradient>
+              </defs>
+              <line class="grid" x1="0" x2="288" y1="30" y2="30"/><line class="grid" x1="0" x2="288" y1="65" y2="65"/><line class="grid" x1="0" x2="288" y1="100" y2="100"/>
+              <path class="area" d=""/><path class="line" d="" pathLength="1"/>
+              <circle class="halo" r="5"/><circle class="dot" r="5"/>
+            </svg>
+            <div class="xlabels"><span>Sep 10</span><span>Sep 20</span><span>Sep 30</span><span>Today</span></div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi rise" style="--d:2"><small><i style="background:var(--tb-green)"></i>In</small><b data-count="18250">18,250</b></div>
+            <div class="kpi rise" style="--d:3"><small><i style="background:var(--tb-blue-400)"></i>Out</small><b data-count="9412">9,412</b></div>
+            <div class="kpi rise" style="--d:4"><small><i style="background:var(--tb-gold)"></i>Saved</small><b data-count="2000">2,000</b></div>
+          </div>
+
+          <div class="dash-card rise" style="--d:5">
+            <div class="block-head" style="padding:0"><h5>Where it went</h5><a href="#">Details</a></div>
+            <div class="donut-wrap">
+              <div class="donut">
+                <svg viewBox="0 0 120 120" id="donut" aria-hidden="true"><circle class="track-c" cx="60" cy="60" r="46"/></svg>
+                <div class="donut-center"><div><small>Spent</small><b data-count="9412">9,412</b></div></div>
+              </div>
+              <div class="legend" id="legend"></div>
+            </div>
+          </div>
+
+          <div class="dash-card rise" style="--d:6">
+            <div class="block-head" style="padding:0"><h5>Monthly budgets</h5><a href="#">Edit</a></div>
+            <div class="budget">
+              <div class="row"><div class="top">Food &amp; coffee<small>1,960 / 2,500</small></div><div class="meter"><i style="width:78%;background:var(--tb-green);--d:0"></i></div></div>
+              <div class="row"><div class="top">Transport<small>1,240 / 1,500</small></div><div class="meter"><i style="width:83%;background:var(--tb-blue-400);--d:1"></i></div></div>
+              <div class="row"><div class="top">Airtime &amp; data<small class="over">ETB 180 over</small></div><div class="meter"><i style="width:100%;background:var(--tb-red);--d:2"></i></div></div>
+            </div>
+          </div>
+
+          <div class="goal rise" style="--d:7">
+            <div class="ring">
+              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" stroke="rgba(255,255,255,.22)"/><circle class="prog" cx="32" cy="32" r="28" stroke="#fff" stroke-dasharray="176" stroke-dashoffset="66"/></svg>
+              <b>63%</b>
+            </div>
+            <div style="position:relative;z-index:1"><small>Savings goal</small><strong>New laptop</strong><small>ETB 5,000 of 8,000 · on track for Dec</small></div>
+          </div>
+        </div>
+        <nav class="tabbar">
+          <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
+          <button class="tab on"><svg class="i"><use href="#i-pie"/></svg>Insights</button>
+          <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
+          <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
+          <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
+        </nav>
+        <span class="home-ind"></span>
+      </div></div>
+    </div>
   </header>
 
   <!-- ================= Design system ================= -->
-  <div class="section-title"><h2>Design system</h2><span>telebirr's colours, refined into a token set</span></div>
+  <div class="section-title"><h2>Design system</h2><span>Blue, light green and white, with a token set that switches cleanly to dark</span></div>
   <section class="tokens">
     <div class="tcard">
       <h3>Brand colour</h3>
@@ -401,18 +619,23 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
         <div class="sw" style="background:var(--tb-blue-900)"><small>Blue 900</small></div>
         <div class="sw" style="background:var(--tb-blue)"><small>Blue</small></div>
         <div class="sw" style="background:var(--tb-blue-400)"><small>Blue 400</small></div>
-        <div class="sw light" style="background:var(--tb-blue-50)"><small>Blue 50</small></div>
+        <div class="sw light" style="background:#EAF2FB"><small>Blue 50</small></div>
         <div class="sw" style="background:var(--tb-green-700)"><small>Green 700</small></div>
         <div class="sw" style="background:var(--tb-green)"><small>Green</small></div>
         <div class="sw light" style="background:var(--tb-green-400)"><small>Green 400</small></div>
-        <div class="sw light" style="background:var(--tb-green-50)"><small>Green 50</small></div>
+        <div class="sw light" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #DCE3EA"><small>White</small></div>
       </div>
       <div class="sw" style="background:var(--grad-brand);margin-top:8px;height:44px"><small>Brand gradient · hero surfaces only</small></div>
+      <div class="swatches" style="margin-top:8px;grid-template-columns:repeat(3,1fr)">
+        <div class="sw" style="background:#071423;height:40px"><small>Night</small></div>
+        <div class="sw" style="background:#0E1F33;height:40px"><small>Night card</small></div>
+        <div class="sw" style="background:#1B3049;height:40px"><small>Night line</small></div>
+      </div>
     </div>
     <div class="tcard">
       <h3>Type · Plus Jakarta Sans + Noto Sans Ethiopic</h3>
       <div class="typescale">
-        <div><b style="font-size:30px;letter-spacing:-.03em">12,480.50</b><em>Display 30/800</em></div>
+        <div><b style="font-size:30px;letter-spacing:-.03em" class="num">12,480.50</b><em>Display 30/800</em></div>
         <div><b style="font-size:18px;letter-spacing:-.02em">Send money</b><em>Title 18/700</em></div>
         <div><b style="font-size:15px">Recent activity</b><em>Heading 15/700</em></div>
         <div><span style="font-size:14px">Paid to Kaldi's Coffee</span><em>Body 14/500</em></div>
@@ -422,12 +645,12 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
     <div class="tcard">
       <h3>Components</h3>
       <div class="comp-row" style="margin-bottom:12px">
-        <button class="demo-btn" style="background:var(--tb-blue);color:#fff">Continue</button>
+        <button class="demo-btn" style="background:var(--btn);color:#fff">Continue</button>
         <button class="demo-btn" style="background:var(--tb-green-600);color:#fff"><svg class="i" style="width:18px;height:18px"><use href="#i-check"/></svg>Confirm</button>
-        <button class="demo-btn" style="background:var(--tb-blue-50);color:var(--tb-blue)">Cancel</button>
+        <button class="demo-btn" style="background:var(--b-tint);color:var(--b-text)">Cancel</button>
       </div>
       <div class="comp-row" style="margin-bottom:12px">
-        <span class="chip">+ 2.4% this month</span><span class="chip blue">Verified</span><span class="chip ghost">All</span><span class="chip active" style="background:#0E1A2B;color:#fff">Received</span>
+        <span class="chip">+ 27.1% this month</span><span class="chip blue">Verified</span><span class="chip ghost">All</span><span class="chip active">Received</span>
       </div>
       <div class="comp-row">
         <span class="si g" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-phone"/></svg></span>
@@ -435,26 +658,27 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
         <span class="si c" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-wifi"/></svg></span>
         <span class="si y" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-piggy"/></svg></span>
         <span class="si p" style="width:44px;height:44px;border-radius:14px;display:grid;place-items:center"><svg class="i"><use href="#i-group"/></svg></span>
+        <button class="toggle" role="switch" aria-checked="true" aria-label="Example toggle" data-toggle></button>
       </div>
       <p style="font-size:12px;color:var(--page-muted);margin-top:10px">Radius 10 / 14 / 20 / 28 · 4-pt spacing · 1.8 px stroke icons on tinted tiles</p>
     </div>
     <div class="tcard">
-      <h3>What changed</h3>
+      <h3>Motion</h3>
       <ul class="principles">
-        <li><b>1</b>Balance becomes the hero card, with a hide toggle and wallet sub-balances.</li>
-        <li><b>2</b>Send, Cash out, Scan and Top up sit on the balance card. No hunting.</li>
-        <li><b>3</b>The 20+ icon wall becomes 8 core services. Everything else moves to Explore.</li>
-        <li><b>4</b>Scan to pay is the centre tab, always one thumb away.</li>
-        <li><b>5</b>English and አማርኛ have equal standing, with a proper Ethiopic font.</li>
+        <li><b>1</b>Numbers count up from zero when a screen opens, so changes read as movement.</li>
+        <li><b>2</b>Charts draw left to right, then the latest value pops in and pulses.</li>
+        <li><b>3</b>Cards rise in a short stagger. Budgets and goals fill to their level.</li>
+        <li><b>4</b>Taps give feedback: the keypad bumps, toggles spring, the scan button pings.</li>
+        <li><b>5</b>All motion stops when the phone asks for reduced motion.</li>
       </ul>
     </div>
   </section>
 
   <!-- ================= Screens ================= -->
-  <div class="section-title"><h2>Screens</h2><span>Tap the eye on Home to hide the balance</span></div>
+  <div class="section-title"><h2>Screens</h2><span>Tap the eye on Home, try the keypad on Send money, switch the theme at the top</span></div>
   <section class="gallery">
 
-    <!-- ---------- 1. HOME ---------- -->
+    <!-- ---------- HOME ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen">
         <div class="scroll">
@@ -467,26 +691,26 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
             </div>
           </div>
 
-          <div class="balance">
+          <div class="balance rise" style="--d:1">
             <div class="row">
               <span class="lbl">Main wallet balance</span>
               <button class="eye" id="eyeBtn" aria-label="Hide balance"><svg class="i"><use href="#i-eye"/></svg></button>
             </div>
-            <div class="amt" id="balAmt"><small>ETB</small><span>12,480.50</span></div>
+            <div class="amt num" id="balAmt"><small>ETB</small><span data-count="12480.50" data-dec="2">12,480.50</span></div>
             <span class="chip">+ ETB 3,200 received this week</span>
             <div class="sub-balances">
               <div><small>Endekise savings</small><b data-mask>ETB 5,000.00</b></div>
               <div><small>Reward points</small><b>1,240 pts</b></div>
             </div>
             <div class="quick">
-              <button><span class="qi"><svg class="i"><use href="#i-send"/></svg></span>Send</button>
-              <button><span class="qi"><svg class="i"><use href="#i-cashout"/></svg></span>Cash out</button>
-              <button><span class="qi"><svg class="i"><use href="#i-qr"/></svg></span>My QR</button>
-              <button><span class="qi"><svg class="i"><use href="#i-plus"/></svg></span>Top up</button>
+              <button class="rise" style="--d:3"><span class="qi"><svg class="i"><use href="#i-send"/></svg></span>Send</button>
+              <button class="rise" style="--d:4"><span class="qi"><svg class="i"><use href="#i-cashout"/></svg></span>Cash out</button>
+              <button class="rise" style="--d:5"><span class="qi"><svg class="i"><use href="#i-qr"/></svg></span>My QR</button>
+              <button class="rise" style="--d:6"><span class="qi"><svg class="i"><use href="#i-plus"/></svg></span>Top up</button>
             </div>
           </div>
 
-          <div class="block">
+          <div class="block rise" style="--d:5">
             <div class="block-head"><h5>Services</h5><a href="#">See all</a></div>
             <div class="services">
               <div class="svc"><span class="si g"><svg class="i"><use href="#i-phone"/></svg></span>Airtime</div>
@@ -496,16 +720,17 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
               <div class="svc"><span class="si y"><svg class="i"><use href="#i-piggy"/></svg></span>Endekise</div>
               <div class="svc"><span class="si g"><svg class="i"><use href="#i-loan"/></svg></span>Mela loan</div>
               <div class="svc"><span class="si p"><svg class="i"><use href="#i-group"/></svg></span>Equb</div>
-              <div class="svc"><span class="si" style="background:var(--surface);color:var(--ink-2)"><svg class="i"><use href="#i-grid"/></svg></span>More</div>
+              <div class="svc"><span class="si n"><svg class="i"><use href="#i-grid"/></svg></span>More</div>
             </div>
           </div>
 
-          <div class="block">
-            <div class="promo">
-              <span class="pi"><svg class="i" style="width:26px;height:26px"><use href="#i-gift"/></svg></span>
-              <div style="position:relative;z-index:1"><b>Get 10% back on airtime</b><small>Buy any package with telebirr this week</small></div>
-            </div>
-            <div class="dots"><i class="on"></i><i></i><i></i></div>
+          <div class="block rise" style="--d:6">
+            <div class="carousel"><div class="track" id="promoTrack">
+              <div class="promo p1"><span class="pi"><svg class="i" style="width:26px;height:26px"><use href="#i-gift"/></svg></span><div style="position:relative;z-index:1"><b>Get 10% back on airtime</b><small>Buy any package with telebirr this week</small></div></div>
+              <div class="promo p2"><span class="pi"><svg class="i" style="width:26px;height:26px"><use href="#i-piggy"/></svg></span><div style="position:relative;z-index:1"><b>Save a little every day</b><small>Round up each payment into a goal</small></div></div>
+              <div class="promo p3"><span class="pi"><svg class="i" style="width:26px;height:26px"><use href="#i-group"/></svg></span><div style="position:relative;z-index:1"><b>Start an Equb with friends</b><small>Rotating savings, tracked for everyone</small></div></div>
+            </div></div>
+            <div class="dots" id="promoDots"><i class="on"></i><i></i><i></i></div>
           </div>
 
           <div class="block">
@@ -517,20 +742,19 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
             </div>
           </div>
         </div>
-
         <nav class="tabbar">
           <button class="tab on"><svg class="i"><use href="#i-home"/></svg>Home</button>
-          <button class="tab"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <button class="tab"><svg class="i"><use href="#i-pie"/></svg>Insights</button>
           <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
           <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
           <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
         </nav>
         <span class="home-ind"></span>
       </div></div>
-      <figcaption><b>Home</b><span>Balance first, actions on the card, 8 core services</span></figcaption>
+      <figcaption><b>Home</b><span>Balance first, actions on the card, 8 core services, rotating offers</span></figcaption>
     </figure>
 
-    <!-- ---------- 2. SEND MONEY ---------- -->
+    <!-- ---------- SEND MONEY ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen">
         <div class="scroll" style="padding-bottom:0">
@@ -540,36 +764,32 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
             <h4>Send money</h4>
             <button class="icon-btn" aria-label="Scan"><svg class="i"><use href="#i-scan"/></svg></button>
           </div>
-
-          <div class="recipient">
-            <div class="avatar" style="background:var(--tb-green-100);color:var(--tb-green-700);width:46px;height:46px">DB</div>
+          <div class="recipient rise" style="--d:1">
+            <div class="avatar" style="background:var(--g-tint-2);color:var(--g-text);width:46px;height:46px">DB</div>
             <div class="mid"><b>Dawit Bekele</b><small>+251 91 ••• 4821</small><br><span class="verified"><svg class="i"><use href="#i-shield"/></svg>Verified telebirr account</span></div>
             <button class="chip ghost">Change</button>
           </div>
-
           <div class="amount-entry">
             <small>Amount</small>
-            <div class="big"><span>ETB</span>1,500<i class="caret"></i></div>
+            <div class="big" id="amtBig"><span>ETB</span><b id="amtVal">1,500</b><i class="caret"></i></div>
             <div class="fee-line">Fee: free · Available ETB 12,480.50</div>
-            <div class="presets"><span class="chip blue">500</span><span class="chip blue">1,000</span><span class="chip blue">2,000</span><span class="chip blue">5,000</span></div>
+            <div class="presets"><button class="chip blue" data-preset="500">500</button><button class="chip blue" data-preset="1000">1,000</button><button class="chip blue" data-preset="2000">2,000</button><button class="chip blue" data-preset="5000">5,000</button></div>
           </div>
-
           <div class="note-field"><svg class="i"><use href="#i-note"/></svg>Add a note, e.g. “Rent for October”</div>
-
-          <div class="keypad">
+          <div class="keypad" id="keypad">
             <button>1</button><button>2</button><button>3</button>
             <button>4</button><button>5</button><button>6</button>
             <button>7</button><button>8</button><button>9</button>
-            <button>.</button><button>0</button><button aria-label="Delete"><svg class="i" style="margin:auto"><use href="#i-backspace"/></svg></button>
+            <button>.</button><button>0</button><button data-del aria-label="Delete"><svg class="i" style="margin:auto"><use href="#i-backspace"/></svg></button>
           </div>
         </div>
         <button class="cta">Continue <svg class="i" style="width:18px;height:18px"><use href="#i-chev"/></svg></button>
         <span class="home-ind"></span>
       </div></div>
-      <figcaption><b>Send money</b><span>Verified recipient, big amount, fee shown up front</span></figcaption>
+      <figcaption><b>Send money</b><span>Verified recipient, working keypad, fee shown up front</span></figcaption>
     </figure>
 
-    <!-- ---------- 3. SCAN ---------- -->
+    <!-- ---------- SCAN ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen scan-screen">
         <div class="scan-bg"></div>
@@ -590,98 +810,89 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
           <button class="on"><svg class="i" style="width:18px;height:18px"><use href="#i-scan"/></svg>Scan</button>
           <button><svg class="i" style="width:18px;height:18px"><use href="#i-qr"/></svg>My code</button>
         </div>
-        <span class="home-ind light" style="bottom:4px;opacity:.5"></span>
       </div></div>
-      <figcaption><b>Scan to pay</b><span>Full-bleed camera, green brand frame, one switch to “My code”</span></figcaption>
+      <figcaption><b>Scan to pay</b><span>Full-bleed camera, breathing green frame, one switch to “My code”</span></figcaption>
     </figure>
 
-    <!-- ---------- 4. ACTIVITY ---------- -->
+    <!-- ---------- ACTIVITY ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen">
         <div class="scroll">
           <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
           <div class="appbar">
+            <button class="icon-btn" aria-label="Back"><svg class="i"><use href="#i-back"/></svg></button>
             <h4>Activity</h4>
-            <div style="display:flex;gap:8px">
-              <button class="icon-btn" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></button>
-              <button class="icon-btn" aria-label="Download statement"><svg class="i"><use href="#i-download"/></svg></button>
-            </div>
+            <button class="icon-btn" aria-label="Download statement"><svg class="i"><use href="#i-download"/></svg></button>
           </div>
-
           <div class="summary">
             <div class="block-head" style="padding:0;margin-bottom:12px"><h5>October 2026</h5><span class="chip ghost">Month ▾</span></div>
             <div class="split">
-              <div style="background:var(--tb-green-50)"><small style="color:var(--tb-green-700)"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow-down"/></svg>Money in</small><b>ETB 18,250</b></div>
-              <div style="background:var(--tb-blue-50)"><small style="color:var(--tb-blue)"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow-up"/></svg>Money out</small><b>ETB 9,412</b></div>
+              <div style="background:var(--g-tint)"><small style="color:var(--g-text)"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow-down"/></svg>Money in</small><b class="num">ETB 18,250</b></div>
+              <div style="background:var(--b-tint)"><small style="color:var(--b-text)"><svg class="i" style="width:14px;height:14px"><use href="#i-arrow-up"/></svg>Money out</small><b class="num">ETB 9,412</b></div>
             </div>
             <div class="bars">
-              <div><span style="height:44%"></span><small>May</small></div>
-              <div><span style="height:62%"></span><small>Jun</small></div>
-              <div><span style="height:38%"></span><small>Jul</small></div>
-              <div><span style="height:70%"></span><small>Aug</small></div>
-              <div><span style="height:55%"></span><small>Sep</small></div>
-              <div class="on"><span style="height:82%"></span><small>Oct</small></div>
+              <div><span style="height:44%;--d:0"></span><small>May</small></div>
+              <div><span style="height:62%;--d:1"></span><small>Jun</small></div>
+              <div><span style="height:38%;--d:2"></span><small>Jul</small></div>
+              <div><span style="height:70%;--d:3"></span><small>Aug</small></div>
+              <div><span style="height:55%;--d:4"></span><small>Sep</small></div>
+              <div class="on"><span style="height:82%;--d:5"></span><small>Oct</small></div>
             </div>
           </div>
-
           <div class="chips">
             <span class="chip active">All</span><span class="chip ghost">Received</span><span class="chip ghost">Sent</span><span class="chip ghost">Payments</span><span class="chip ghost">Airtime</span>
           </div>
-
           <p class="date-sep">Today</p>
           <div class="block" style="margin-top:0">
             <div class="list">
               <div class="tx"><span class="ti si g"><svg class="i"><use href="#i-receive"/></svg></span><div class="mid"><b>Dawit Bekele</b><small>Received · 09:12</small></div><div class="amt pos">+2,500.00<small>Completed</small></div></div>
-              <div class="tx"><span class="ti si y"><svg class="i"><use href="#i-bolt"/></svg></span><div class="mid"><b>EEU electricity bill</b><small>Bill payment · 08:40</small></div><div class="amt neg">−642.30<small>Completed</small></div></div>
+              <div class="tx"><span class="ti si y"><svg class="i"><use href="#i-bolt"/></svg></span><div class="mid"><b>Electricity bill</b><small>Bill payment · 08:40</small></div><div class="amt neg">−642.30<small>Completed</small></div></div>
             </div>
           </div>
           <p class="date-sep">Yesterday</p>
           <div class="block" style="margin-top:0">
             <div class="list">
               <div class="tx"><span class="ti si b"><svg class="i"><use href="#i-cart"/></svg></span><div class="mid"><b>Kaldi's Coffee</b><small>Merchant payment · 17:22</small></div><div class="amt neg">−185.00<small>Completed</small></div></div>
-              <div class="tx"><span class="ti si b"><svg class="i"><use href="#i-bank"/></svg></span><div class="mid"><b>To CBE ••• 0942</b><small>Bank transfer · 12:05</small></div><div class="amt neg">−3,000.00<small>Completed</small></div></div>
+              <div class="tx"><span class="ti si b"><svg class="i"><use href="#i-bank"/></svg></span><div class="mid"><b>To bank ••• 0942</b><small>Bank transfer · 12:05</small></div><div class="amt neg">−3,000.00<small>Completed</small></div></div>
               <div class="tx"><span class="ti si g"><svg class="i"><use href="#i-phone"/></svg></span><div class="mid"><b>Airtime for Mom</b><small>+251 91 ••• 3307 · 10:15</small></div><div class="amt neg">−100.00<small>Completed</small></div></div>
             </div>
           </div>
         </div>
         <nav class="tabbar">
           <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
-          <button class="tab on"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <button class="tab on"><svg class="i"><use href="#i-pie"/></svg>Insights</button>
           <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
           <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
           <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
         </nav>
         <span class="home-ind"></span>
       </div></div>
-      <figcaption><b>Activity</b><span>Monthly in/out at a glance, grouped by day, filter chips</span></figcaption>
+      <figcaption><b>Activity</b><span>Six-month bars grow in, transactions grouped by day</span></figcaption>
     </figure>
 
-    <!-- ---------- 5. EXPLORE ---------- -->
+    <!-- ---------- EXPLORE ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen">
         <div class="scroll">
           <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
           <div class="appbar"><h4>Explore</h4><button class="icon-btn" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg></button></div>
           <div class="search" style="margin-bottom:16px"><svg class="i"><use href="#i-search"/></svg>Search services, billers, mini apps</div>
-
-          <div class="feature-card">
+          <div class="feature-card rise" style="--d:1">
             <span class="go">Open</span>
             <small>Featured mini app</small>
             <b>Book flights, pay with telebirr</b>
             <p>Domestic and international tickets in a few taps.</p>
           </div>
-
-          <div class="block">
+          <div class="block rise" style="--d:2">
             <div class="block-head"><h5>Financial</h5><a href="#">All</a></div>
             <div class="apps">
-              <div class="app"><span class="ai" style="background:var(--tb-green)"><svg class="i"><use href="#i-piggy"/></svg></span>Endekise</div>
+              <div class="app"><span class="ai" style="background:var(--tb-green-600)"><svg class="i"><use href="#i-piggy"/></svg></span>Endekise</div>
               <div class="app"><span class="ai" style="background:var(--tb-green-700)"><svg class="i"><use href="#i-loan"/></svg></span>Mela</div>
               <div class="app"><span class="ai" style="background:#6B4BC8"><svg class="i"><use href="#i-group"/></svg></span>Equb</div>
               <div class="app"><span class="ai" style="background:var(--tb-blue)"><svg class="i"><use href="#i-bank"/></svg></span>Banks</div>
             </div>
           </div>
-
-          <div class="block">
+          <div class="block rise" style="--d:3">
             <div class="block-head"><h5>Bills &amp; utilities</h5><a href="#">All</a></div>
             <div class="apps">
               <div class="app"><span class="ai" style="background:var(--tb-gold)"><svg class="i"><use href="#i-bolt"/></svg></span>Electricity</div>
@@ -690,12 +901,11 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
               <div class="app"><span class="ai" style="background:var(--tb-red)"><svg class="i"><use href="#i-heart"/></svg></span>Donate</div>
             </div>
           </div>
-
-          <div class="block">
+          <div class="block rise" style="--d:4">
             <div class="block-head"><h5>Lifestyle</h5><a href="#">All</a></div>
             <div class="apps">
               <div class="app"><span class="ai" style="background:var(--tb-blue-900)"><svg class="i"><use href="#i-plane"/></svg></span>Flights</div>
-              <div class="app"><span class="ai" style="background:#0E1A2B"><svg class="i"><use href="#i-car"/></svg></span>Ride</div>
+              <div class="app"><span class="ai" style="background:#173455"><svg class="i"><use href="#i-car"/></svg></span>Ride</div>
               <div class="app"><span class="ai" style="background:#E2742B"><svg class="i"><use href="#i-cart"/></svg></span>Shop</div>
               <div class="app"><span class="ai" style="background:#C2373B"><svg class="i"><use href="#i-ticket"/></svg></span>Events</div>
             </div>
@@ -703,7 +913,7 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
         </div>
         <nav class="tabbar">
           <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
-          <button class="tab"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <button class="tab"><svg class="i"><use href="#i-pie"/></svg>Insights</button>
           <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
           <button class="tab on"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
           <button class="tab"><svg class="i"><use href="#i-user"/></svg>Me</button>
@@ -713,7 +923,7 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
       <figcaption><b>Explore</b><span>Mini apps and billers grouped by intent, with search</span></figcaption>
     </figure>
 
-    <!-- ---------- 6. ME ---------- -->
+    <!-- ---------- ME ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen">
         <div class="scroll">
@@ -725,47 +935,46 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
             <small>+251 91 234 5678 · <span class="verified"><svg class="i"><use href="#i-shield"/></svg>KYC Level 2</span></small>
           </div>
           <div class="level">
-            <span class="si y" style="width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(245,178,27,.18);color:var(--tb-gold)"><svg class="i"><use href="#i-star"/></svg></span>
+            <span style="width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(245,178,27,.18);color:var(--tb-gold)"><svg class="i"><use href="#i-star"/></svg></span>
             <div class="mid"><b>Gold member</b><small>1,240 / 1,800 pts to Platinum</small><div class="progress"><i></i></div></div>
           </div>
-
           <div class="block">
             <div class="list settings">
               <div class="row"><span class="ri si b"><svg class="i"><use href="#i-lock"/></svg></span><div class="mid">Change PIN<small>Last changed 3 months ago</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
-              <div class="row"><span class="ri si g"><svg class="i"><use href="#i-finger"/></svg></span><div class="mid">Biometric login<small>Face or fingerprint</small></div><span class="toggle"></span></div>
+              <div class="row"><span class="ri si g"><svg class="i"><use href="#i-finger"/></svg></span><div class="mid">Biometric login<small>Face or fingerprint</small></div><button class="toggle" role="switch" aria-checked="true" aria-label="Biometric login" data-toggle></button></div>
+              <div class="row"><span class="ri si p"><svg class="i"><use href="#i-moon"/></svg></span><div class="mid">Dark theme<small>Switches this whole page</small></div><button class="toggle" role="switch" aria-checked="false" aria-label="Dark theme" id="appDarkToggle"></button></div>
               <div class="row"><span class="ri si c"><svg class="i"><use href="#i-globe"/></svg></span><div class="mid">Language</div><div class="lang"><span class="on">EN</span><span class="et">አማ</span><span>Orm</span></div></div>
-              <div class="row"><span class="ri si y"><svg class="i"><use href="#i-bank"/></svg></span><div class="mid">Linked banks<small>CBE, Awash</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
             </div>
           </div>
           <div class="block">
             <div class="list settings">
-              <div class="row"><span class="ri si p"><svg class="i"><use href="#i-help"/></svg></span><div class="mid">Help &amp; support<small>Call 127 or chat with us</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
-              <div class="row"><span class="ri si r"><svg class="i"><use href="#i-logout"/></svg></span><div class="mid" style="color:#C2373B">Log out</div></div>
+              <div class="row"><span class="ri si y"><svg class="i"><use href="#i-help"/></svg></span><div class="mid">Help &amp; support<small>Call 127 or chat with us</small></div><svg class="i chev"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="ri si r"><svg class="i"><use href="#i-logout"/></svg></span><div class="mid" style="color:var(--r-text)">Log out</div></div>
             </div>
           </div>
         </div>
         <nav class="tabbar">
           <button class="tab"><svg class="i"><use href="#i-home"/></svg>Home</button>
-          <button class="tab"><svg class="i"><use href="#i-activity"/></svg>Activity</button>
+          <button class="tab"><svg class="i"><use href="#i-pie"/></svg>Insights</button>
           <div><div class="fab"><svg class="i"><use href="#i-scan"/></svg></div></div>
           <button class="tab"><svg class="i"><use href="#i-grid"/></svg>Explore</button>
           <button class="tab on"><svg class="i"><use href="#i-user"/></svg>Me</button>
         </nav>
         <span class="home-ind"></span>
       </div></div>
-      <figcaption><b>Me</b><span>Identity, rewards tier, security and language in one place</span></figcaption>
+      <figcaption><b>Me</b><span>Identity, rewards tier, security, theme and language</span></figcaption>
     </figure>
 
-    <!-- ---------- 7. SUCCESS ---------- -->
+    <!-- ---------- SUCCESS ---------- -->
     <figure class="shot">
       <div class="phone"><div class="screen">
         <div class="success">
           <div class="statusbar"><span>9:41</span><span class="notch"></span><span class="sb-icons"><svg class="i"><use href="#i-signal"/></svg><svg class="i"><use href="#i-wifi"/></svg><svg class="i"><use href="#i-battery"/></svg></span></div>
-          <div class="tick"><svg class="i"><use href="#i-check"/></svg></div>
+          <div class="tick"><svg class="i" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" pathLength="1"/></svg></div>
           <h4>Money sent</h4>
           <div class="sum"><span>ETB</span>1,500.00</div>
           <p class="to">to Dawit Bekele · +251 91 ••• 4821</p>
-          <div class="receipt">
+          <div class="receipt rise" style="--d:8">
             <div class="r"><span>Transaction ID</span><b>DJA8K2L9QX</b></div>
             <div class="r"><span>Date</span><b>Oct 10, 2026 · 09:41</b></div>
             <div class="r"><span>Service fee</span><b class="pos">Free</b></div>
@@ -779,31 +988,171 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
         </div>
         <span class="home-ind"></span>
       </div></div>
-      <figcaption><b>Confirmation</b><span>Clear outcome, shareable receipt, new balance</span></figcaption>
+      <figcaption><b>Confirmation</b><span>Tick draws in, receipt slides up, new balance shown</span></figcaption>
     </figure>
 
   </section>
 
   <footer class="foot">
     <span>Concept redesign for portfolio and discussion. telebirr and Ethio telecom are trademarks of their owners.</span>
-    <span>Names, numbers and amounts are fictional.</span>
+    <span>Names, numbers and amounts are fictional sample data.</span>
   </footer>
 </main>
 
 <script>
 (function(){
-  var btn=document.getElementById('eyeBtn');
-  var amt=document.querySelector('#balAmt span');
-  var masked=document.querySelectorAll('[data-mask]');
-  var real=amt.textContent, realSub=[].map.call(masked,function(e){return e.textContent});
-  var hidden=false;
-  btn.addEventListener('click',function(){
-    hidden=!hidden;
-    amt.textContent=hidden?'••••••':real;
-    masked.forEach(function(e,i){e.textContent=hidden?'ETB ••••':realSub[i]});
-    btn.querySelector('use').setAttribute('href',hidden?'#i-eye-off':'#i-eye');
-    btn.setAttribute('aria-label',hidden?'Show balance':'Hide balance');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+
+  /* ---------- theme ---------- */
+  var themeBtn = document.getElementById('themeBtn');
+  var appDark = document.getElementById('appDarkToggle');
+  function isDark(){
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  function syncThemeUI(){
+    var d = isDark();
+    themeBtn.querySelector('use').setAttribute('href', d ? '#i-sun' : '#i-moon');
+    themeBtn.querySelector('.lbl').textContent = d ? 'Light' : 'Dark';
+    themeBtn.setAttribute('aria-label', d ? 'Switch to light theme' : 'Switch to dark theme');
+    appDark.setAttribute('aria-checked', d ? 'true' : 'false');
+  }
+  function setTheme(d){
+    root.setAttribute('data-theme', d ? 'dark' : 'light');
+    try { localStorage.setItem('theme', d ? 'dark' : 'light'); } catch(e){}
+    syncThemeUI();
+  }
+  try { var saved = localStorage.getItem('theme'); if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved); } catch(e){}
+  themeBtn.addEventListener('click', function(){ setTheme(!isDark()); });
+  appDark.addEventListener('click', function(){ setTheme(!isDark()); });
+  if (window.matchMedia) { try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncThemeUI); } catch(e){} }
+  syncThemeUI();
+
+  /* ---------- toggles ---------- */
+  document.querySelectorAll('[data-toggle]').forEach(function(t){
+    t.addEventListener('click', function(){ t.setAttribute('aria-checked', t.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); });
   });
+
+  /* ---------- number count-ups ---------- */
+  function fmt(n, dec){ return n.toLocaleString('en-US', {minimumFractionDigits:dec, maximumFractionDigits:dec}); }
+  function countAll(){
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var to = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || '0', 10);
+      if (el.dataset.hidden === '1') return;
+      if (reduce){ el.textContent = fmt(to, dec); return; }
+      var start = performance.now(), dur = 1400;
+      (function tick(now){
+        var p = Math.min(1, Math.max(0, (now - start) / dur)), e = 1 - Math.pow(1 - p, 3);
+        if (el.dataset.hidden !== '1') el.textContent = fmt(to * e, dec);
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    });
+  }
+
+  /* ---------- balance trend chart (31 days of sample data) ---------- */
+  var bal = [9820,9910,9760,10140,10080,9950,10420,10380,10610,10290,10200,10560,10870,10720,10650,11040,10910,11380,11220,10980,11460,11610,11420,11890,11760,12040,11930,12210,11980,12360,12480.5];
+  (function(){
+    var svg = document.getElementById('trendChart'), W = 288, top = 12, bottom = 100, lo = 9600, hi = 12700;
+    var pts = bal.map(function(v,i){ return [i * W / (bal.length - 1), bottom - (v - lo) / (hi - lo) * (bottom - top)]; });
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1].toFixed(1);
+    for (var i = 0; i < pts.length - 1; i++){
+      var p0 = pts[i-1] || pts[i], p1 = pts[i], p2 = pts[i+1], p3 = pts[i+2] || p2;
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      d += ' C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    svg.querySelector('.line').setAttribute('d', d);
+    svg.querySelector('.area').setAttribute('d', d + ' L' + W + ' ' + (bottom + 10) + ' L0 ' + (bottom + 10) + ' Z');
+    var last = pts[pts.length - 1];
+    ['.dot','.halo'].forEach(function(s){ var c = svg.querySelector(s); c.setAttribute('cx', last[0]); c.setAttribute('cy', last[1].toFixed(1)); });
+  })();
+
+  /* ---------- spending donut ---------- */
+  var cats = [
+    {name:'Bills & utilities', v:2840, c:'#0B5CAB'},
+    {name:'Food & coffee',     v:1960, c:'#8DC63F'},
+    {name:'Transport',         v:1240, c:'#00A6E0'},
+    {name:'Airtime & data',    v:980,  c:'#A3D45A'},
+    {name:'Other',             v:2392, c:'#3B8AD9'}
+  ];
+  var donut = document.getElementById('donut'), legend = document.getElementById('legend');
+  var R = 46, C = 2 * Math.PI * R, total = cats.reduce(function(s,c){ return s + c.v; }, 0), segs = [], acc = 0;
+  cats.forEach(function(c){
+    var len = c.v / total * C;
+    var el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    el.setAttribute('class', 'seg'); el.setAttribute('cx', 60); el.setAttribute('cy', 60); el.setAttribute('r', R);
+    el.setAttribute('stroke', c.c);
+    el.style.strokeDashoffset = -acc;
+    el.dataset.len = Math.max(0, len - 2);
+    el.style.strokeDasharray = el.dataset.len + ' ' + C;
+    donut.appendChild(el); segs.push(el);
+    acc += len;
+    var row = document.createElement('div');
+    row.innerHTML = '<i style="background:' + c.c + '"></i><span>' + c.name.replace('&','&amp;') + '</span><b>' + Math.round(c.v / total * 100) + '%</b>';
+    legend.appendChild(row);
+  });
+  function drawDonut(){
+    if (reduce) return;
+    segs.forEach(function(el, i){
+      var full = el.dataset.len + ' ' + C;
+      el.style.transition = 'none'; el.style.strokeDasharray = '0 ' + C;
+      void el.getBoundingClientRect();
+      setTimeout(function(){ el.style.transition = ''; el.style.strokeDasharray = full; }, 500 + i * 160);
+    });
+  }
+
+  /* ---------- balance hide ---------- */
+  var eye = document.getElementById('eyeBtn'), amt = document.querySelector('#balAmt span');
+  var masked = document.querySelectorAll('[data-mask]'), realSub = [].map.call(masked, function(e){ return e.textContent; });
+  eye.addEventListener('click', function(){
+    var hide = amt.dataset.hidden !== '1';
+    amt.dataset.hidden = hide ? '1' : '0';
+    amt.textContent = hide ? '••••••' : fmt(parseFloat(amt.dataset.count), 2);
+    masked.forEach(function(e,i){ e.textContent = hide ? 'ETB ••••' : realSub[i]; });
+    eye.querySelector('use').setAttribute('href', hide ? '#i-eye-off' : '#i-eye');
+    eye.setAttribute('aria-label', hide ? 'Show balance' : 'Hide balance');
+  });
+
+  /* ---------- keypad ---------- */
+  var raw = '1500', val = document.getElementById('amtVal'), big = document.getElementById('amtBig');
+  function render(){
+    var parts = raw.split('.'), intPart = parts[0] ? Number(parts[0]).toLocaleString('en-US') : '0';
+    val.textContent = intPart + (parts.length > 1 ? '.' + parts[1] : '');
+    big.classList.remove('bump'); void big.offsetWidth; big.classList.add('bump');
+  }
+  document.getElementById('keypad').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.hasAttribute('data-del')) raw = raw.slice(0, -1) || '0';
+    else {
+      var k = b.textContent.trim();
+      if (k === '.' && raw.indexOf('.') > -1) return;
+      if (raw.indexOf('.') > -1 && raw.split('.')[1].length >= 2) return;
+      if (raw.replace('.','').length >= 7) return;
+      raw = (raw === '0' && k !== '.') ? k : raw + k;
+    }
+    render();
+  });
+  document.querySelectorAll('[data-preset]').forEach(function(p){
+    p.addEventListener('click', function(){ raw = p.dataset.preset; render(); });
+  });
+
+  /* ---------- promo carousel ---------- */
+  var track = document.getElementById('promoTrack'), dots = document.querySelectorAll('#promoDots i'), slide = 0;
+  function go(n){ slide = n; track.style.transform = 'translateX(' + (-100 * n) + '%)'; dots.forEach(function(d,i){ d.classList.toggle('on', i === n); }); }
+  dots.forEach(function(d,i){ d.addEventListener('click', function(){ go(i); }); });
+  if (!reduce) setInterval(function(){ go((slide + 1) % dots.length); }, 3800);
+
+  /* ---------- play / replay ---------- */
+  function play(){
+    document.body.classList.remove('play');
+    void document.body.offsetWidth;
+    document.body.classList.add('play');
+    countAll(); drawDonut();
+  }
+  document.getElementById('replayBtn').addEventListener('click', play);
+  play();
 })();
 </script>
 </body>
