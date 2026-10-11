@@ -1,0 +1,340 @@
+<title>FX League Launch Storyboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: production sheet. Header + proportional timeline, animatic viewer, then a grid of 9:16 shot panels with notes. Single dark look matching the FX League brand. */
+:root{
+  --ink:#08090C; --page:#0C0E12; --panel:#13161B; --line:#252B34;
+  --fg:#E9EDF2; --muted:#8C95A3; --lime:#C8FF2E; --gain:#3BDB7A; --gold:#E2B54A; --paper:#F3F5F8;
+  --display:"Oswald","Arial Narrow",Impact,sans-serif;
+  --body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5;padding-inline:clamp(16px,4vw,48px);padding-block:32px 64px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;line-height:1;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,64px)} h1 em{font-style:normal;color:var(--lime)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{max-width:64ch;color:var(--muted);margin:12px 0 0}
+.specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.specs span{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--fg)}
+
+/* timeline */
+.tl{display:flex;flex-direction:column;gap:8px}
+.tl-bar{display:flex;height:44px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.tl-bar button{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;border-right:1px solid var(--line);min-width:0;overflow:hidden}
+.tl-bar button:last-child{border-right:0}
+.tl-bar .d{background:var(--panel);color:var(--fg)} .tl-bar .l{background:var(--paper);color:var(--ink)}
+.tl-bar button.on{background:var(--lime);color:var(--ink)}
+.tl-bar button:focus-visible{outline:2px solid var(--lime);outline-offset:-2px}
+.tl-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.tl-acts{display:flex;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.tl-acts span{border-top:2px solid var(--line);padding-top:4px;margin-right:4px}
+
+/* animatic */
+.animatic{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:32px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+.stage{width:100%;max-width:300px;margin:0 auto}
+.anim-info{display:flex;flex-direction:column;gap:14px;min-width:0}
+.anim-info h2{font-size:clamp(26px,3.4vw,38px)}
+.anim-info p{margin:0;color:var(--muted);max-width:56ch}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:600 14px var(--body);border-radius:999px;padding:10px 18px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.btn.primary{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.btn:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.prog{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--lime)}
+.tc{font-family:var(--mono);font-size:13px;color:var(--lime)}
+
+/* shot grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:24px}
+.shot{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:20px}
+.shot.hl{border-color:var(--lime)}
+.shot-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.shot-h b{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+.shot-h span{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.shot-h .n{color:var(--lime)}
+.frame-wrap{max-width:240px;width:100%;margin:0 auto}
+dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;font-size:13.5px}
+dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+dd{margin:0}
+dd q{font-family:var(--display);text-transform:uppercase;quotes:none;color:var(--fg);letter-spacing:.02em}
+.foot{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:20px;display:flex;flex-direction:column;gap:6px}
+.foot b{color:var(--fg)}
+
+/* ===== 9:16 frames (all sizes in cqw so they scale) ===== */
+.f{aspect-ratio:9/16;width:100%;container-type:inline-size;position:relative;overflow:hidden;border-radius:10px;background:var(--ink);color:var(--fg);font-family:var(--body);isolation:isolate}
+.f.light{background:var(--paper);color:var(--ink)}
+.f::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 60% at 50% 110%,rgba(200,255,46,.10),transparent 60%),radial-gradient(80% 50% at 80% 0%,rgba(255,255,255,.04),transparent 70%)}
+.f.light::before{background:none}
+.safe{position:absolute;inset:6cqw;border:1px dashed rgba(140,149,163,.25);border-radius:2cqw;pointer-events:none}
+.f.light .safe{border-color:rgba(8,9,12,.15)}
+.ab{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.disp{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:.9;letter-spacing:-.005em}
+.note{position:absolute;font-family:var(--mono);font-size:3.3cqw;color:var(--lime);background:rgba(8,9,12,.75);padding:.6cqw 1.6cqw;border-radius:1cqw;white-space:nowrap}
+.f.light .note{background:var(--ink)}
+.arrow{position:absolute;overflow:visible}
+.logo{font-family:var(--display);font-weight:700;letter-spacing:.01em;display:flex;align-items:center;gap:.08em;line-height:1}
+.logo .x{position:relative;display:inline-block}
+.logo .x::after{content:"";position:absolute;left:52%;top:-6%;width:.16em;height:112%;background:var(--lime);transform:skewX(-24deg)}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);border-radius:3cqw;box-shadow:0 4cqw 10cqw rgba(0,0,0,.5)}
+.pill{display:inline-flex;align-items:center;gap:1.5cqw;border-radius:999px;font-size:3.6cqw;font-weight:600;padding:1.6cqw 3.4cqw;white-space:nowrap}
+.pill.out{border:.4cqw solid var(--lime);color:var(--lime);background:rgba(200,255,46,.06)}
+.phone{position:absolute;width:56cqw;aspect-ratio:9/19;left:22cqw;background:#0F1217;border:1.2cqw solid #2A3039;border-radius:8cqw;padding:7cqw 4cqw 4cqw;display:flex;flex-direction:column;gap:3cqw;box-shadow:0 6cqw 14cqw rgba(0,0,0,.6)}
+.phone::before{content:"";position:absolute;top:2.2cqw;left:50%;width:14cqw;height:3.6cqw;border-radius:3cqw;background:#000;transform:translateX(-50%)}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:3.1cqw;gap:2cqw}
+.mut{color:var(--muted)}
+.tile{flex:1;border:1px solid rgba(255,255,255,.1);border-radius:1.6cqw;padding:1.6cqw;background:rgba(255,255,255,.03);min-width:0}
+.tile small{display:block;font-size:2.3cqw;color:var(--muted)}
+.tile b{font-family:var(--display);font-size:4.4cqw;font-weight:600}
+
+/* animatic stage motion */
+.stage .f{animation:in .5s cubic-bezier(.16,1,.3,1)}
+@keyframes in{from{opacity:.2;transform:scale(1.04)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.stage .f{animation:none}}
+
+@media (max-width:720px){.animatic{grid-template-columns:1fr}.tl-bar button{font-size:0}.tl-bar button::after{content:attr(data-s);font-size:10px}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Launch ad · storyboard v1 · built from the Moolah, Wise, Zelios and Beliv8 references</div>
+    <h1>FX League — <em>Enter the League</em></h1>
+    <p class="lede">Nine shots, 30 seconds, vertical first. Every frame below is drawn on the 9:16 canvas with the safe area dashed. Lime notes and arrows mark motion and camera moves; they are not part of the final picture.</p>
+    <div class="specs"><span>30s hero · 15s cutdown</span><span>1080×1920 · 9:16</span><span>30 fps</span><span>~120 BPM · 1 bar = 2s</span><span>Oswald / Barlow</span><span>#08090C · #C8FF2E · #F3F5F8</span></div>
+  </header>
+
+  <section class="tl" aria-label="Timeline">
+    <div class="tl-acts" id="acts"></div>
+    <div class="tl-bar" id="tlbar"></div>
+    <div class="tl-scale"><span>0:00</span><span>0:10</span><span>0:20</span><span>0:30</span></div>
+  </section>
+
+  <section class="animatic" aria-label="Animatic">
+    <div class="stage" id="stage"></div>
+    <div class="anim-info">
+      <div class="tc" id="atc">SC01 · 0:00–0:02.5</div>
+      <h2 id="atitle">Hook</h2>
+      <p id="adesc"></p>
+      <div class="prog"><i id="aprog"></i></div>
+      <div class="controls">
+        <button class="btn primary" id="play" type="button">▶ Play animatic</button>
+        <button class="btn" id="prev" type="button">← Prev</button>
+        <button class="btn" id="next" type="button">Next →</button>
+      </div>
+      <p style="font-size:13px">Plays each key frame for its real duration so you can feel the pacing. Use the timeline or arrows to step through shots.</p>
+    </div>
+  </section>
+
+  <section class="grid" id="grid" aria-label="Shots"></section>
+
+  <footer class="foot">
+    <div><b>Transitions key:</b> Slash wipe = the lime diagonal from the logo sweeps across the frame. Whip = whip pan with directional blur. Cut = hard cut on the beat.</div>
+    <div><b>15s cutdown:</b> SC01 (1.5s) → SC03 → SC04 and SC05 merged → SC07 → SC09.</div>
+    <div><b>Compliance:</b> Claims are limited to what FX League states on its site. Sample names and figures are demo data. Add "Trading involves risk" to the end card if a platform requires it.</div>
+  </footer>
+</div>
+
+<!-- Frame art lives in templates so the grid and the animatic share one source -->
+<template id="f1"><div class="f"><div class="safe"></div>
+  <div style="position:absolute;top:22cqw;left:0;right:0;text-align:center;font-size:5.4cqw;font-weight:500">Think you're a <span style="color:var(--lime)">good trader?</span></div>
+  <svg viewBox="0 0 100 100" style="position:absolute;left:8cqw;top:62cqw;width:84cqw" fill="none">
+    <polyline points="2,86 14,80 22,83 32,70 40,74 50,58 58,62 68,42 76,46 84,22" stroke="#C8FF2E" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <line x1="84" y1="22" x2="96" y2="4" stroke="#C8FF2E" stroke-width="5" stroke-linecap="square"/>
+    <circle cx="2" cy="86" r="2.2" fill="#C8FF2E"/>
+  </svg>
+  <span class="note" style="left:8cqw;top:150cqw">① pixel blinks ×2</span>
+  <span class="note" style="right:6cqw;top:58cqw">② line snaps → slash</span>
+</div></template>
+
+<template id="f2"><div class="f"><div class="safe"></div>
+  <div class="glass" style="position:absolute;left:8cqw;top:26cqw;width:60cqw;padding:4cqw;transform:rotate(-8deg)"><div class="mut" style="font-size:3cqw">@fx_king · screenshot</div><div class="disp" style="font-size:9cqw;color:var(--gain)">+340%</div><div style="font-size:3.2cqw">this month 🚀</div></div>
+  <div class="glass" style="position:absolute;right:6cqw;top:74cqw;width:54cqw;padding:4cqw;transform:rotate(7deg)"><div style="font-size:4.6cqw;font-weight:600">"Trust me bro."</div><div class="mut" style="font-size:3cqw">no account linked</div></div>
+  <div class="glass" style="position:absolute;left:10cqw;top:112cqw;width:50cqw;padding:4cqw;transform:rotate(-4deg)"><div style="font-size:4.4cqw;font-weight:600">P&amp;L edited?</div><div class="mut" style="font-size:3cqw">cropped · unverifiable</div></div>
+  <span class="pill out" style="position:absolute;right:8cqw;top:18cqw;transform:rotate(6deg)">Self-reported</span>
+  <span class="pill out" style="position:absolute;left:6cqw;top:94cqw;transform:rotate(-5deg)">Unverified</span>
+  <span class="pill out" style="position:absolute;right:10cqw;top:140cqw;transform:rotate(4deg)">No proof</span>
+  <span class="note" style="left:6cqw;bottom:6cqw">slow 3D tumble · pills pop on hi-hats</span>
+</div></template>
+
+<template id="f3"><div class="f"><div class="safe"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(70% 40% at 50% 75%,rgba(200,255,46,.22),transparent 70%)"></div>
+  <div class="ab"><div class="logo" style="font-size:17cqw"><span>F</span><span class="x">X</span><span style="margin-left:.15em">LEAGUE</span></div></div>
+  <div style="position:absolute;left:-10cqw;top:0;width:22cqw;height:100%;background:linear-gradient(90deg,transparent,rgba(200,255,46,.5));transform:skewX(-24deg);opacity:.6"></div>
+  <span class="note" style="left:6cqw;top:10cqw">slash wipe L→R</span>
+  <span class="note" style="right:6cqw;bottom:10cqw">slash first, letters 2f apart · drop</span>
+</div></template>
+
+<template id="f4"><div class="f"><div class="safe"></div>
+  <div class="disp" style="position:absolute;top:14cqw;left:0;right:0;text-align:center;font-size:32cqw">TRADE.</div>
+  <div class="phone" style="top:50cqw;transform:rotate(-4deg)">
+    <div class="row"><b style="font-size:3.6cqw">Connect broker</b><span class="pill" style="font-size:2.4cqw;padding:.8cqw 2cqw;background:rgba(200,255,46,.12);color:var(--lime)">READ-ONLY</span></div>
+    <div class="mut" style="font-size:2.8cqw">MT5 · Exness-MT5Trial9</div>
+    <div style="position:relative;margin-top:4cqw">
+      <span class="pill" style="position:absolute;right:0;top:-6cqw;font-size:2.4cqw;padding:.6cqw 2cqw;background:var(--lime);color:var(--ink)">Connected</span>
+      <div style="height:9cqw;border-radius:9cqw;background:#1D222A;overflow:hidden"><div style="width:100%;height:100%;background:var(--lime);border-radius:9cqw;display:flex;justify-content:flex-end;align-items:center;padding-right:1cqw"><span style="width:7cqw;height:7cqw;border-radius:50%;background:var(--ink)"></span></div></div>
+    </div>
+    <div class="row" style="margin-top:3cqw"><span>Investor access</span><b style="color:var(--gain)">Connected ✓</b></div>
+    <div class="row"><span>Trading access</span><span class="mut">Never requested</span></div>
+  </div>
+  <div style="position:absolute;bottom:12cqw;left:0;right:0;text-align:center;font-size:4cqw">Your broker. Your account. <b style="color:var(--lime)">Read-only.</b></div>
+  <span class="note" style="left:4cqw;top:44cqw">phone rises ↑</span>
+  <span class="note" style="right:4cqw;top:6cqw">cut on beat</span>
+</div></template>
+
+<template id="f5"><div class="f"><div class="safe"></div>
+  <div class="disp" style="position:absolute;top:12cqw;left:0;right:0;text-align:center;font-size:30cqw;color:rgba(233,237,242,.95)">TRACK.</div>
+  <div class="glass" style="position:absolute;left:7cqw;right:7cqw;top:52cqw;padding:4cqw;transform:perspective(160cqw) rotateY(-14deg) rotateX(6deg)">
+    <div class="row" style="margin-bottom:3cqw"><b style="font-size:3.4cqw">Your season</b><span style="font-size:2.6cqw;color:var(--gain)">● LIVE</span></div>
+    <div style="display:flex;gap:1.6cqw">
+      <div class="tile"><small>Rank</small><b>#12</b><small>/148</small></div>
+      <div class="tile"><small>Return</small><b style="color:var(--gain)">+8.42%</b></div>
+      <div class="tile"><small>Equity</small><b>$10,842</b></div>
+    </div>
+    <svg viewBox="0 0 100 40" style="width:100%;margin-top:3cqw" fill="none">
+      <defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8FF2E" stop-opacity=".35"/><stop offset="1" stop-color="#C8FF2E" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0,36 L8,33 L18,26 L28,20 L38,19 L50,19 L60,15 L70,12 L80,7 L88,8 L96,10 L96,40 L0,40Z" fill="url(#g5)"/>
+      <polyline points="0,36 8,33 18,26 28,20 38,19 50,19 60,15 70,12 80,7 88,8 96,10" stroke="#C8FF2E" stroke-width="1.2"/>
+      <circle cx="96" cy="10" r="1.6" fill="#C8FF2E"/>
+    </svg>
+  </div>
+  <div class="glass" style="position:absolute;right:5cqw;top:44cqw;padding:2cqw 3cqw;font-size:3.2cqw;background:#10141A"><span class="mut" style="font-size:2.4cqw">Climbed</span><br><b style="color:var(--gain)">↑ 52 places</b></div>
+  <span class="note" style="left:6cqw;bottom:30cqw">tiles drop L→R · numbers count up</span>
+  <span class="note" style="left:6cqw;bottom:20cqw">rank #64 → #12</span>
+  <span class="note" style="right:6cqw;bottom:8cqw">whip in from right</span>
+</div></template>
+
+<template id="f6"><div class="f light"><div class="safe"></div>
+  <div style="position:absolute;top:16cqw;left:8cqw;right:8cqw">
+    <div style="font-family:var(--mono);font-size:2.8cqw;letter-spacing:.1em;color:#5B6370">PRE SEASON · LEADERBOARD</div>
+  </div>
+  <div style="position:absolute;top:30cqw;left:8cqw;right:8cqw;display:flex;flex-direction:column;gap:2.4cqw">
+    <div class="row" style="background:#fff;border-radius:2.4cqw;padding:3cqw;font-size:3.6cqw;box-shadow:0 1cqw 3cqw rgba(8,9,12,.06)"><span><b>10</b>&nbsp; Mariam Saeed</span><b style="color:#1E9E52">+9.31%</b></div>
+    <div class="row" style="background:#fff;border-radius:2.4cqw;padding:3cqw;font-size:3.6cqw;box-shadow:0 1cqw 3cqw rgba(8,9,12,.06)"><span><b>11</b>&nbsp; Amara Okonkwo</span><b style="color:#1E9E52">+8.76%</b></div>
+    <div class="row" style="background:var(--lime);border-radius:2.4cqw;padding:3.6cqw 3cqw;font-size:4.2cqw;transform:scale(1.05);box-shadow:0 3cqw 8cqw rgba(8,9,12,.18)"><span><b>12</b>&nbsp; <b>You</b></span><b>+8.42% ↑4</b></div>
+    <div class="row" style="background:#fff;border-radius:2.4cqw;padding:3cqw;font-size:3.6cqw;opacity:.85"><span><b>13</b>&nbsp; Rafael Duarte</span><b style="color:#1E9E52">+8.10%</b></div>
+    <div class="row" style="background:#fff;border-radius:2.4cqw;padding:3cqw;font-size:3.6cqw;opacity:.6"><span><b>14</b>&nbsp; Hana Bekele</span><b style="color:#1E9E52">+7.64%</b></div>
+  </div>
+  <svg class="arrow" viewBox="0 0 10 40" style="left:2cqw;top:52cqw;width:4cqw;height:30cqw" fill="none"><path d="M5,40 V4 M1,9 L5,2 L9,9" stroke="#08090C" stroke-width="1.4"/></svg>
+  <div style="position:absolute;bottom:22cqw;left:0;right:0;text-align:center;font-family:var(--mono);font-size:2.8cqw;color:#5B6370">Ranked by % gain · Updated hourly · Broker-verified</div>
+  <span class="note" style="left:6cqw;bottom:8cqw">rows stack in · "You" climbs and turns lime</span>
+</div></template>
+
+<template id="f7"><div class="f"><div class="safe"></div>
+  <div class="disp" style="position:absolute;top:14cqw;left:0;right:0;text-align:center;font-size:20cqw;color:var(--lime)">GET<br>REWARDED.</div>
+  <div style="position:absolute;bottom:20cqw;left:12cqw;right:12cqw;display:flex;align-items:flex-end;gap:2cqw">
+    <div style="flex:1;height:26cqw;background:#1A1F27;border-radius:1.6cqw 1.6cqw 0 0;display:flex;justify-content:center;padding-top:2cqw;font-family:var(--display);font-size:7cqw;color:var(--muted)">2</div>
+    <div style="flex:1;height:40cqw;background:linear-gradient(#2B2614,#1A1F27);border:1px solid rgba(226,181,74,.5);border-radius:1.6cqw 1.6cqw 0 0;display:flex;justify-content:center;padding-top:2cqw;font-family:var(--display);font-size:9cqw;color:var(--gold)">1</div>
+    <div style="flex:1;height:18cqw;background:#1A1F27;border-radius:1.6cqw 1.6cqw 0 0;display:flex;justify-content:center;padding-top:2cqw;font-family:var(--display);font-size:7cqw;color:var(--muted)">3</div>
+  </div>
+  <div class="glass" style="position:absolute;left:24cqw;right:24cqw;top:72cqw;padding:3cqw;text-align:center;transform:rotate(-3deg);background:linear-gradient(160deg,rgba(226,181,74,.18),rgba(255,255,255,.03))">
+    <div style="font-size:5cqw">🏆</div><div style="font-size:2.8cqw;font-weight:600;letter-spacing:.08em">HALL OF FAME</div><div class="mut" style="font-size:2.4cqw">A permanent record</div>
+  </div>
+  <span class="note" style="left:6cqw;bottom:8cqw">podium rises 2 → 3 → 1 · sub hit</span>
+  <span class="note" style="right:6cqw;top:66cqw">cert flips in · light sweep</span>
+</div></template>
+
+<template id="f8"><div class="f"><div class="safe"></div>
+  <div class="ab" style="gap:7cqw">
+    <div style="display:flex;align-items:center;gap:3cqw;font-size:8.4cqw;font-weight:500">free
+      <span style="width:15cqw;height:8cqw;border-radius:8cqw;background:var(--lime);display:inline-flex;justify-content:flex-end;align-items:center;padding:1cqw;box-shadow:0 0 6cqw rgba(200,255,46,.45)"><span style="width:6cqw;height:6cqw;border-radius:50%;background:var(--ink)"></span></span>
+      during launch</div>
+    <div style="font-size:4.6cqw;color:var(--muted);letter-spacing:.06em">MT4 &amp; MT5 · under five minutes</div>
+  </div>
+  <span class="note" style="left:6cqw;top:58cqw">words in one by one</span>
+  <span class="note" style="right:10cqw;top:96cqw">toggle flicks ON on the beat</span>
+  <span class="note" style="left:6cqw;bottom:10cqw">line 2: letters close in from wide spacing</span>
+</div></template>
+
+<template id="f9"><div class="f"><div class="safe"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(70% 40% at 50% 70%,rgba(200,255,46,.14),transparent 70%)"></div>
+  <div class="ab" style="gap:5cqw">
+    <div class="logo" style="font-size:15cqw"><span>F</span><span class="x">X</span><span style="margin-left:.15em">LEAGUE</span></div>
+    <div style="font-family:var(--display);font-size:5cqw;letter-spacing:.06em;color:var(--muted)">TRADE. TRACK. <span style="color:var(--lime)">GET REWARDED.</span></div>
+    <span class="pill" style="margin-top:6cqw;background:var(--lime);color:var(--ink);font-size:4.6cqw;padding:3cqw 6cqw;box-shadow:0 0 8cqw rgba(200,255,46,.4)">Enter the league →</span>
+    <div style="font-family:var(--mono);font-size:3cqw;color:var(--muted)">fx-league-fxl.vercel.app</div>
+  </div>
+  <div style="position:absolute;bottom:8cqw;left:0;right:0;text-align:center;font-size:2.4cqw;color:#5A616C">Trading involves risk.</div>
+  <span class="note" style="left:6cqw;top:10cqw">last slash wipe</span>
+  <span class="note" style="right:6cqw;top:122cqw">CTA glow pulses once</span>
+</div></template>
+
+<script>
+const shots=[
+ {t:"Hook",act:"Hook",s:0,d:2.5,bg:"d",
+  action:"Black frame. A single lime pixel blinks twice, then shoots right, drawing a rising equity line. The line freezes and its last segment snaps diagonal into the lime slash.",
+  cam:"Locked off. Slow 3% push-in across the shot.",text:"Think you're a good trader?",trans:"Line becomes the slash and holds into SC02.",
+  audio:"Silence → one soft tick on the pixel; riser starts on the line draw."},
+ {t:"The problem",act:"Hook",s:2.5,d:3.5,bg:"d",
+  action:"Three frosted dark-glass cards tumble slowly in 3D, each showing an unprovable claim. Lime outline pills pop beside them: Self-reported, Unverified, No proof.",
+  cam:"Slow drift down and Y-rotation of 5°. Shallow depth of field on the back card.",text:"Self-reported · Unverified · No proof",trans:"On the beat, everything blurs back and greys out.",
+  audio:"UI pop on each pill (on the hi-hats). Low tension pad."},
+ {t:"Brand reveal",act:"Brand",s:6,d:2,bg:"d",
+  action:"The lime slash wipes the frame left to right. The FX LEAGUE wordmark punches in at centre, slash first, then the letters two frames apart. Soft lime glow rises from below.",
+  cam:"Slight 2% scale-down settle after the punch.",text:"FX LEAGUE",trans:"Hard cut on the next downbeat.",
+  audio:"The drop lands on the logo hit."},
+ {t:"Trade.",act:"Product",s:8,d:3,bg:"d",
+  action:"Giant TRADE. fills the top of frame. A phone in light tilt rises in front of the word's lower half. The connect slider fills with lime and a 'Connected' tag pops. Two rows tick in: Investor access Connected, Trading access Never requested.",
+  cam:"Phone rises 20% with expo-out, then drifts 3° on Y.",text:"TRADE. · Your broker. Your account. Read-only.",trans:"Whip pan right.",
+  audio:"Digital click on the toggle. Groove kicks in."},
+ {t:"Track.",act:"Product",s:11,d:5,bg:"d",
+  action:"The 'Your season · LIVE' dashboard slides in on a tilted glass panel. Stat tiles drop in left to right and count up: Rank #64 → #12/148, Return +8.42%, Equity $10,842. The equity chart draws Start → D12 with a lime fill. '↑ 52 places' badge pops from the corner.",
+  cam:"Slow orbit, 14° → 8° Y-rotation over the shot. LIVE dot pulses.",text:"TRACK. · Rank #12/148 · +8.42% · ↑ 52 places",trans:"Hard cut to off-white on the beat.",
+  audio:"Riser under the chart draw. Tick per counter step, thinned out."},
+ {t:"The climb",act:"Product",s:16,d:3,bg:"l",
+  action:"Off-white ground. Leaderboard rows stack in like cards. The 'You' row slides up through the list, turns lime, scales up 5% and settles at #12.",
+  cam:"Locked off. 2% push toward the 'You' row.",text:"Ranked by % gain · Updated hourly · Broker-verified",trans:"Hard cut back to dark.",
+  audio:"Whoosh as 'You' climbs, bright chime when it lands."},
+ {t:"Get rewarded.",act:"Payoff",s:19,d:4,bg:"d",
+  action:"GET REWARDED. appears word by word in lime. Podium blocks rise from the floor in order 2, 3, then the gold 1. A Hall of Fame certificate flips in on top and a light sweep catches its edge.",
+  cam:"Low angle. Slow rise of 4% over the shot.",text:"GET REWARDED. · Hall of Fame · A permanent record",trans:"Fade through black, 6 frames.",
+  audio:"Low sub hit on 'REWARDED.' Sparkle shimmer on the certificate."},
+ {t:"Free at launch",act:"Payoff",s:23,d:3,bg:"d",
+  action:"Centred sentence builds word by word: 'free [toggle] during launch'. The toggle sits inside the line and flicks ON on the beat. Line 2 forms with letters closing in from wide spacing.",
+  cam:"Locked off. Glow breathes once.",text:"free during launch · MT4 & MT5 · under five minutes",trans:"Slash wipe.",
+  audio:"Toggle click exactly on the beat."},
+ {t:"End card",act:"CTA",s:26,d:4,bg:"d",
+  action:"Wordmark at centre with the tagline below. The lime 'Enter the league →' pill fades in and its glow pulses once. URL and risk line fade in last.",
+  cam:"Very slow zoom into the rock texture until the end.",text:"FX LEAGUE · TRADE. TRACK. GET REWARDED. · Enter the league →",trans:"Hold to end. Music resolves.",
+  audio:"Clean resolve chord. Optional VO: 'FX League. Free during launch.'"}
+];
+const fmt=s=>{const m=Math.floor(s/60),r=s-m*60;return m+":"+(r<10?"0":"")+(Number.isInteger(r)?r:r.toFixed(1))};
+const sc=i=>"SC"+String(i+1).padStart(2,"0");
+const art=i=>document.getElementById("f"+(i+1)).content.cloneNode(true);
+const grid=document.getElementById("grid"),bar=document.getElementById("tlbar"),acts=document.getElementById("acts");
+
+shots.forEach((s,i)=>{
+  const el=document.createElement("article");el.className="shot";el.id="sc"+(i+1);
+  el.innerHTML=`<div class="shot-h"><b><span class="n">${sc(i)}</span> ${s.t}</b><span>${fmt(s.s)}–${fmt(s.s+s.d)} · ${s.d}s</span></div><div class="frame-wrap"></div>
+  <dl><dt>Action</dt><dd>${s.action}</dd><dt>Camera</dt><dd>${s.cam}</dd><dt>On screen</dt><dd><q>${s.text}</q></dd><dt>Out</dt><dd>${s.trans}</dd><dt>Audio</dt><dd>${s.audio}</dd></dl>`;
+  el.querySelector(".frame-wrap").appendChild(art(i));grid.appendChild(el);
+  const b=document.createElement("button");b.type="button";b.className=s.bg;b.style.flex=s.d;b.textContent=sc(i);b.dataset.s=i+1;b.title=`${sc(i)} ${s.t}`;
+  b.onclick=()=>{stop();show(i);document.getElementById("sc"+(i+1)).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"})};bar.appendChild(b);
+});
+[["Hook",6],["Brand",2],["Product",11],["Payoff",7],["CTA",4]].forEach(([n,d])=>{const s=document.createElement("span");s.style.flex=d;s.textContent=n;acts.appendChild(s)});
+
+let cur=0,timer=null,raf=null;
+const stage=document.getElementById("stage"),prog=document.getElementById("aprog"),playBtn=document.getElementById("play");
+function show(i){
+  cur=(i+shots.length)%shots.length;const s=shots[cur];
+  stage.replaceChildren(art(cur));
+  document.getElementById("atc").textContent=`${sc(cur)} · ${fmt(s.s)}–${fmt(s.s+s.d)} · ${s.d}s`;
+  document.getElementById("atitle").textContent=s.t;
+  document.getElementById("adesc").textContent=s.action;
+  [...bar.children].forEach((b,j)=>b.classList.toggle("on",j===cur));
+  document.querySelectorAll(".shot").forEach((e,j)=>e.classList.toggle("hl",j===cur));
+  prog.style.width=(s.s/30*100)+"%";
+}
+function step(){
+  const s=shots[cur],t0=performance.now();
+  const tick=now=>{const p=Math.min((now-t0)/(s.d*1000),1);prog.style.width=((s.s+p*s.d)/30*100)+"%";if(p<1)raf=requestAnimationFrame(tick)};
+  raf=requestAnimationFrame(tick);
+  timer=setTimeout(()=>{if(cur===shots.length-1){stop();return}show(cur+1);step()},s.d*1000);
+}
+function stop(){clearTimeout(timer);cancelAnimationFrame(raf);timer=null;playBtn.textContent="▶ Play animatic"}
+playBtn.onclick=()=>{if(timer){stop();return}if(cur===shots.length-1)show(0);playBtn.textContent="❚❚ Pause";step()};
+document.getElementById("prev").onclick=()=>{stop();show(cur-1)};
+document.getElementById("next").onclick=()=>{stop();show(cur+1)};
+show(0);
+</script>
